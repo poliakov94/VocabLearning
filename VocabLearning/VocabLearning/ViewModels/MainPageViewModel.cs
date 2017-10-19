@@ -16,9 +16,34 @@ namespace VocabLearning.ViewModels
 			set { SetProperty(ref _title, value); }
 		}
 
-		public MainPageViewModel()
-		{
+		private INavigationService _navigationService;
 
+		public DelegateCommand NavigateToSpeakPageCommand { get; private set; }
+		public DelegateCommand NavigateToTeacherMasterDetailPageCommand { get; private set; }
+		public DelegateCommand NavigateToStudentMasterDetailPageCommand { get; private set; }
+
+
+		public MainPageViewModel(INavigationService navigationService)
+		{
+			_navigationService = navigationService;
+			NavigateToSpeakPageCommand = new DelegateCommand(NavigateToSpeakPage);
+			NavigateToTeacherMasterDetailPageCommand = new DelegateCommand(NavigateToTeacherMasterDetailPage);
+			NavigateToStudentMasterDetailPageCommand = new DelegateCommand(NavigateToStudentMasterDetailPage);
+		}
+
+		public void NavigateToSpeakPage()
+		{
+			_navigationService.NavigateAsync("SpeakPage");
+		}
+
+		public void NavigateToTeacherMasterDetailPage()
+		{
+			_navigationService.NavigateAsync("app:///NavigationPage/TeacherMasterDetailPage");
+		}
+
+		public void NavigateToStudentMasterDetailPage()
+		{
+			_navigationService.NavigateAsync("app:///NavigationPage/StudentMasterDetailPage");
 		}
 
 		public void OnNavigatedFrom(NavigationParameters parameters)

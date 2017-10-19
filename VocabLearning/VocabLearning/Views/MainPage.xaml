@@ -5,7 +5,10 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="VocabLearning.Views.MainPage"
              Title="MainPage">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-    <Label Text="{Binding Title}" />
-  </StackLayout>
+	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+		<Label Text="{Binding Title}" />
+		<Button Text="Navigate to speak page" Command="{Binding NavigateToSpeakPageCommand}"/>
+		<Button Text="Teacher" Command="{Binding NavigateToTeacherMasterDetailPageCommand}"/>
+		<Button Text="Student" Command="{Binding NavigateToStudentMasterDetailPageCommand}"/>
+	</StackLayout>
 </ContentPage>

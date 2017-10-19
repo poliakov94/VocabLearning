@@ -1,5 +1,6 @@
 ﻿using Prism.Unity;
 using VocabLearning.Views;
+using VocabLearning.ViewModels;
 using Xamarin.Forms;
 
 namespace VocabLearning
@@ -19,6 +20,19 @@ namespace VocabLearning
 		{
 			Container.RegisterTypeForNavigation<NavigationPage>();
 			Container.RegisterTypeForNavigation<MainPage>();
+			Container.RegisterTypeForNavigation<SpeakPage>();
+
+			Container.RegisterTypeForNavigation<TeacherMasterDetailPage, TeacherMasterDetailPageViewModel>();
+			Container.RegisterTypeForNavigation<TeacherOverviewPage, TeacherOverviewPageViewModel>();
+			Container.RegisterTypeForNavigation<TeacherProgressPage, TeacherProgressPageViewModel>();
+			Container.RegisterTypeForNavigation<TeacherStudentsPage, TeacherStudentsPageViewModel>();
+			Container.RegisterTypeForNavigation<TeacherTasksPage, TeacherTasksPageViewModel>();
+
+			Container.RegisterTypeForNavigation<StudentMasterDetailPage, StudentMasterDetailPageViewModel>();
+			Container.RegisterTypeForNavigation<StudentOverviewPage, StudentOverviewPageViewModel>();
+			Container.RegisterTypeForNavigation<StudentProgressPage, StudentProgressPageViewModel>();
+			Container.RegisterTypeForNavigation<StudentTasksPage, StudentTasksPageViewModel>();
+			Container.RegisterTypeForNavigation<StudentTestPage, StudentTestPageViewModel>();
 		}
 	}
 }
