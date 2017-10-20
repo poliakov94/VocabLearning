@@ -4,7 +4,8 @@
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
 				  xmlns:local="clr-namespace:VocabLearning.Views;assembly=VocabLearning"
                   prism:ViewModelLocator.AutowireViewModel="True"				  
-                  x:Class="VocabLearning.Views.TeacherMasterDetailPage">
+                  x:Class="VocabLearning.Views.TeacherMasterDetailPage"
+				  Title="VocabLearning">
 	<MasterDetailPage.Master>
 		<ContentPage Title="VocabLearning">
 			<StackLayout>

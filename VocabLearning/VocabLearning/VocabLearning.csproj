@@ -36,20 +36,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Models\MasterMenuItem.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentGroup.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\Exercise.cs" />
+    <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ExerciseManagingPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\SpeakPageViewModel.cs" />
     <Compile Include="ViewModels\StudentMasterDetailPageViewModel.cs" />
     <Compile Include="ViewModels\StudentOverviewPageViewModel.cs" />
     <Compile Include="ViewModels\StudentProgressPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentTasksPageViewModel.cs" />
+    <Compile Include="ViewModels\StudentExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\StudentTestPageViewModel.cs" />
+    <Compile Include="ViewModels\TaskCreationPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherMasterDetailPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherOverviewPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherProgressPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherStudentsPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherTasksPageViewModel.cs" />
+    <Compile Include="ViewModels\TeacherExercisesPageViewModel.cs" />
+    <Compile Include="Views\ExerciseManagingPage.xaml.cs">
+      <DependentUpon>ExerciseManagingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SpeakPage.xaml.cs">
       <DependentUpon>SpeakPage.xaml</DependentUpon>
     </Compile>
@@ -62,11 +72,14 @@
     <Compile Include="Views\StudentProgressPage.xaml.cs">
       <DependentUpon>StudentProgressPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentTasksPage.xaml.cs">
-      <DependentUpon>StudentTasksPage.xaml</DependentUpon>
+    <Compile Include="Views\StudentExercisesPage.xaml.cs">
+      <DependentUpon>StudentExercisesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentTestPage.xaml.cs">
       <DependentUpon>StudentTestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskCreationPage.xaml.cs">
+      <DependentUpon>TaskCreationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TeacherMasterDetailPage.xaml.cs">
       <DependentUpon>TeacherMasterDetailPage.xaml</DependentUpon>
@@ -80,8 +93,8 @@
     <Compile Include="Views\TeacherStudentsPage.xaml.cs">
       <DependentUpon>TeacherStudentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherTasksPage.xaml.cs">
-      <DependentUpon>TeacherTasksPage.xaml</DependentUpon>
+    <Compile Include="Views\TeacherExercisesPage.xaml.cs">
+      <DependentUpon>TeacherExercisesPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -152,13 +165,13 @@
       <HintPath>..\..\packages\Validation.2.2.8\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Validation.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.4.0.282\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.4.0.282\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.4.0.282\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +208,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherTasksPage.xaml">
+    <EmbeddedResource Include="Views\TeacherExercisesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -213,7 +226,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentTasksPage.xaml">
+    <EmbeddedResource Include="Views\StudentExercisesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -224,9 +237,20 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ExerciseManagingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\TeacherProgressPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\TaskCreationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -237,12 +261,12 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
-  <Import Project="..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets'))" />
   </Target>
   <!--<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

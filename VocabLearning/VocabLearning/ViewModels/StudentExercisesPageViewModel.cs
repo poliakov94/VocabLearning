@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace VocabLearning.ViewModels
 {
-	public class StudentTasksPageViewModel : BindableBase
+	public class StudentExercisesPageViewModel : BindableBase
 	{
-		public StudentTasksPageViewModel()
+		public StudentExercisesPageViewModel()
 		{
 
 		}

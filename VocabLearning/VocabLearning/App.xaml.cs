@@ -26,13 +26,16 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<TeacherOverviewPage, TeacherOverviewPageViewModel>();
 			Container.RegisterTypeForNavigation<TeacherProgressPage, TeacherProgressPageViewModel>();
 			Container.RegisterTypeForNavigation<TeacherStudentsPage, TeacherStudentsPageViewModel>();
-			Container.RegisterTypeForNavigation<TeacherTasksPage, TeacherTasksPageViewModel>();
+			Container.RegisterTypeForNavigation<TeacherExercisesPage, TeacherExercisesPageViewModel>();
 
 			Container.RegisterTypeForNavigation<StudentMasterDetailPage, StudentMasterDetailPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentOverviewPage, StudentOverviewPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentProgressPage, StudentProgressPageViewModel>();
-			Container.RegisterTypeForNavigation<StudentTasksPage, StudentTasksPageViewModel>();
+			Container.RegisterTypeForNavigation<StudentExercisesPage, StudentExercisesPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentTestPage, StudentTestPageViewModel>();
+
+			Container.RegisterTypeForNavigation<ExerciseManagingPage>();
+			Container.RegisterTypeForNavigation<TaskCreationPage>();
 		}
 	}
 }

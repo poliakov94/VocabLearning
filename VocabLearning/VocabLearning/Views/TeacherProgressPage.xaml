@@ -6,5 +6,7 @@
              x:Class="VocabLearning.Views.TeacherProgressPage"
 			 Title="TeacherProgressPage"
 			 x:Name="Progress">
-  
+	<ScrollView BackgroundColor="Navy">
+
+	</ScrollView>
 </ContentPage>

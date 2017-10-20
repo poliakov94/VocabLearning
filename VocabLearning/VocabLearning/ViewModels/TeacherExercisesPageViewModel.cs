@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace VocabLearning.ViewModels
 {
-	public class TeacherTasksPageViewModel : BaseViewModel
+	public class TeacherExercisesPageViewModel : BaseViewModel
 	{
-		public TeacherTasksPageViewModel(INavigationService navigationService)
+		public TeacherExercisesPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
 

@@ -2,9 +2,9 @@
 
 namespace VocabLearning.Views
 {
-	public partial class TeacherTasksPage : ContentPage
+	public partial class StudentExercisesPage : ContentPage
 	{
-		public TeacherTasksPage()
+		public StudentExercisesPage()
 		{
 			InitializeComponent();
 		}

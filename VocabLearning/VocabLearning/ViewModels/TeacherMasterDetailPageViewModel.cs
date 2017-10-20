@@ -53,8 +53,8 @@ namespace VocabLearning.ViewModels
 
 			_menuItems.Add(new MasterMenuItem
 			{
-				Name = "Tasks",
-				NavigationPage = new TeacherTasksPage()
+				Name = "Exercises",
+				NavigationPage = new TeacherExercisesPage()
 			});
 
 			RaisePropertyChanged("MenuItems");
