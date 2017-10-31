@@ -6,51 +6,43 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using VocabLearning.Models;
-using VocabLearning.Views;
 
 namespace VocabLearning.ViewModels
 {
-	public class TeacherStudentsPageViewModel : BaseViewModel
+	public class StudentCreationPageViewModel : BaseViewModel
 	{
-		private StudentGroup _groupSelected;
-		public StudentGroup GroupSelected
+		private Student _student;
+		public Student Student
 		{
-			get { return _groupSelected; }
-			set
-			{
-				if (_groupSelected != value)
-					_groupSelected = value;
-				RaisePropertyChanged("ItemSelected");
-				_navigationService.NavigateAsync("GroupManagingPage?id=" + _groupSelected.ID, null, false);
-			}
+			get { return _student; }
+			set { SetProperty(ref _student, value); }
 		}
+
 		public ObservableCollection<StudentGroup> _groups = new ObservableCollection<StudentGroup>();
 		public ObservableCollection<StudentGroup> Groups { get { return _groups; } set { _groups = value; } }
-		public TeacherStudentsPageViewModel(INavigationService navigationService)
+		
+		public StudentCreationPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
 			_groups.Add(new StudentGroup
 			{
 				ID = 1,
 				TeacherID = 1,
-				Name = "Grupa 1",
-				GroupSize = 10
+				Name = "Grupa 1"
 			});
 
 			_groups.Add(new StudentGroup
 			{
 				ID = 2,
 				TeacherID = 1,
-				Name = "Grupa 2",
-				GroupSize = 1
+				Name = "Grupa 2"
 			});
 
 			_groups.Add(new StudentGroup
 			{
 				ID = 3,
 				TeacherID = 1,
-				Name = "Grupa 3",
-				GroupSize = 5
+				Name = "Grupa 3"
 			});
 
 			RaisePropertyChanged("Groups");

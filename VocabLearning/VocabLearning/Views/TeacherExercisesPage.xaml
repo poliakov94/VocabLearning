@@ -6,7 +6,75 @@
              x:Class="VocabLearning.Views.TeacherExercisesPage"
 			 Title="TeacherExercisesPage"
 			 x:Name="Exercises">
-	<ScrollView BackgroundColor="Orange">
-
-	</ScrollView>
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Add" Command="{Binding NavigateCommand}" CommandParameter="ExerciseCreationPage"/>
+	</ContentPage.ToolbarItems>
+	<ListView x:Name="ExerciseList"
+			  VerticalOptions="FillAndExpand"
+			  HasUnevenRows="True"
+			  IsPullToRefreshEnabled="True"
+			  ItemsSource="{Binding Exercises}"
+			  SelectedItem="{Binding ExerciseSelected, Mode=TwoWay}">
+		<ListView.Header>
+			<Label Text="Pick an exercise to manage it."/>
+		</ListView.Header>
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<StackLayout VerticalOptions="FillAndExpand">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Name}"
+								   Grid.Column="0"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextStyle}"
+								   FontSize="20"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="{Binding Type}"
+								   Grid.Column="1"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextDetailStyle}"
+								   FontSize="16"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="{Binding GroupName}"
+								   Grid.Column="0"
+								   Grid.ColumnSpan="2"
+								   Grid.Row="1"
+								   Style="{DynamicResource ListItemTextDetailStyle}"
+								   FontSize="16"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="Start"
+								   Grid.Column="0"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"/>
+							<Label Text="Due date"
+								   Grid.Column="1"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"/>
+							<Label Text="{Binding ValidFrom}"
+								   Grid.Column="0"
+								   Grid.Row="3"
+								   Style="{DynamicResource SubtitleStyle}"/>
+							<Label Text="{Binding ValidUntil}"
+								   Grid.Column="1"
+								   Grid.Row="3"
+								   Style="{DynamicResource SubtitleStyle}"/>
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+	</ListView>
 </ContentPage>

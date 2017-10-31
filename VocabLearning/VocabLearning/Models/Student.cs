@@ -1,6 +1,6 @@
 ﻿namespace VocabLearning.Models
 {
-	class Student
+	public class Student
     {
 		public int ID { get; set; }
 		public string FirstName { get; set; }

@@ -22,7 +22,8 @@ namespace VocabLearning.ViewModels
 		{
 			try
 			{
-				await _navigationService.NavigateAsync(name);
+				//await _navigationService.NavigateAsync(name);
+				await _navigationService.NavigateAsync(name, null, false);
 			}
 			catch(Exception e)
 			{

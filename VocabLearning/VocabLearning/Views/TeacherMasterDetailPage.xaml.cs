@@ -10,7 +10,7 @@ namespace VocabLearning.Views
 	{
 		public TeacherMasterDetailPageViewModel ViewModel { get { return BindingContext as TeacherMasterDetailPageViewModel; } }
 
-	public TeacherMasterDetailPage()
+		public TeacherMasterDetailPage()
 		{
 			InitializeComponent();			
 		}

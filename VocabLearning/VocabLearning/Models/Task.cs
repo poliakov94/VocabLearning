@@ -2,7 +2,7 @@
 
 namespace VocabLearning.Models
 {
-	class Task
+	public class Task
     {
 		public int ID { get; set; }
 		public string Word { get; set; }

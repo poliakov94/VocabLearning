@@ -21,6 +21,7 @@ namespace VocabLearning.ViewModels
 		public DelegateCommand NavigateToSpeakPageCommand { get; private set; }
 		public DelegateCommand NavigateToTeacherMasterDetailPageCommand { get; private set; }
 		public DelegateCommand NavigateToStudentMasterDetailPageCommand { get; private set; }
+		public DelegateCommand NavigateToLoginPageCommand { get; private set; }
 
 
 		public MainPageViewModel(INavigationService navigationService)
@@ -29,6 +30,12 @@ namespace VocabLearning.ViewModels
 			NavigateToSpeakPageCommand = new DelegateCommand(NavigateToSpeakPage);
 			NavigateToTeacherMasterDetailPageCommand = new DelegateCommand(NavigateToTeacherMasterDetailPage);
 			NavigateToStudentMasterDetailPageCommand = new DelegateCommand(NavigateToStudentMasterDetailPage);
+			NavigateToLoginPageCommand = new DelegateCommand(NavigateToLoginPage);
+		}
+
+		private void NavigateToLoginPage()
+		{
+			_navigationService.NavigateAsync("LoginPage");
 		}
 
 		public void NavigateToSpeakPage()

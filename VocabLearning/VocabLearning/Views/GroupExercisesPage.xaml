@@ -3,20 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="VocabLearning.Views.TeacherStudentsPage"
-			 Title="TeacherStudentsPage"
-			 x:Name="Students">
+             x:Class="VocabLearning.Views.GroupExercisesPage"
+			 Title="GroupExercisesPage">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="New group" Command="{Binding AddGroupCommand}"/>
+		<ToolbarItem Text="New exercise" Command="{Binding AddExerciseCommand}"/>
 	</ContentPage.ToolbarItems>
-	<ListView x:Name="GroupList"
-			  VerticalOptions="FillAndExpand"
-			  HasUnevenRows="True"
-			  IsPullToRefreshEnabled="True"
-			  ItemsSource="{Binding Groups}"
-			  SelectedItem="{Binding GroupSelected, Mode=TwoWay}">
+	<ListView x:Name="ExerciseList"				  
+				  VerticalOptions="FillAndExpand"
+				  HasUnevenRows="True"
+				  IsPullToRefreshEnabled="True"
+				  ItemsSource="{Binding Exercises}"
+				  SelectedItem="{Binding ExerciseSelected, Mode=TwoWay}">
 		<ListView.Header>
-			<Label Text="Pick a group to manage it."/>
+			<Label Text="Pick an exercise to manage it."
+					   VerticalOptions="Center"
+					   HorizontalTextAlignment="Center"/>
 		</ListView.Header>
 		<ListView.ItemTemplate>
 			<DataTemplate>
@@ -30,29 +31,38 @@
 							<Grid.RowDefinitions>
 								<RowDefinition Height="2*"/>
 								<RowDefinition Height="*"/>
+								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Label Text="{Binding Name}"
 								   Grid.Column="0"
-								   Grid.ColumnSpan="2"
 								   Grid.Row="0"
 								   Style="{DynamicResource ListItemTextStyle}"
 								   FontSize="20"
 								   VerticalTextAlignment="Center"
 								   HorizontalOptions="StartAndExpand"/>
-							<Label Text="Students enrolled:"
+							<Label Text="{Binding Type}"
+								   Grid.Column="1"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextDetailStyle}"
+								   FontSize="16"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="Start"
 								   Grid.Column="0"
 								   Grid.Row="1"
-								   Style="{DynamicResource ListItemTextStyle}"
-								   FontSize="20"
-								   VerticalTextAlignment="Center"
-								   HorizontalOptions="StartAndExpand"/>
-							<Label Text="{Binding GroupSize}"
+								   Style="{DynamicResource SubtitleStyle}"/>
+							<Label Text="Due date"
 								   Grid.Column="1"
 								   Grid.Row="1"
-								   Style="{DynamicResource ListItemTextStyle}"
-								   FontSize="20"
-								   VerticalTextAlignment="Center"
-								   HorizontalOptions="StartAndExpand"/>
+								   Style="{DynamicResource SubtitleStyle}"/>
+							<Label Text="{Binding ValidFrom}"
+								   Grid.Column="0"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"/>
+							<Label Text="{Binding ValidUntil}"
+								   Grid.Column="1"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"/>
 						</Grid>
 					</StackLayout>
 				</ViewCell>

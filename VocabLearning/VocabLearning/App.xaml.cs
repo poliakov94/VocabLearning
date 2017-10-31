@@ -36,6 +36,14 @@ namespace VocabLearning
 
 			Container.RegisterTypeForNavigation<ExerciseManagingPage>();
 			Container.RegisterTypeForNavigation<TaskCreationPage>();
+			Container.RegisterTypeForNavigation<GroupManagingPage>();
+			Container.RegisterTypeForNavigation<StudentsSearchPage>();
+			Container.RegisterTypeForNavigation<StudentCreationPage>();
+			Container.RegisterTypeForNavigation<LoginPage>();
+			Container.RegisterTypeForNavigation<RegisterPage>();
+			Container.RegisterTypeForNavigation<StudentsManagingPage>();
+			Container.RegisterTypeForNavigation<GroupExercisesPage>();
+			Container.RegisterTypeForNavigation<ExerciseCreationPage>();
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VocabLearning.Models
 {
-	class Exercise
+	public class Exercise
     {
 		public int ID { get; set; }
 		public int TeacherID { get; set; }
@@ -14,7 +14,7 @@ namespace VocabLearning.Models
 		public List<Task> Tasks{ get; set; }
 	}
 
-	enum ExerciseType
+	public enum ExerciseType
 	{
 		AssignDefintion,
 		Translate,
