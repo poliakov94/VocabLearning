@@ -8,4 +8,53 @@
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="New student" Command="{Binding NavigateCommand}" CommandParameter="StudentCreationPage"/>
 	</ContentPage.ToolbarItems>
+	<ListView x:Name="StudentsList"				  
+				  VerticalOptions="FillAndExpand"
+				  HasUnevenRows="True"
+				  IsPullToRefreshEnabled="True"
+				  ItemsSource="{Binding Students}"
+				  SelectedItem="{Binding StudentSelected, Mode=TwoWay}">
+		<ListView.Header>
+			<Label Text="Select a student to add him/her to the group"
+					   VerticalOptions="Center"
+					   HorizontalTextAlignment="Center"/>
+		</ListView.Header>
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<StackLayout VerticalOptions="FillAndExpand">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding FirstName}"
+								   Grid.Column="0"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextStyle}"
+								   FontSize="20"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="{Binding LastName}"
+								   Grid.Column="1"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextStyle}"
+								   FontSize="16"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="{Binding Email}"
+								   Grid.Column="0"
+								   Grid.ColumnSpan="2"
+								   Grid.Row="1"
+								   Style="{DynamicResource ListItemTextDetailStyle}"/>
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+	</ListView>
 </ContentPage>
