@@ -4,11 +4,11 @@ namespace VocabLearning.Models
 {
 	public class StudentGroup
     {
-		public int ID { get; set; }
-		public int TeacherID { get; set; }
+		public int? ID { get; set; }
+		public Teacher Teacher { get; set; }
 		public string Name { get; set; }
 		public int GroupSize { get; set; }
-		public List<Student> Students { get; set; }
-		public List<Exercise> Exercises { get; set; }
+		public ICollection<Student> Students { get; set; }
+		public ICollection<Assignment> Assignments { get; set; }
 	}
 }

@@ -27,21 +27,18 @@ namespace VocabLearning.ViewModels
 			_groups.Add(new StudentGroup
 			{
 				ID = 1,
-				TeacherID = 1,
 				Name = "Grupa 1"
 			});
 
 			_groups.Add(new StudentGroup
 			{
 				ID = 2,
-				TeacherID = 1,
 				Name = "Grupa 2"
 			});
 
 			_groups.Add(new StudentGroup
 			{
 				ID = 3,
-				TeacherID = 1,
 				Name = "Grupa 3"
 			});
 

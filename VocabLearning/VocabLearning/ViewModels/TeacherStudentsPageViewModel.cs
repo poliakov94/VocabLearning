@@ -32,7 +32,6 @@ namespace VocabLearning.ViewModels
 			_groups.Add(new StudentGroup
 			{
 				ID = 1,
-				TeacherID = 1,
 				Name = "Grupa 1",
 				GroupSize = 10
 			});
@@ -40,7 +39,6 @@ namespace VocabLearning.ViewModels
 			_groups.Add(new StudentGroup
 			{
 				ID = 2,
-				TeacherID = 1,
 				Name = "Grupa 2",
 				GroupSize = 1
 			});
@@ -48,7 +46,6 @@ namespace VocabLearning.ViewModels
 			_groups.Add(new StudentGroup
 			{
 				ID = 3,
-				TeacherID = 1,
 				Name = "Grupa 3",
 				GroupSize = 5
 			});
