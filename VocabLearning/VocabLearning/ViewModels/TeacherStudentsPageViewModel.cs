@@ -21,7 +21,7 @@ namespace VocabLearning.ViewModels
 				if (_groupSelected != value)
 					_groupSelected = value;
 				RaisePropertyChanged("ItemSelected");
-				_navigationService.NavigateAsync("GroupManagingPage?id=" + _groupSelected.ID, null, false);
+				_navigationService.NavigateAsync("GroupManagingPage?id=" + _groupSelected.Id, null, false);
 			}
 		}
 		public ObservableCollection<StudentGroup> _groups = new ObservableCollection<StudentGroup>();
@@ -29,28 +29,7 @@ namespace VocabLearning.ViewModels
 		public TeacherStudentsPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
-			_groups.Add(new StudentGroup
-			{
-				ID = 1,
-				Name = "Grupa 1",
-				GroupSize = 10
-			});
-
-			_groups.Add(new StudentGroup
-			{
-				ID = 2,
-				Name = "Grupa 2",
-				GroupSize = 1
-			});
-
-			_groups.Add(new StudentGroup
-			{
-				ID = 3,
-				Name = "Grupa 3",
-				GroupSize = 5
-			});
-
-			RaisePropertyChanged("Groups");
+			//RaisePropertyChanged("Groups");
 		}
 	}
 }

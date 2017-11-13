@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace VocabLearning.Models
 {
-	public class StudentGroup
+	public class StudentGroup : TableData
     {
-		public int? ID { get; set; }
-		public Teacher Teacher { get; set; }
 		public string Name { get; set; }
 		public int GroupSize { get; set; }
 		public ICollection<Student> Students { get; set; }
 		public ICollection<Assignment> Assignments { get; set; }
+		public int TeacherID { get; set; }
+
+		[JsonIgnore]
+		public Teacher Teacher { get; set; }
 	}
 }

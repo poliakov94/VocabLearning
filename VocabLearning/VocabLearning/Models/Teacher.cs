@@ -1,10 +1,13 @@
-﻿namespace VocabLearning.Models
+﻿using System.Collections.Generic;
+
+namespace VocabLearning.Models
 {
-	public class Teacher
+	public class Teacher : TableData
     {
-		public int ID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
+
+		public ICollection<StudentGroup> StudentGroups { get; set; }
 	}
 }

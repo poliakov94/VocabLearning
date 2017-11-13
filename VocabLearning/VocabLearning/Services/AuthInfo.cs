@@ -11,6 +11,6 @@ namespace VocabLearning.Services
 		public static string APPLICATION_URL = "";
 		public static string APPLICATION_KEY = "";
 
-		private static AuthInfo instance;		
+		//private static AuthInfo instance;		
 	}
 }

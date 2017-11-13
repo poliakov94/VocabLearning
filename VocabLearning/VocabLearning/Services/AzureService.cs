@@ -77,7 +77,7 @@ namespace VocabLearning.Services
 		}
 		public async Task SaveAssignmentAsync(Assignment item)
 		{
-			if (item.ID == null)
+			if (item.Id == null)
 				await _AssignmentTable.InsertAsync(item);
 			else
 				await _AssignmentTable.UpdateAsync(item);
@@ -88,14 +88,14 @@ namespace VocabLearning.Services
 			await _AssignmentTable.DeleteAsync(item);
 		}
 
-		public async Task<IEnumerable<Assignment>> GetAssignmentAsync(int id)
+		public async Task<IEnumerable<Assignment>> GetAssignmentAsync(string id)
 		{
-			return await _AssignmentTable.Where(a => a.ID == id).ToEnumerableAsync();
+			return await _AssignmentTable.Where(a => a.Id == id).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<Assignment>> GetAssignmentsAsync(int? groupId)
+		public async Task<IEnumerable<Assignment>> GetAssignmentsAsync(string groupId)
 		{
-			return await _AssignmentTable.Where(a => a.StudentGroup.ID == groupId).ToEnumerableAsync();
+			return await _AssignmentTable.Where(a => a.StudentGroup.Id == groupId).ToEnumerableAsync();
 		}
 
 		public async Task SynchronizeStudentsAsync()
@@ -124,7 +124,7 @@ namespace VocabLearning.Services
 
 		public async Task SaveStudentAsync(Student item)
 		{
-			if (item.ID == null)
+			if (item.Id == null)
 				await _StudentTable.InsertAsync(item);
 			else
 				await _StudentTable.UpdateAsync(item);
@@ -132,7 +132,7 @@ namespace VocabLearning.Services
 
 		public async Task SaveGroupAsync(StudentGroup item)
 		{
-			if (item.ID == null)
+			if (item.Id == null)
 				await _StudentGroupTable.InsertAsync(item);
 			else
 				await _StudentGroupTable.UpdateAsync(item);
@@ -145,7 +145,7 @@ namespace VocabLearning.Services
 
 		public async Task SaveExerciseAsync(Exercise item)
 		{
-			if (item.ID == null)
+			if (item.Id == null)
 				await _ExerciseTable.InsertAsync(item);
 			else
 				await _ExerciseTable.UpdateAsync(item);
@@ -156,34 +156,34 @@ namespace VocabLearning.Services
 			await _ExerciseTable.DeleteAsync(item);
 		}
 
-		public async Task<IEnumerable<Student>> GetStudentAsync(int id)
+		public async Task<IEnumerable<Student>> GetStudentAsync(string id)
 		{
-			return await _StudentTable.Where(a => a.ID == id).ToEnumerableAsync();
+			return await _StudentTable.Where(a => a.Id == id).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<Student>> GetStudentsAsync(int? teacherId)
+		public async Task<IEnumerable<Student>> GetStudentsAsync(string teacherId)
 		{
-			return await _StudentTable.Where(a => a.StudentGroup.Teacher.ID == teacherId).ToEnumerableAsync();
+			return await _StudentTable.Where(a => a.StudentGroup.Teacher.Id == teacherId).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<StudentGroup>> GetGroupAsync(int id)
+		public async Task<IEnumerable<StudentGroup>> GetGroupAsync(string id)
 		{
-			return await _StudentGroupTable.Where(a => a.ID == id).ToEnumerableAsync();
+			return await _StudentGroupTable.Where(a => a.Id == id).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<StudentGroup>> GetGroupsAsync(int? teacherId)
+		public async Task<IEnumerable<StudentGroup>> GetGroupsAsync(string teacherId)
 		{
-			return await _StudentGroupTable.Where(a => a.Teacher.ID == teacherId).ToEnumerableAsync();
+			return await _StudentGroupTable.Where(a => a.Teacher.Id == teacherId).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<Exercise>> GetExerciseAsync(int id)
+		public async Task<IEnumerable<Exercise>> GetExerciseAsync(string id)
 		{
-			return await _ExerciseTable.Where(a => a.ID == id).ToEnumerableAsync();
+			return await _ExerciseTable.Where(a => a.Id == id).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<Exercise>> GetExercisesAsync(int? assignmentId)
+		public async Task<IEnumerable<Exercise>> GetExercisesAsync(string assignmentId)
 		{
-			return await _ExerciseTable.Where(a => a.Assignment.ID == assignmentId).ToEnumerableAsync();
+			return await _ExerciseTable.Where(a => a.Assignment.Id == assignmentId).ToEnumerableAsync();
 		}
 	}
 }

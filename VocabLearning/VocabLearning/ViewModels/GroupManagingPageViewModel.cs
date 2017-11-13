@@ -17,10 +17,10 @@ namespace VocabLearning.ViewModels
 
         }
 
-		public void OnNavigatedTo(NavigationParameters parameters)
+		public override void OnNavigatedTo(NavigationParameters parameters)
 		{
 			if (parameters.ContainsKey("id"))
-				Group.ID = (int)parameters["id"];
+				Group.Id = (string)parameters["id"];
 		}
 	}
 }

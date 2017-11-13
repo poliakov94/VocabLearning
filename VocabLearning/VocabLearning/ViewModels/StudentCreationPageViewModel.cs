@@ -24,25 +24,7 @@ namespace VocabLearning.ViewModels
 		public StudentCreationPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
-			_groups.Add(new StudentGroup
-			{
-				ID = 1,
-				Name = "Grupa 1"
-			});
-
-			_groups.Add(new StudentGroup
-			{
-				ID = 2,
-				Name = "Grupa 2"
-			});
-
-			_groups.Add(new StudentGroup
-			{
-				ID = 3,
-				Name = "Grupa 3"
-			});
-
-			RaisePropertyChanged("Groups");
+			//RaisePropertyChanged("Groups");
 		}
 	}
 }

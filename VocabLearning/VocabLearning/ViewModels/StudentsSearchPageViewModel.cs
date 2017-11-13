@@ -28,23 +28,7 @@ namespace VocabLearning.ViewModels
 		public StudentsSearchPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
-			_students.Add(new Student
-			{
-				ID = 1,
-				FirstName = "Michał",
-				LastName = "Topolski",
-				Email = "palkazbagien@gmail.com"
-			});
-
-			_students.Add(new Student
-			{
-				ID = 1,
-				FirstName = "Adam",
-				LastName = "Duluk",
-				Email = "adamduluk@gmail.com"
-			});
-
-			RaisePropertyChanged("Students");
+			//RaisePropertyChanged("Students");
 		}
 	}
 }

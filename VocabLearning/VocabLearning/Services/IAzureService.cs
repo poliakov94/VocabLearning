@@ -27,14 +27,14 @@ namespace VocabLearning.Services
 		Task SaveExerciseAsync(Exercise item);
 		Task DeleteExerciseAsync(Exercise item);
 		
-		Task<IEnumerable<Student>> GetStudentAsync(int id);
-		Task<IEnumerable<Student>> GetStudentsAsync(int? teacherId);
-		Task<IEnumerable<StudentGroup>> GetGroupAsync(int id);
-		Task<IEnumerable<StudentGroup>> GetGroupsAsync(int? teacherId);
-		Task<IEnumerable<Assignment>> GetAssignmentAsync(int id);
-		Task<IEnumerable<Assignment>> GetAssignmentsAsync(int? groupId);
-		Task<IEnumerable<Exercise>> GetExerciseAsync(int id);
-		Task<IEnumerable<Exercise>> GetExercisesAsync(int? assignmentId);
+		Task<IEnumerable<Student>> GetStudentAsync(string id);
+		Task<IEnumerable<Student>> GetStudentsAsync(string teacherId);
+		Task<IEnumerable<StudentGroup>> GetGroupAsync(string id);
+		Task<IEnumerable<StudentGroup>> GetGroupsAsync(string teacherId);
+		Task<IEnumerable<Assignment>> GetAssignmentAsync(string id);
+		Task<IEnumerable<Assignment>> GetAssignmentsAsync(string groupId);
+		Task<IEnumerable<Exercise>> GetExerciseAsync(string id);
+		Task<IEnumerable<Exercise>> GetExercisesAsync(string assignmentId);
 
 	}
 }

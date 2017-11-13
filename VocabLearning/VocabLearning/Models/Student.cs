@@ -1,11 +1,16 @@
-﻿namespace VocabLearning.Models
+﻿using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json;
+
+namespace VocabLearning.Models
 {
-	public class Student
+	public class Student : TableData
     {
-		public int? ID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
-		public StudentGroup StudentGroup { get; set; }
+		public string StudentGroupID { get; set; }
+
+		[JsonIgnore]
+		public StudentGroup StudentGroup { get; set; }		
 	}
 }

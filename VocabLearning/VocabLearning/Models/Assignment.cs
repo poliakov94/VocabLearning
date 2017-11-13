@@ -1,24 +1,20 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VocabLearning.Models
 {
-	public class Assignment
+	public class Assignment : TableData
     {
-		public int? ID { get; set; }
+		public string StudentGroupID { get; set; }
+		[JsonIgnore]
 		public StudentGroup StudentGroup { get; set; }
-		public ExerciseType Type { get; set; }
+		public string TypeID { get; set; }
 		public string Name { get; set; }
 		public DateTime ValidFrom { get; set; }
 		public DateTime ValidUntil { get; set; }
-		public ICollection<Exercise> Exercises{ get; set; }
-	}
 
-	public enum ExerciseType
-	{
-		AssignDefintion,
-		Translate,
-		CompletePhrase,
-		AssignImage
+		public virtual ICollection<Exercise> Exercises { get; set; }
 	}
 }
