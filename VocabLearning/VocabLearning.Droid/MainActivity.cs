@@ -21,11 +21,10 @@ namespace VocabLearning.Droid
 
 			base.OnCreate(bundle);
 
-			global::Xamarin.Forms.Forms.Init(this, bundle);
-			LoadApplication(new App(new AndroidInitializer()));
-
 			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
-			//SQLitePCL.CurrentPlatform.Init();
+
+			global::Xamarin.Forms.Forms.Init(this, bundle);
+			LoadApplication(new App(new AndroidInitializer()));			
 		}
 	}
 

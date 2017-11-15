@@ -5,7 +5,7 @@
 			xmlns:views="clr-namespace:VocabLearning.Views;assembly=VocabLearning"
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="VocabLearning.Views.GroupManagingPage"
-			Title="GroupManagingPage">
+			Title="{Binding Group.Name}">
 	<TabbedPage.ToolbarItems>
 		
 	</TabbedPage.ToolbarItems>

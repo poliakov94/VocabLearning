@@ -14,17 +14,26 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(AzureService))]
 namespace VocabLearning.Services
 {
-	class AzureService : IAzureService
+	public class AzureService : IAzureService
 	{
 		IMobileServiceSyncTable<Assignment> _AssignmentTable;
 		IMobileServiceSyncTable<Exercise> _ExerciseTable;
 		IMobileServiceSyncTable<Student> _StudentTable;
 		IMobileServiceSyncTable<StudentGroup> _StudentGroupTable;
 
-		public IMobileServiceClient _MobileService { get; set; }
+		public MobileServiceClient _MobileService { get; set; }
 		public AzureService()
 		{
 			_MobileService = new MobileServiceClient("https://vocablearning.azurewebsites.net");
+		}
+
+		static readonly AzureService instance = new AzureService();
+		public static AzureService Instance
+		{
+			get
+			{
+				return instance;
+			}
 		}
 
 		public async Task Init()
@@ -32,7 +41,7 @@ namespace VocabLearning.Services
 			if (LocalDBExists)
 				return;
 
-			var store = new MobileServiceSQLiteStore("syncstore.db");
+			var store = new MobileServiceSQLiteStore("syncstorea.db");
 
 			store.DefineTable<Assignment>();
 			store.DefineTable<Exercise>();
@@ -61,6 +70,9 @@ namespace VocabLearning.Services
 
 		public async Task SeedLocalDataAsync()
 		{
+			if (_isSeeded)
+				return;
+
 			await SynchronizeAssignmentsAsync();
 			await SynchronizeExercisesAsync();
 			await SynchronizeGroupsAsync();
@@ -132,10 +144,17 @@ namespace VocabLearning.Services
 
 		public async Task SaveGroupAsync(StudentGroup item)
 		{
-			if (item.Id == null)
-				await _StudentGroupTable.InsertAsync(item);
-			else
-				await _StudentGroupTable.UpdateAsync(item);
+			try
+			{
+				if (item.Id == null)
+					await _StudentGroupTable.InsertAsync(item);
+				else
+					await _StudentGroupTable.UpdateAsync(item);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.ToString());
+			}			
 		}
 
 		public async Task DeleteGroupAsync(StudentGroup item)
@@ -166,13 +185,22 @@ namespace VocabLearning.Services
 			return await _StudentTable.Where(a => a.StudentGroup.Teacher.Id == teacherId).ToEnumerableAsync();
 		}
 
-		public async Task<IEnumerable<StudentGroup>> GetGroupAsync(string id)
+		public async Task<StudentGroup> GetGroupAsync(string id)
 		{
-			return await _StudentGroupTable.Where(a => a.Id == id).ToEnumerableAsync();
+			return (await _StudentGroupTable.Where(a => a.Id == id).ToEnumerableAsync()).FirstOrDefault();
 		}
 
 		public async Task<IEnumerable<StudentGroup>> GetGroupsAsync(string teacherId)
 		{
+			try
+			{
+				if (string.IsNullOrEmpty(teacherId))
+					return await _StudentGroupTable.ToEnumerableAsync();
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.ToString());
+			}
 			return await _StudentGroupTable.Where(a => a.Teacher.Id == teacherId).ToEnumerableAsync();
 		}
 
@@ -184,6 +212,6 @@ namespace VocabLearning.Services
 		public async Task<IEnumerable<Exercise>> GetExercisesAsync(string assignmentId)
 		{
 			return await _ExerciseTable.Where(a => a.Assignment.Id == assignmentId).ToEnumerableAsync();
-		}
+		}		
 	}
 }

@@ -32,7 +32,7 @@ namespace VocabLearning.ViewModels
 
 		public TeacherMasterDetailPageViewModel(INavigationService navigationService)
 			:base(navigationService)
-		{
+		{			
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Overview",

@@ -7,12 +7,15 @@
 			 Title="TeacherStudentsPage"
 			 x:Name="Students">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="New group" Command="{Binding AddGroupCommand}"/>
+		<ToolbarItem Text="New group" Command="{Binding CreateGroupCommand}" CommandParameter="{Binding .}"/>
 	</ContentPage.ToolbarItems>
+	<ActivityIndicator IsVisible="{Binding IsBusy}"
+                       IsRunning="{Binding IsBusy}"
+                       Color="Black" />
 	<ListView x:Name="GroupList"
 			  VerticalOptions="FillAndExpand"
 			  HasUnevenRows="True"
-			  IsPullToRefreshEnabled="True"
+			  IsPullToRefreshEnabled="False"
 			  ItemsSource="{Binding Groups}"
 			  SelectedItem="{Binding GroupSelected, Mode=TwoWay}">
 		<ListView.Header>

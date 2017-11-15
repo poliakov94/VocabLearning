@@ -2,27 +2,42 @@
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
+using VocabLearning.Services;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms;
+using VocabLearning.Models;
 
 namespace VocabLearning.ViewModels
 {
 	public class BaseViewModel : BindableBase, INavigationAware
 	{
 		protected readonly INavigationService _navigationService;
+		public readonly AzureService _azureService;
 
+		private bool _isBusy;
+		public bool IsBusy
+		{
+			get { return _isBusy; }
+			set
+			{
+				_isBusy = value;
+				RaisePropertyChanged();
+			}
+		}
+		
 		public DelegateCommand<string> NavigateCommand { get; set; }
 		public BaseViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
 			NavigateCommand = new DelegateCommand<string>(Navigate);
+			_azureService = DependencyService.Get<AzureService>();
 		}
 
 		private async void Navigate(string name)
 		{
 			try
 			{
-				//await _navigationService.NavigateAsync(name);
 				await _navigationService.NavigateAsync(name, null, false);
 			}
 			catch(Exception e)
