@@ -6,16 +6,16 @@
              x:Class="VocabLearning.Views.GroupExercisesPage"
 			 Title="GroupExercisesPage">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="New exercise" Command="{Binding AddExerciseCommand}"/>
+		<ToolbarItem Text="New assignment" Command="{Binding CreateAssignmentCommand}"/>
 	</ContentPage.ToolbarItems>
 	<ListView x:Name="ExerciseList"				  
 				  VerticalOptions="FillAndExpand"
 				  HasUnevenRows="True"
 				  IsPullToRefreshEnabled="True"
-				  ItemsSource="{Binding Exercises}"
-				  SelectedItem="{Binding ExerciseSelected, Mode=TwoWay}">
+				  ItemsSource="{Binding Assignments}"
+				  SelectedItem="{Binding AssignmentSelected, Mode=TwoWay}">
 		<ListView.Header>
-			<Label Text="Pick an exercise to manage it."
+			<Label Text="Pick an assignment to manage it."
 					   VerticalOptions="Center"
 					   HorizontalTextAlignment="Center"/>
 		</ListView.Header>

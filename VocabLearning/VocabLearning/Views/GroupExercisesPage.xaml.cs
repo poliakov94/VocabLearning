@@ -9,6 +9,6 @@ namespace VocabLearning.Views
 		public GroupExercisesPage()
         {
             InitializeComponent();
-        }
+        }		
     }
 }

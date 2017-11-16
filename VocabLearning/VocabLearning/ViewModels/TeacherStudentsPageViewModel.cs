@@ -17,6 +17,8 @@ namespace VocabLearning.ViewModels
 {
 	public class TeacherStudentsPageViewModel : BaseViewModel
 	{
+		IPageDialogService _pageDialogService;
+
 		private StudentGroup _groupSelected;
 		public StudentGroup GroupSelected
 		{
@@ -35,9 +37,10 @@ namespace VocabLearning.ViewModels
 		}
 		public ObservableCollection<StudentGroup> _groups = new ObservableCollection<StudentGroup>();
 		public ObservableCollection<StudentGroup> Groups { get { return _groups; } set { _groups = value; RaisePropertyChanged("Groups"); } }
-		public TeacherStudentsPageViewModel(INavigationService navigationService)
+		public TeacherStudentsPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
 			: base(navigationService)
 		{
+			_pageDialogService = pageDialogService;
 		}
 
 		private DelegateCommand _createGroup;
@@ -46,9 +49,8 @@ namespace VocabLearning.ViewModels
 
 		public async void ExecuteCreateGroupCommand()
 		{
-
-			var answer = await App.Current.MainPage.DisplayAlert ("Confirm", "Would you like to create a new group?", "Yes", "No");
-			
+			var answer = await _pageDialogService.DisplayAlertAsync("Confirm", "Would you like to create a new group?", "Yes", "No");
+						
 			if (!answer)
 				return;
 

@@ -6,15 +6,20 @@ using System.Collections.Generic;
 namespace VocabLearning.Models
 {
 	public class Assignment : TableData
-    {
-		public string StudentGroupID { get; set; }
-		[JsonIgnore]
-		public StudentGroup StudentGroup { get; set; }
-		public string TypeID { get; set; }
+    {	
 		public string Name { get; set; }
 		public DateTime ValidFrom { get; set; }
 		public DateTime ValidUntil { get; set; }
-
 		public virtual ICollection<Exercise> Exercises { get; set; }
+
+		[JsonIgnore]
+		public StudentGroup StudentGroup { get; set; }
+		[JsonIgnore]
+		public AssignmentType Type { get; set; }
+	}
+
+	public class AssignmentType : TableData
+	{
+		public string Name { get; set; }
 	}
 }

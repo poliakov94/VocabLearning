@@ -9,6 +9,8 @@
 	<TabbedPage.ToolbarItems>
 		
 	</TabbedPage.ToolbarItems>
-	<views:GroupExercisesPage/>
-	<views:StudentsManagingPage/>
+	<TabbedPage.Children>
+		<views:GroupExercisesPage/>
+		<views:StudentsManagingPage/>
+	</TabbedPage.Children>	
 </TabbedPage>

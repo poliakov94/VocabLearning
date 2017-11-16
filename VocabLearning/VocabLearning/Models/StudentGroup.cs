@@ -10,7 +10,6 @@ namespace VocabLearning.Models
 		public int GroupSize { get; set; }
 		public ICollection<Student> Students { get; set; }
 		public ICollection<Assignment> Assignments { get; set; }
-		public int TeacherID { get; set; }
 
 		[JsonIgnore]
 		public Teacher Teacher { get; set; }

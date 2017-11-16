@@ -7,7 +7,7 @@
 			 Title="TeacherStudentsPage"
 			 x:Name="Students">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="New group" Command="{Binding CreateGroupCommand}" CommandParameter="{Binding .}"/>
+		<ToolbarItem Text="New group" Command="{Binding CreateGroupCommand}"/>
 	</ContentPage.ToolbarItems>
 	<ActivityIndicator IsVisible="{Binding IsBusy}"
                        IsRunning="{Binding IsBusy}"
