@@ -61,6 +61,8 @@ namespace VocabLearning.Services
 			_ExerciseTable = _MobileService.GetSyncTable<Exercise>();
 			_StudentTable = _MobileService.GetSyncTable<Student>();
 			_StudentGroupTable = _MobileService.GetSyncTable<StudentGroup>();
+
+			await SeedLocalDataAsync();
 		}
 
 		public bool LocalDBExists => _MobileService.SyncContext.IsInitialized;
@@ -107,7 +109,7 @@ namespace VocabLearning.Services
 
 		public async Task<IEnumerable<Assignment>> GetAssignmentsAsync(string groupId)
 		{
-			return await _AssignmentTable.Where(a => a.StudentGroup.Id == groupId).ToEnumerableAsync();
+			return await _AssignmentTable.Where(a => a.StudentGroup_Id == groupId).ToEnumerableAsync();
 		}
 
 		public async Task SynchronizeStudentsAsync()
@@ -192,16 +194,7 @@ namespace VocabLearning.Services
 
 		public async Task<IEnumerable<StudentGroup>> GetGroupsAsync(string teacherId)
 		{
-			try
-			{
-				if (string.IsNullOrEmpty(teacherId))
-					return await _StudentGroupTable.ToEnumerableAsync();
-			}
-			catch (Exception e)
-			{
-				Debug.WriteLine(e.ToString());
-			}
-			return await _StudentGroupTable.Where(a => a.Teacher.Id == teacherId).ToEnumerableAsync();
+			return await _StudentGroupTable.ToEnumerableAsync();
 		}
 
 		public async Task<IEnumerable<Exercise>> GetExerciseAsync(string id)

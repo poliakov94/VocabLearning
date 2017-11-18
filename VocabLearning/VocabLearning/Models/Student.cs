@@ -11,6 +11,7 @@ namespace VocabLearning.Models
 		public string AzureId { get; set; }
 
 		[JsonIgnore]
-		public StudentGroup StudentGroup { get; set; }		
+		public StudentGroup StudentGroup { get; set; }
+		public string StudentGroup_Id { get; set; }
 	}
 }

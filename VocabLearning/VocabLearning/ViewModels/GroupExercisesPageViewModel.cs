@@ -17,14 +17,14 @@ namespace VocabLearning.ViewModels
 
 		public StudentGroup Group;
 
-		private Assignment _groupSelected;
-		public Assignment GroupSelected
+		private Assignment _assignmentSelected;
+		public Assignment AssignmentSelected
 		{
-			get { return _groupSelected; }
+			get { return _assignmentSelected; }
 			set
 			{
-				if (_groupSelected != value)
-					_groupSelected = value;
+				if (_assignmentSelected != value)
+					_assignmentSelected = value;
 
 				//var navigationParams = new NavigationParameters
 				//{
@@ -44,9 +44,9 @@ namespace VocabLearning.ViewModels
 
 		private DelegateCommand _createAssignment;
 		public DelegateCommand CreateAssignmentCommand =>
-			_createAssignment ?? (_createAssignment = new DelegateCommand(ExecuteCreateAssignmentCommandCommand));
+			_createAssignment ?? (_createAssignment = new DelegateCommand(ExecuteCreateAssignmentCommand));
 
-		public async void ExecuteCreateAssignmentCommandCommand()
+		public async void ExecuteCreateAssignmentCommand()
 		{
 			var answer = await _pageDialogService.DisplayAlertAsync("Confirm", "Would you like to create a new assignment?", "Yes", "No");
 
@@ -57,17 +57,18 @@ namespace VocabLearning.ViewModels
 
 			var assignment = new Assignment()
 			{
-				Name = "Home vocabulary",
+				Name = "New, tap to edit.",
 				ValidFrom = System.DateTime.Now,
 				ValidUntil = System.DateTime.Now,
-				StudentGroup = Group			
+				StudentGroup = Group,
+				StudentGroup_Id = Group.Id
 			};
 
 			try
 			{
-				//await _azureService.SaveAssignmentAsync(assignment);
-				//await _azureService.SynchronizeAssignmentsAsync();
-				//Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(GroupId));
+				await _azureService.SaveAssignmentAsync(assignment);
+				await _azureService.SynchronizeAssignmentsAsync();
+				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
 			}
 			catch (Exception e)
 			{
@@ -82,20 +83,7 @@ namespace VocabLearning.ViewModels
 			if (parameters.ContainsKey("model"))
 			{
 				Group = (StudentGroup)parameters["model"];
-
-				IsBusy = true;
-
-				try
-				{
-					await _azureService.SynchronizeAssignmentsAsync();
-					Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
-				}
-				catch (Exception e)
-				{
-					Debug.WriteLine(e.ToString());
-				}
-
-				IsBusy = false;
+				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
 			}
 		}
 	}
