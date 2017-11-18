@@ -59,7 +59,7 @@ namespace VocabLearning.ViewModels
 			var group = new StudentGroup()
 			{
 				GroupSize = 0,
-				Name = "New group"
+				Name = "New group, hold to edit or delete."
 			};
 
 			try
@@ -74,6 +74,41 @@ namespace VocabLearning.ViewModels
 			}
 
 			IsBusy = false;
+		}
+
+		private DelegateCommand<StudentGroup> _deleteGroup;
+		public DelegateCommand<StudentGroup> DeleteGroupCommand =>
+			_deleteGroup ?? (_deleteGroup = new DelegateCommand<StudentGroup>(ExecuteDeleteGroupCommand));
+
+		async void ExecuteDeleteGroupCommand(StudentGroup group)
+		{
+			var answer = await _pageDialogService.DisplayAlertAsync("Confirm", $"Are you sure to delete {group.Name} ?", "Yes", "No");
+
+			if (!answer)
+				return;
+			try
+			{
+				await _azureService.DeleteGroupAsync(group);
+				await _azureService.SynchronizeGroupsAsync();
+				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.ToString());
+			}
+		}
+
+		private DelegateCommand<StudentGroup> _editGroup;
+		public DelegateCommand<StudentGroup> EditGroupCommand =>
+			_editGroup ?? (_editGroup = new DelegateCommand<StudentGroup>(ExecuteEditGroupCommand));
+
+		void ExecuteEditGroupCommand(StudentGroup group)
+		{
+			var navigationParams = new NavigationParameters
+				{
+					{ "model", group }
+				};
+			_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
 		}
 
 		public override async void OnNavigatedTo(NavigationParameters parameters)

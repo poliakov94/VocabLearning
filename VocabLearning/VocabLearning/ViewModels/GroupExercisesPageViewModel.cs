@@ -26,11 +26,11 @@ namespace VocabLearning.ViewModels
 				if (_assignmentSelected != value)
 					_assignmentSelected = value;
 
-				//var navigationParams = new NavigationParameters
-				//{
-				//	{ "model", _groupSelected }
-				//};
-				//_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
+				var navigationParams = new NavigationParameters
+				{
+					{ "model", _assignmentSelected }
+				};
+				_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
 			}
 		}
 		public ObservableCollection<Assignment> _Assignments = new ObservableCollection<Assignment>();

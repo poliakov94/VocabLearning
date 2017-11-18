@@ -23,7 +23,17 @@
 		</ListView.Header>
 		<ListView.ItemTemplate>
 			<DataTemplate>
-				<ViewCell>
+				<ViewCell x:Name="Item">
+					<ViewCell.ContextActions>
+						<MenuItem Text="Edit" 
+								  Command="{Binding Source={x:Reference Name=GroupList}, Path=BindingContext.EditGroupCommand}" 
+								  CommandParameter="{Binding .}"
+								  IsDestructive="True"/>
+						<MenuItem Text="Delete" 
+								  Command="{Binding Source={x:Reference Name=GroupList}, Path=BindingContext.DeleteGroupCommand}"
+								  CommandParameter="{Binding .}"
+								  IsDestructive="True"/>
+					</ViewCell.ContextActions>
 					<StackLayout VerticalOptions="FillAndExpand">
 						<Grid>
 							<Grid.ColumnDefinitions>
