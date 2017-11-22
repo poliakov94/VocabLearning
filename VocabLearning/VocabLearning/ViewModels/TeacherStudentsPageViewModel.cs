@@ -90,7 +90,7 @@ namespace VocabLearning.ViewModels
 			{
 				await _azureService.DeleteGroupAsync(group);
 				await _azureService.SynchronizeGroupsAsync();
-				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));
+				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));				
 			}
 			catch (Exception e)
 			{

@@ -48,7 +48,7 @@
     <Compile Include="Services\IAzureService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ExerciseCreationPageViewModel.cs" />
-    <Compile Include="ViewModels\ExerciseManagingPageViewModel.cs" />
+    <Compile Include="ViewModels\AssignmentManagingPageViewModel.cs" />
     <Compile Include="ViewModels\GroupExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\GroupManagingPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
@@ -72,8 +72,8 @@
     <Compile Include="Views\ExerciseCreationPage.xaml.cs">
       <DependentUpon>ExerciseCreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExerciseManagingPage.xaml.cs">
-      <DependentUpon>ExerciseManagingPage.xaml</DependentUpon>
+    <Compile Include="Views\AssignmentManagingPage.xaml.cs">
+      <DependentUpon>AssignmentManagingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GroupExercisesPage.xaml.cs">
       <DependentUpon>GroupExercisesPage.xaml</DependentUpon>
@@ -277,7 +277,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ExerciseManagingPage.xaml">
+    <EmbeddedResource Include="Views\AssignmentManagingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

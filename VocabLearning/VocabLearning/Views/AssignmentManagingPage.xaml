@@ -3,41 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="VocabLearning.Views.ExerciseManagingPage"
-			 Title="ExerciseManaginPage">
+             x:Class="VocabLearning.Views.AssignmentManagingPage"
+			 Title="AssignmentManagingPage">
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="Save"
-					 Command="{Binding SaveExerciseCommand}"/>
+					 Command="{Binding SaveAssignmentCommand}"/>
 	</ContentPage.ToolbarItems>
 	<StackLayout>
-		<Entry Text="{Binding Name}" Keyboard="Text"/>
-		<Label Text="{Binding Group}"/>
+		<Entry Text="{Binding Path=Assignment.Name}" Keyboard="Text"/>
+		<Label Text="{Binding Path=Assignment.StudentGroup.Name}"/>
 		<Label Text="Start date"/>
 		<DatePicker VerticalOptions="CenterAndExpand"
 					Format="dd-MM-yyyy" 
-					Date="{Binding ValidFrom}"/>
+					Date="{Binding Path=Assignment.ValidFrom}"/>
 		<TimePicker VerticalOptions="CenterAndExpand"
-					Time="{Binding ValidFrom}"/>
+					Time="{Binding ValidFromTime}"/>
 		<Label Text="Due date"/>
 		<DatePicker VerticalOptions="CenterAndExpand" 
 					Format="dd-MM-yyyy" 
-					Date="{Binding ValidUntil}"/>
+					Date="{Binding Path=Assignment.ValidUntil}"/>
 		<TimePicker VerticalOptions="CenterAndExpand" 
-					Time="{Binding ValidFrom}"/>
+					Time="{Binding ValidUntilTime}"/>
 		<ListView x:Name="ExerciseList"				  
 				  VerticalOptions="FillAndExpand"
 				  HasUnevenRows="True"
 				  IsPullToRefreshEnabled="True"
-				  ItemsSource="{Binding Tasks}"
-				  SelectedItem="{Binding TaskSelected, Mode=TwoWay}">
+				  ItemsSource="{Binding Exercises}"
+				  SelectedItem="{Binding ExerciseSelected, Mode=TwoWay}">
 			<ListView.Header>
 				<StackLayout>
-					<Label Text="Pick a task to manage it."
+					<Label Text="Pick an exercise to manage it."
 					   VerticalOptions="Center"
 					   HorizontalTextAlignment="Center"/>
-					<Button Text="Add task"
+					<Button Text="Add exercise"
 						VerticalOptions="Center"
-						Command="{Binding AddTaskCommand}"/>
+						Command="{Binding AddExerciseCommand}"/>
 				</StackLayout>				
 			</ListView.Header>
 			<ListView.ItemTemplate>

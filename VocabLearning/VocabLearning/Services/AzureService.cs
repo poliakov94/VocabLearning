@@ -162,6 +162,26 @@ namespace VocabLearning.Services
 		public async Task DeleteGroupAsync(StudentGroup item)
 		{
 			await _StudentGroupTable.DeleteAsync(item);
+
+			var assignments = await GetAssignmentsAsync(item.Id);
+			foreach (var assignment in assignments)
+			{
+				await DeleteAssignmentAsync(assignment);
+				var exercises = await GetExercisesAsync(assignment.Id);
+				foreach (var exercise in exercises)
+				{
+					await DeleteExerciseAsync(exercise);
+				}
+			}
+
+			var students = await GetStudentsAsync(item);
+
+			foreach (var student in students)
+			{
+				student.StudentGroup = null;
+				student.StudentGroup_Id = null;
+				await SaveStudentAsync(student);
+			}
 		}
 
 		public async Task SaveExerciseAsync(Exercise item)
@@ -185,6 +205,11 @@ namespace VocabLearning.Services
 		public async Task<IEnumerable<Student>> GetStudentsAsync(string teacherId)
 		{
 			return await _StudentTable.Where(a => a.StudentGroup.Teacher.Id == teacherId).ToEnumerableAsync();
+		}
+
+		public async Task<IEnumerable<Student>> GetStudentsAsync(StudentGroup group)
+		{
+			return await _StudentTable.Where(a => a.StudentGroup_Id == group.Id).ToEnumerableAsync();
 		}
 
 		public async Task<StudentGroup> GetGroupAsync(string id)

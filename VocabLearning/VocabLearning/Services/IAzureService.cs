@@ -29,6 +29,7 @@ namespace VocabLearning.Services
 		
 		Task<IEnumerable<Student>> GetStudentAsync(string id);
 		Task<IEnumerable<Student>> GetStudentsAsync(string teacherId);
+		Task<IEnumerable<Student>> GetStudentsAsync(StudentGroup group);
 		Task<StudentGroup> GetGroupAsync(string id);
 		Task<IEnumerable<StudentGroup>> GetGroupsAsync(string teacherId);
 		Task<IEnumerable<Assignment>> GetAssignmentAsync(string id);

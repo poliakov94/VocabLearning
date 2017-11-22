@@ -16,7 +16,7 @@ namespace VocabLearning.ViewModels
 		IPageDialogService _pageDialogService;
 
 		public StudentGroup Group;
-
+		
 		private Assignment _assignmentSelected;
 		public Assignment AssignmentSelected
 		{
@@ -30,7 +30,7 @@ namespace VocabLearning.ViewModels
 				{
 					{ "model", _assignmentSelected }
 				};
-				_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
+				_navigationService.NavigateAsync("AssignmentManagingPage", navigationParams, false);
 			}
 		}
 		public ObservableCollection<Assignment> _Assignments = new ObservableCollection<Assignment>();
