@@ -18,7 +18,7 @@ namespace VocabLearning.Models
 
 		[JsonIgnore]
 		public AssignmentType Type { get; set; }
-		public string Type_Id { get; set; }
+		public string Type_Id { get; set; }		
 	}
 
 	public class AssignmentType : TableData

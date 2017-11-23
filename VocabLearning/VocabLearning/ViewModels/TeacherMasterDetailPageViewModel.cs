@@ -43,28 +43,28 @@ namespace VocabLearning.ViewModels
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Overview",
-				NavigationPage = "TeacherOverviewPage",
+				NavigationPage = "NavigationPage/TeacherOverviewPage",
 				IconSource = "overview.png"
 			});
 
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Progress",
-				NavigationPage = "TeacherProgressPage",
+				NavigationPage = "NavigationPage/TeacherProgressPage",
 				IconSource = "progress.png"
 			});
 
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Students",
-				NavigationPage = "TeacherStudentsPage",
+				NavigationPage = "NavigationPage/TeacherStudentsPage",
 				IconSource = "students.png"
 			});
 
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Assignments",
-				NavigationPage = "TeacherAssignmentsPage",
+				NavigationPage = "NavigationPage/TeacherAssignmentsPage",
 				IconSource = "assignments.png"
 			});
 

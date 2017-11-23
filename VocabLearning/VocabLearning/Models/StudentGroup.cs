@@ -14,5 +14,8 @@ namespace VocabLearning.Models
 		[JsonIgnore]
 		public Teacher Teacher { get; set; }
 		public string Teacher_Id { get; set; }
+
+		[JsonIgnore]
+		public int AssignmentsCount { get; set; }
 	}
 }

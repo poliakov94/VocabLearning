@@ -4,7 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="VocabLearning.Views.TeacherOverviewPage"
-			 Title="TeacherOverviewPage"
+			 Title="Overview"
 			 x:Name="Overview">	
 	<StackLayout Margin="10,10,10,10">
 		<ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>

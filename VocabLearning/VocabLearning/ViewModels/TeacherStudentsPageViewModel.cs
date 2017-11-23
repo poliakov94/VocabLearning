@@ -123,7 +123,14 @@ namespace VocabLearning.ViewModels
 
 			try
 			{
-				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));				
+				var groups = (await _azureService.GetGroupsAsync("")).ToList();
+				foreach (var group in groups)
+				{
+					group.AssignmentsCount = (await _azureService.GetAssignmentsAsync(group.Id)).ToList().Count();
+					//group.GroupSize = (await _azureService.GetStudentsAsync(group.Id)).ToList().Count();
+				}
+
+				Groups = new ObservableCollection<StudentGroup>(groups);
 			}
 			catch (Exception e)
 			{

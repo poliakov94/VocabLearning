@@ -238,7 +238,7 @@ namespace VocabLearning.Services
 
 		public async Task<IEnumerable<StudentGroup>> GetGroupsAsync(string teacherId)
 		{
-			return await _StudentGroupTable.ToEnumerableAsync();
+			return await _StudentGroupTable.ToEnumerableAsync();			
 		}
 
 		public async Task<IEnumerable<Exercise>> GetExerciseAsync(string id)
