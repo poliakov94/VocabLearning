@@ -16,8 +16,8 @@ namespace VocabLearning.Droid
 	{
 		protected override void OnCreate(Bundle bundle)
 		{
-			TabLayoutResource = Resource.Layout.tabs;
-			ToolbarResource = Resource.Layout.toolbar;
+			TabLayoutResource = Resource.Layout.Tabbar;
+			ToolbarResource = Resource.Layout.Toolbar;
 
 			base.OnCreate(bundle);
 

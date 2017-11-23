@@ -14,6 +14,15 @@ namespace VocabLearning.ViewModels
 {
 	public class TeacherMasterDetailPageViewModel : BaseViewModel
 	{
+		public ObservableCollection<MasterMenuItem> _menuItems = new ObservableCollection<MasterMenuItem>();
+		public ObservableCollection<MasterMenuItem> MenuItems { get { return _menuItems; } set { _menuItems = value; } }
+
+		public TeacherMasterDetailPageViewModel(INavigationService navigationService)
+			:base(navigationService)
+		{			
+			
+		}
+
 		private MasterMenuItem _menuItemSelected;
 		public MasterMenuItem MenuItemSelected
 		{
@@ -23,41 +32,52 @@ namespace VocabLearning.ViewModels
 				if (_menuItemSelected != value)
 					_menuItemSelected = value;
 				RaisePropertyChanged("ItemSelected");
-				_navigationService.NavigateAsync(_menuItemSelected.NavigationPage.Title);
+				_navigationService.NavigateAsync(_menuItemSelected.NavigationPage);
 			}
 		}
 
-		public ObservableCollection<MasterMenuItem> _menuItems = new ObservableCollection<MasterMenuItem>();
-		public ObservableCollection<MasterMenuItem> MenuItems { get { return _menuItems; } set { _menuItems = value; } }
+		public override void OnNavigatedTo(NavigationParameters parameters)
+		{
+			_menuItems.Clear();
 
-		public TeacherMasterDetailPageViewModel(INavigationService navigationService)
-			:base(navigationService)
-		{			
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Overview",
-				NavigationPage = new TeacherOverviewPage()
+				NavigationPage = "TeacherOverviewPage",
+				IconSource = "overview.png"
 			});
 
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Progress",
-				NavigationPage = new TeacherProgressPage()
+				NavigationPage = "TeacherProgressPage",
+				IconSource = "progress.png"
 			});
 
 			_menuItems.Add(new MasterMenuItem
 			{
 				Name = "Students",
-				NavigationPage = new TeacherStudentsPage()
+				NavigationPage = "TeacherStudentsPage",
+				IconSource = "students.png"
 			});
 
 			_menuItems.Add(new MasterMenuItem
 			{
-				Name = "Exercises",
-				NavigationPage = new TeacherExercisesPage()
+				Name = "Assignments",
+				NavigationPage = "TeacherAssignmentsPage",
+				IconSource = "assignments.png"
 			});
 
 			RaisePropertyChanged("MenuItems");
+		}
+
+		public override async void OnNavigatingTo(NavigationParameters parameters)
+		{
+			IsBusy = true;
+
+			await _azureService.Init();
+
+			IsBusy = false;
 		}
 	}
 }

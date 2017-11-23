@@ -45,7 +45,7 @@ namespace VocabLearning.ViewModels
 
 		public void NavigateToTeacherMasterDetailPage()
 		{
-			_navigationService.NavigateAsync("app:///NavigationPage/TeacherMasterDetailPage");
+			_navigationService.NavigateAsync("app:///NavigationPage/TeacherMasterDetailPage/TeacherOverviewPage");
 		}
 
 		public void NavigateToStudentMasterDetailPage()

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using VocabLearning.Models;
 using VocabLearning.Services;
@@ -41,7 +40,7 @@ namespace VocabLearning.Services
 			if (LocalDBExists)
 				return;
 
-			var store = new MobileServiceSQLiteStore("syncstorea.db");
+			var store = new MobileServiceSQLiteStore("syncstore.db");
 
 			store.DefineTable<Assignment>();
 			store.DefineTable<Exercise>();
@@ -72,8 +71,8 @@ namespace VocabLearning.Services
 
 		public async Task SeedLocalDataAsync()
 		{
-			if (_isSeeded)
-				return;
+			if (!LocalDBExists)
+				await Init();			
 
 			await SynchronizeAssignmentsAsync();
 			await SynchronizeExercisesAsync();
@@ -110,6 +109,26 @@ namespace VocabLearning.Services
 		public async Task<IEnumerable<Assignment>> GetAssignmentsAsync(string groupId)
 		{
 			return await _AssignmentTable.Where(a => a.StudentGroup_Id == groupId).ToEnumerableAsync();
+		}
+
+		public async Task<IEnumerable<Assignment>> GetAssignmentsAsync(Teacher teacher)
+		{
+			//var groups = await _StudentGroupTable.Where(g => g.Teacher_Id == teacher.Id).ToListAsync();
+			var groups = await _StudentGroupTable.ToListAsync();
+			var assignments = await _AssignmentTable.ToListAsync();
+
+			var query = from g in groups
+						join a in assignments on g.Id equals a.StudentGroup_Id
+						select a;
+
+			var list = query.ToList();
+
+			foreach (var assignment in list)
+			{
+				assignment.StudentGroup = groups.FirstOrDefault(g => g.Id == assignment.StudentGroup_Id);
+			}
+
+			return list;
 		}
 
 		public async Task SynchronizeStudentsAsync()
@@ -167,21 +186,21 @@ namespace VocabLearning.Services
 			foreach (var assignment in assignments)
 			{
 				await DeleteAssignmentAsync(assignment);
-				var exercises = await GetExercisesAsync(assignment.Id);
-				foreach (var exercise in exercises)
-				{
-					await DeleteExerciseAsync(exercise);
-				}
+				//var exercises = await GetExercisesAsync(assignment.Id);
+				//foreach (var exercise in exercises)
+				//{
+				//	await DeleteExerciseAsync(exercise);
+				//}
 			}
 
-			var students = await GetStudentsAsync(item);
+			//var students = await GetStudentsAsync(item);
 
-			foreach (var student in students)
-			{
-				student.StudentGroup = null;
-				student.StudentGroup_Id = null;
-				await SaveStudentAsync(student);
-			}
+			//foreach (var student in students)
+			//{
+			//	student.StudentGroup = null;
+			//	student.StudentGroup_Id = null;
+			//	await SaveStudentAsync(student);
+			//}
 		}
 
 		public async Task SaveExerciseAsync(Exercise item)

@@ -13,6 +13,6 @@ namespace VocabLearning.ViewModels
 			: base(navigationService)
 		{
 
-		}
+		}		
 	}
 }

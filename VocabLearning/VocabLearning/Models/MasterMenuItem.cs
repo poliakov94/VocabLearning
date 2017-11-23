@@ -5,6 +5,7 @@ namespace VocabLearning.Models
 	public class MasterMenuItem
     {
 		public string Name { get; set; }
-		public Page NavigationPage { get; set; }
+		public string NavigationPage { get; set; }
+		public string IconSource { get; set; }
 	}
 }

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="VocabLearning.Views.TeacherAssignmentsPage"
+			 Title="TeacherAssignmentsPage"
+			 x:Name="Assignments">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="New assignment" Command="{Binding NavigateCommand}" CommandParameter="AssignmentCreationPage"/>
+	</ContentPage.ToolbarItems>
+	<ListView x:Name="AssignmentList"
+			  VerticalOptions="FillAndExpand"
+			  HasUnevenRows="True"
+			  SeparatorColor="#BDBDBD"
+			  IsPullToRefreshEnabled="False"
+			  ItemsSource="{Binding Assignments}"
+			  SelectedItem="{Binding AssignmentSelected, Mode=TwoWay}"
+			  IsGroupingEnabled="True"
+			  GroupDisplayBinding="{Binding Key}">
+		<ListView.GroupHeaderTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+					<Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#EFEFF4" Padding="5">
+						<Label Text="{Binding Key}" FontSize="Large" TextColor="#959B9E" VerticalOptions="CenterAndExpand" Margin="10,0,0,0"/>
+					</Grid>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.GroupHeaderTemplate>
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<StackLayout VerticalOptions="FillAndExpand" Margin="5,0,0,10">
+						<Grid Margin="5,5,5,5">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Name}"
+								   Grid.Column="0"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextStyle}"
+								   TextColor="#2196F3"
+								   FontSize="20"
+								   FontAttributes="Bold"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="{Binding Type}"
+								   Grid.Column="1"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextDetailStyle}"
+								   FontSize="16"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="Start"
+								   Grid.Column="0"
+								   Grid.Row="1"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"/>
+							<Label Text="Due date"
+								   Grid.Column="1"
+								   Grid.Row="1"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"/>
+							<Label Text="{Binding ValidFrom, StringFormat='{0:d MMM, HH:mm}'}"
+								   Grid.Column="0"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"
+								   FontAttributes="Bold"/>
+							<Label Text="{Binding ValidUntil, StringFormat='{0:d MMM, HH:mm}'}"
+								   Grid.Column="1"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"
+								   FontAttributes="Bold"/>
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+	</ListView>
+</ContentPage>

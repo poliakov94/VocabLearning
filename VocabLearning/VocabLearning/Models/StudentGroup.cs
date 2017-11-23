@@ -7,11 +7,7 @@ namespace VocabLearning.Models
 	public class StudentGroup : TableData
     {
 		public string Name { get; set; }
-		public int GroupSize
-		{
-			get { return Students.Count; }
-			set { GroupSize = value; }
-		}
+		public int GroupSize { get; set; }
 		public ICollection<Student> Students { get; set; }
 		public ICollection<Assignment> Assignments { get; set; }
 

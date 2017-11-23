@@ -15,6 +15,10 @@ namespace VocabLearning.ViewModels
 		IPageDialogService _pageDialogService;
 
 		public StudentGroup Group;
+		public bool IsEmpty
+		{
+			get { return (Students == null || Students.Count == 0); }			
+		}
 
 		public ObservableCollection<Student> _Students = new ObservableCollection<Student>();
 		public ObservableCollection<Student> Students { get { return _Students; } set { _Students = value; RaisePropertyChanged("Students"); } }
@@ -33,6 +37,8 @@ namespace VocabLearning.ViewModels
 				if (Group.Students != null)
 					Students = new ObservableCollection<Student>(Group.Students);
 			}
+
+			RaisePropertyChanged("IsEmpty");
 		}
 	}
 }

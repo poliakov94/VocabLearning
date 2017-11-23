@@ -12,7 +12,6 @@ namespace VocabLearning.ViewModels
 	public class AssignmentManagingPageViewModel : BaseViewModel
 	{
 		private Assignment _assignment;
-
 		public Assignment Assignment
 		{
 			get { return _assignment; }
@@ -41,12 +40,17 @@ namespace VocabLearning.ViewModels
 
 		async void ExecuteSaveAssignmentCommand()
 		{
-			Assignment.ValidFrom.Add(ValidFromTime);
-			Assignment.ValidUntil.Add(ValidUntilTime);
+			Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
+			Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
 			await _azureService.SaveAssignmentAsync(Assignment);
 			await _azureService.SynchronizeAssignmentsAsync();
 
-			await _navigationService.GoBackAsync();
+			var navigationParams = new NavigationParameters
+			{
+				{ "groupId", Assignment.StudentGroup_Id }
+			};
+
+			await _navigationService.GoBackAsync(navigationParams);
 		}
 
 		public override void OnNavigatingTo(NavigationParameters parameters)

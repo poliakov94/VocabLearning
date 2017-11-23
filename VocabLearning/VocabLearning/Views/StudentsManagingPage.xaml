@@ -1,61 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="VocabLearning.Views.StudentsManagingPage"
-			 Title="StudentsManagingPage">
-	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="Add student" Command="{Binding NavigateCommand}" CommandParameter="StudentsSearchPage"/>
-	</ContentPage.ToolbarItems>
-	<ListView x:Name="StudentsList"
-			  VerticalOptions="FillAndExpand"
-			  HasUnevenRows="True"
-			  IsPullToRefreshEnabled="True"
-			  ItemsSource="{Binding Path=Group.Students}"
-			  SelectedItem="{Binding StudentSelected, Mode=TwoWay}">
-		<ListView.Header>
-			<Label Text="Pick a student to manage it."/>
-		</ListView.Header>
-		<ListView.ItemTemplate>
-			<DataTemplate>
-				<ViewCell>
-					<StackLayout VerticalOptions="FillAndExpand">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*"/>
-								<ColumnDefinition Width="*"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="2*"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-							<Label Text="{Binding FirstName}"
-								   Grid.Column="0"
-								   Grid.Row="0"
-								   Style="{DynamicResource ListItemTextStyle}"
-								   FontSize="20"
-								   VerticalTextAlignment="Center"
-								   HorizontalOptions="StartAndExpand"/>
-							<Label Text="{Binding Surname}"
-								   Grid.Column="0"
-								   Grid.Row="1"
-								   Style="{DynamicResource ListItemTextStyle}"
-								   FontSize="20"
-								   VerticalTextAlignment="Center"
-								   HorizontalOptions="StartAndExpand"/>
-							<Label Text="{Binding Email}"
-								   Grid.Column="1"
-								   Grid.ColumnSpan="2"
-								   Grid.Row="1"
-								   Style="{DynamicResource ListItemTextStyle}"
-								   FontSize="20"
-								   VerticalTextAlignment="Center"
-								   HorizontalOptions="StartAndExpand"/>
-						</Grid>
-					</StackLayout>
-				</ViewCell>
-			</DataTemplate>
-		</ListView.ItemTemplate>
-	</ListView>
-</ContentPage>
+    <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 x:Class="VocabLearning.Views.StudentsManagingPage"
+                 Title="StudentsManagingPage">
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Add student" Command="{Binding NavigateCommand}" CommandParameter="StudentsSearchPage"/>
+        </ContentPage.ToolbarItems>
+        <StackLayout>
+            <StackLayout VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                         IsVisible="{Binding IsEmpty}">
+                <Label Text="No students assigned :(" 
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       TextColor="#A5AAAC"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <ListView x:Name="StudentsList"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      IsPullToRefreshEnabled="False"
+                      ItemsSource="{Binding Path=Group.Students}"
+                      SelectedItem="{Binding StudentSelected, Mode=TwoWay}"
+                      IsVisible="False">
+                <ListView.Triggers>
+                    <DataTrigger TargetType="ListView" Binding="{Binding IsEmpty}" Value="True">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </ListView.Triggers>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout VerticalOptions="FillAndExpand">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding FirstName}"
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           Style="{DynamicResource ListItemTextStyle}"
+                                           FontSize="20"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding Surname}"
+                                           Grid.Column="0"
+                                           Grid.Row="1"
+                                           Style="{DynamicResource ListItemTextStyle}"
+                                           FontSize="20"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding Email}"
+                                           Grid.Column="1"
+                                           Grid.ColumnSpan="2"
+                                           Grid.Row="1"
+                                           Style="{DynamicResource ListItemTextStyle}"
+                                           FontSize="20"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalOptions="StartAndExpand"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>

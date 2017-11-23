@@ -8,6 +8,7 @@ namespace VocabLearning
 	public partial class App : PrismApplication
 	{
 		public App(IPlatformInitializer initializer = null) : base(initializer) { }
+		public App() : base(null) { }
 
 		protected override void OnInitialized()
 		{
@@ -26,7 +27,7 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<TeacherOverviewPage, TeacherOverviewPageViewModel>();
 			Container.RegisterTypeForNavigation<TeacherProgressPage, TeacherProgressPageViewModel>();
 			Container.RegisterTypeForNavigation<TeacherStudentsPage, TeacherStudentsPageViewModel>();
-			Container.RegisterTypeForNavigation<TeacherExercisesPage, TeacherExercisesPageViewModel>();
+			Container.RegisterTypeForNavigation<TeacherAssignmentsPage, TeacherAssignmentsPageViewModel>();
 
 			Container.RegisterTypeForNavigation<StudentMasterDetailPage, StudentMasterDetailPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentOverviewPage, StudentOverviewPageViewModel>();
@@ -44,6 +45,8 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<StudentsManagingPage>();
 			Container.RegisterTypeForNavigation<GroupExercisesPage>();
 			Container.RegisterTypeForNavigation<ExerciseCreationPage>();
+			Container.RegisterTypeForNavigation<AssignmentCreationPage>();
+			Container.RegisterTypeForNavigation<AssignmentExercisesPage>();
 		}
 	}
 }

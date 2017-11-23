@@ -22,7 +22,7 @@ namespace VocabLearning.ViewModels
 			set
 			{
 				_isBusy = value;
-				RaisePropertyChanged();
+				RaisePropertyChanged("IsBusy");
 			}
 		}
 		
@@ -32,6 +32,11 @@ namespace VocabLearning.ViewModels
 			_navigationService = navigationService;
 			NavigateCommand = new DelegateCommand<string>(Navigate);
 			_azureService = DependencyService.Get<AzureService>();
+		}
+
+		public BaseViewModel()
+		{
+
 		}
 
 		private async void Navigate(string name)

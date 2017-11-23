@@ -16,7 +16,11 @@ namespace VocabLearning.ViewModels
 		IPageDialogService _pageDialogService;
 
 		public StudentGroup Group;
-		
+		public bool IsEmpty
+		{
+			get { return (Assignments == null || Assignments.Count == 0); }
+		}
+
 		private Assignment _assignmentSelected;
 		public Assignment AssignmentSelected
 		{
@@ -30,6 +34,7 @@ namespace VocabLearning.ViewModels
 				{
 					{ "model", _assignmentSelected }
 				};
+
 				_navigationService.NavigateAsync("AssignmentManagingPage", navigationParams, false);
 			}
 		}
@@ -85,6 +90,14 @@ namespace VocabLearning.ViewModels
 				Group = (StudentGroup)parameters["model"];
 				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
 			}
+			else if (parameters.ContainsKey("groupId"))
+			{
+				var groupId = (string)parameters["groupId"];
+				Group = await _azureService.GetGroupAsync(groupId);
+				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(groupId));
+			}
+
+			RaisePropertyChanged("IsEmpty");
 		}
 	}
 }

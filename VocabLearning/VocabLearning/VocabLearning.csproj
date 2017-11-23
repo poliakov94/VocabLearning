@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ObservableGroupCollection.cs" />
     <Compile Include="Models\MasterMenuItem.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentGroup.cs" />
@@ -46,6 +47,9 @@
     <Compile Include="Services\AuthInfo.cs" />
     <Compile Include="Services\AzureService.cs" />
     <Compile Include="Services\IAzureService.cs" />
+    <Compile Include="ViewModels\AssignmentExercisesPageViewModel.cs" />
+    <Compile Include="ViewModels\DesignTimeViewModels\AssignmentCreationDummyViewModel.cs" />
+    <Compile Include="ViewModels\AssignmentCreationPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ExerciseCreationPageViewModel.cs" />
     <Compile Include="ViewModels\AssignmentManagingPageViewModel.cs" />
@@ -68,7 +72,13 @@
     <Compile Include="ViewModels\TeacherOverviewPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherProgressPageViewModel.cs" />
     <Compile Include="ViewModels\TeacherStudentsPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherExercisesPageViewModel.cs" />
+    <Compile Include="ViewModels\TeacherAssignmentsPageViewModel.cs" />
+    <Compile Include="Views\AssignmentCreationPage.xaml.cs">
+      <DependentUpon>AssignmentCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignmentExercisesPage.xaml.cs">
+      <DependentUpon>AssignmentExercisesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExerciseCreationPage.xaml.cs">
       <DependentUpon>ExerciseCreationPage.xaml</DependentUpon>
     </Compile>
@@ -129,8 +139,8 @@
     <Compile Include="Views\TeacherStudentsPage.xaml.cs">
       <DependentUpon>TeacherStudentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherExercisesPage.xaml.cs">
-      <DependentUpon>TeacherExercisesPage.xaml</DependentUpon>
+    <Compile Include="Views\TeacherAssignmentsPage.xaml.cs">
+      <DependentUpon>TeacherAssignmentsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +257,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherExercisesPage.xaml">
+    <EmbeddedResource Include="Views\TeacherAssignmentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -342,6 +352,18 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AssignmentCreationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AssignmentExercisesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
@@ -354,7 +376,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.4.0.282\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\LiveXAML.1.3.10\build\LiveXAML.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\LiveXAML.1.3.10\build\LiveXAML.targets'))" />
   </Target>
+  <Import Project="..\..\packages\LiveXAML.1.3.10\build\LiveXAML.targets" Condition="Exists('..\..\packages\LiveXAML.1.3.10\build\LiveXAML.targets')" />
   <!--<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

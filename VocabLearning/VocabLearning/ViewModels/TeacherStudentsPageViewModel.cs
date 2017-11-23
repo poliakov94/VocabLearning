@@ -111,7 +111,7 @@ namespace VocabLearning.ViewModels
 			_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
 		}
 
-		public override async void OnNavigatedTo(NavigationParameters parameters)
+		public override async void OnNavigatingTo(NavigationParameters parameters)
 		{
 			//if (Groups == null && parameters.ContainsKey("teacherid"))
 			//{
@@ -123,7 +123,6 @@ namespace VocabLearning.ViewModels
 
 			try
 			{
-				await _azureService.SynchronizeGroupsAsync();
 				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));				
 			}
 			catch (Exception e)
