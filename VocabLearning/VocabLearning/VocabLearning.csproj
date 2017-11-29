@@ -48,48 +48,48 @@
     <Compile Include="Services\AuthInfo.cs" />
     <Compile Include="Services\AzureService.cs" />
     <Compile Include="Services\IAzureService.cs" />
-    <Compile Include="ViewModels\AssignmentExercisesPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\AssignmentExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\DesignTimeViewModels\AssignmentCreationDummyViewModel.cs" />
-    <Compile Include="ViewModels\AssignmentCreationPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\AssignmentCreationPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\ExerciseCreationPageViewModel.cs" />
-    <Compile Include="ViewModels\AssignmentManagingPageViewModel.cs" />
-    <Compile Include="ViewModels\GroupExercisesPageViewModel.cs" />
-    <Compile Include="ViewModels\GroupManagingPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\ExerciseCreationPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\AssignmentManagingPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\GroupExercisesPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\GroupManagingPageViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\RegisterPageViewModel.cs" />
     <Compile Include="ViewModels\SpeakPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentCreationPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentMasterDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentOverviewPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentProgressPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentExercisesPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentsManaginPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentsSearchPageViewModel.cs" />
-    <Compile Include="ViewModels\StudentTestPageViewModel.cs" />
-    <Compile Include="ViewModels\TaskCreationPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherMasterDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherOverviewPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherProgressPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherStudentsPageViewModel.cs" />
-    <Compile Include="ViewModels\TeacherAssignmentsPageViewModel.cs" />
-    <Compile Include="Views\AssignmentCreationPage.xaml.cs">
+    <Compile Include="ViewModels\Teacher\StudentCreationPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\StudentMasterDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\StudentOverviewPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\StudentProgressPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\StudentExercisesPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\StudentsManaginPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\StudentsSearchPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\StudentTestPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\TaskCreationPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\TeacherMasterDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\TeacherOverviewPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\TeacherProgressPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\TeacherStudentsPageViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\TeacherAssignmentsPageViewModel.cs" />
+    <Compile Include="Views\Teacher\AssignmentCreationPage.xaml.cs">
       <DependentUpon>AssignmentCreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AssignmentExercisesPage.xaml.cs">
+    <Compile Include="Views\Teacher\AssignmentExercisesPage.xaml.cs">
       <DependentUpon>AssignmentExercisesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExerciseCreationPage.xaml.cs">
+    <Compile Include="Views\Teacher\ExerciseCreationPage.xaml.cs">
       <DependentUpon>ExerciseCreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AssignmentManagingPage.xaml.cs">
+    <Compile Include="Views\Teacher\AssignmentManagingPage.xaml.cs">
       <DependentUpon>AssignmentManagingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GroupExercisesPage.xaml.cs">
+    <Compile Include="Views\Teacher\GroupExercisesPage.xaml.cs">
       <DependentUpon>GroupExercisesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GroupManagingPage.xaml.cs">
+    <Compile Include="Views\Teacher\GroupManagingPage.xaml.cs">
       <DependentUpon>GroupManagingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
@@ -101,46 +101,46 @@
     <Compile Include="Views\SpeakPage.xaml.cs">
       <DependentUpon>SpeakPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentCreationPage.xaml.cs">
+    <Compile Include="Views\Teacher\StudentCreationPage.xaml.cs">
       <DependentUpon>StudentCreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentMasterDetailPage.xaml.cs">
+    <Compile Include="Views\Student\StudentMasterDetailPage.xaml.cs">
       <DependentUpon>StudentMasterDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentOverviewPage.xaml.cs">
+    <Compile Include="Views\Student\StudentOverviewPage.xaml.cs">
       <DependentUpon>StudentOverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentProgressPage.xaml.cs">
+    <Compile Include="Views\Student\StudentProgressPage.xaml.cs">
       <DependentUpon>StudentProgressPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentExercisesPage.xaml.cs">
+    <Compile Include="Views\Student\StudentExercisesPage.xaml.cs">
       <DependentUpon>StudentExercisesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentsManagingPage.xaml.cs">
+    <Compile Include="Views\Teacher\StudentsManagingPage.xaml.cs">
       <DependentUpon>StudentsManagingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentsSearchPage.xaml.cs">
+    <Compile Include="Views\Teacher\StudentsSearchPage.xaml.cs">
       <DependentUpon>StudentsSearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StudentTestPage.xaml.cs">
+    <Compile Include="Views\Student\StudentTestPage.xaml.cs">
       <DependentUpon>StudentTestPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskCreationPage.xaml.cs">
+    <Compile Include="Views\Teacher\TaskCreationPage.xaml.cs">
       <DependentUpon>TaskCreationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherMasterDetailPage.xaml.cs">
+    <Compile Include="Views\Teacher\TeacherMasterDetailPage.xaml.cs">
       <DependentUpon>TeacherMasterDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherOverviewPage.xaml.cs">
+    <Compile Include="Views\Teacher\TeacherOverviewPage.xaml.cs">
       <DependentUpon>TeacherOverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherProgressPage.xaml.cs">
+    <Compile Include="Views\Teacher\TeacherProgressPage.xaml.cs">
       <DependentUpon>TeacherProgressPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherStudentsPage.xaml.cs">
+    <Compile Include="Views\Teacher\TeacherStudentsPage.xaml.cs">
       <DependentUpon>TeacherStudentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TeacherAssignmentsPage.xaml.cs">
+    <Compile Include="Views\Teacher\TeacherAssignmentsPage.xaml.cs">
       <DependentUpon>TeacherAssignmentsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -234,79 +234,79 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherMasterDetailPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\TeacherMasterDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentMasterDetailPage.xaml">
+    <EmbeddedResource Include="Views\Student\StudentMasterDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherOverviewPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\TeacherOverviewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentOverviewPage.xaml">
+    <EmbeddedResource Include="Views\Student\StudentOverviewPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherAssignmentsPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\TeacherAssignmentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherStudentsPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\TeacherStudentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentProgressPage.xaml">
+    <EmbeddedResource Include="Views\Student\StudentProgressPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentExercisesPage.xaml">
+    <EmbeddedResource Include="Views\Student\StudentExercisesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentTestPage.xaml">
+    <EmbeddedResource Include="Views\Student\StudentTestPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AssignmentManagingPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\AssignmentManagingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TeacherProgressPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\TeacherProgressPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\TaskCreationPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\TaskCreationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentCreationPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\StudentCreationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -324,47 +324,48 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\GroupManagingPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\GroupManagingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentsSearchPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\StudentsSearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\StudentsManagingPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\StudentsManagingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\GroupExercisesPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\GroupExercisesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ExerciseCreationPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\ExerciseCreationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AssignmentCreationPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\AssignmentCreationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AssignmentExercisesPage.xaml">
+    <EmbeddedResource Include="Views\Teacher\AssignmentExercisesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
