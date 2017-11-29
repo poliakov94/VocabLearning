@@ -12,18 +12,9 @@ namespace VocabLearning.Models
 		public string TranslatedWord { get; set; }
 		public string TranslatedPhrase { get; set; }		
 		public string ImageURI { get; set; }
-		
-		[JsonIgnore]
-		public Language Language { get; set; }
-		public string Language_Id { get; set; }
 
 		[JsonIgnore]
 		public Assignment Assignment { get; set; }
 		public string Assignment_Id { get; set; }
-	}
-
-	public class Language : TableData
-	{
-		public string Name { get; set; }
 	}
 }

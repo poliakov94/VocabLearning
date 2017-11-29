@@ -19,6 +19,7 @@ namespace VocabLearning.Services
 		IMobileServiceSyncTable<Exercise> _ExerciseTable;
 		IMobileServiceSyncTable<Student> _StudentTable;
 		IMobileServiceSyncTable<StudentGroup> _StudentGroupTable;
+		IMobileServiceSyncTable<StudentExercise> _StudentExerciseTable;
 
 		public MobileServiceClient _MobileService { get; set; }
 		public AzureService()
@@ -46,6 +47,7 @@ namespace VocabLearning.Services
 			store.DefineTable<Exercise>();
 			store.DefineTable<Student>();
 			store.DefineTable<StudentGroup>();
+			store.DefineTable<StudentExercise>();
 
 			try
 			{
@@ -60,6 +62,7 @@ namespace VocabLearning.Services
 			_ExerciseTable = _MobileService.GetSyncTable<Exercise>();
 			_StudentTable = _MobileService.GetSyncTable<Student>();
 			_StudentGroupTable = _MobileService.GetSyncTable<StudentGroup>();
+			_StudentExerciseTable = _MobileService.GetSyncTable<StudentExercise>();
 
 			await SeedLocalDataAsync();
 		}
@@ -78,6 +81,7 @@ namespace VocabLearning.Services
 			await SynchronizeExercisesAsync();
 			await SynchronizeGroupsAsync();
 			await SynchronizeStudentsAsync();
+			await SynchronizeStudentExercisesAsync();
 
 			_isSeeded = true;
 		}
@@ -148,6 +152,14 @@ namespace VocabLearning.Services
 		}
 
 		public async Task SynchronizeExercisesAsync()
+		{
+			if (!LocalDBExists)
+				await Init();
+
+			await _ExerciseTable.PullAsync("syncExercises", _ExerciseTable.CreateQuery());
+		}
+
+		public async Task SynchronizeStudentExercisesAsync()
 		{
 			if (!LocalDBExists)
 				await Init();

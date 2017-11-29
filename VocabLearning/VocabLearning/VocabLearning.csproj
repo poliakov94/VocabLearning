@@ -38,6 +38,7 @@
     <Compile Include="Helpers\ObservableGroupCollection.cs" />
     <Compile Include="Models\MasterMenuItem.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentExercise.cs" />
     <Compile Include="Models\StudentGroup.cs" />
     <Compile Include="Models\Exercise.cs" />
     <Compile Include="Models\Assignment.cs" />

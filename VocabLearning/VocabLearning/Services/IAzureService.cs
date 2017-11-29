@@ -18,6 +18,7 @@ namespace VocabLearning.Services
 		Task SynchronizeGroupsAsync();
 		Task SynchronizeAssignmentsAsync();
 		Task SynchronizeExercisesAsync();
+		Task SynchronizeStudentExercisesAsync();
 
 		Task SaveStudentAsync(Student item);
 		Task SaveGroupAsync(StudentGroup item);
