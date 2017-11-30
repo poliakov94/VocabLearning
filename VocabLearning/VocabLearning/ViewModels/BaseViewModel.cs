@@ -7,13 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 using VocabLearning.Models;
+using VocabLearning.Helpers;
 
 namespace VocabLearning.ViewModels
 {
 	public class BaseViewModel : BindableBase, INavigationAware
 	{
 		protected readonly INavigationService _navigationService;
-		public readonly AzureService _azureService;
+		protected readonly AzureService _azureService;
+
 
 		private bool _isBusy;
 		public bool IsBusy
@@ -31,7 +33,8 @@ namespace VocabLearning.ViewModels
 		{
 			_navigationService = navigationService;
 			NavigateCommand = new DelegateCommand<string>(Navigate);
-			_azureService = DependencyService.Get<AzureService>();
+
+			_azureService = AzureService.DefaultService;
 		}
 
 		public BaseViewModel()

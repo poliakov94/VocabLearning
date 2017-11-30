@@ -64,9 +64,11 @@ namespace VocabLearning.ViewModels
 
 			try
 			{
-				await _azureService.SaveGroupAsync(group);
-				await _azureService.SynchronizeGroupsAsync();
-				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));
+				var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+				await groupsTable.CreateItemAsync(group);
+				await _azureService.SyncOfflineCacheAsync();
+
+				OnNavigatingTo(null);
 			}
 			catch (Exception e)
 			{
@@ -87,10 +89,12 @@ namespace VocabLearning.ViewModels
 			if (!answer)
 				return;
 			try
-			{
-				await _azureService.DeleteGroupAsync(group);
-				await _azureService.SynchronizeGroupsAsync();
-				Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));				
+			{		
+				var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+				await groupsTable.DeleteItemAsync(group);
+				await _azureService.SyncOfflineCacheAsync();
+
+				OnNavigatingTo(null);
 			}
 			catch (Exception e)
 			{
@@ -112,22 +116,22 @@ namespace VocabLearning.ViewModels
 		}
 
 		public override async void OnNavigatingTo(NavigationParameters parameters)
-		{
-			//if (Groups == null && parameters.ContainsKey("teacherid"))
-			//{
-			//	var teacherId = (string)parameters["teacherid"];
-			//	Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(teacherId));
-			//}			
-			
+		{			
 			IsBusy = true;
 
 			try
 			{
-				var groups = (await _azureService.GetGroupsAsync("")).ToList();
+				await _azureService.SyncOfflineCacheAsync();
+				var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+				var groups = await groupsTable.ReadAllItemsAsync();
+
+				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+				var assignments = await assignmentsTable.ReadAllItemsAsync();
+
 				foreach (var group in groups)
 				{
-					group.AssignmentsCount = (await _azureService.GetAssignmentsAsync(group.Id)).ToList().Count();
-					//group.GroupSize = (await _azureService.GetStudentsAsync(group.Id)).ToList().Count();
+					group.Assignments = assignments.Where(a => a.StudentGroup_Id == group.Id).ToList();
+					group.AssignmentsCount = group.Assignments.Count();
 				}
 
 				Groups = new ObservableCollection<StudentGroup>(groups);

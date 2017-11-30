@@ -1,5 +1,8 @@
-﻿using Prism.Navigation;
-using Prism.Services;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Navigation;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using VocabLearning.Helpers;
@@ -7,10 +10,8 @@ using VocabLearning.Models;
 
 namespace VocabLearning.ViewModels
 {
-	public class TeacherAssignmentsPageViewModel : BaseViewModel
+	public class StudentAssignmentsPageViewModel : BaseViewModel
 	{
-		IPageDialogService _pageDialogService;
-
 		public ObservableCollection<ObservableGroupCollection<string, Assignment>> _Assignments;
 		public ObservableCollection<ObservableGroupCollection<string, Assignment>> Assignments { get { return _Assignments; } set { _Assignments = value; RaisePropertyChanged("Assignments"); } }
 
@@ -28,22 +29,21 @@ namespace VocabLearning.ViewModels
 					{ "model", _assignmentSelected }
 				};
 
-				_navigationService.NavigateAsync("AssignmentExercisesPage", navigationParams, false);
+				//_navigationService.NavigateAsync("AssignmentExercisesPage", navigationParams, false);
 			}
 		}
-
-		public TeacherAssignmentsPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
+		public StudentAssignmentsPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
-			_pageDialogService = pageDialogService;
-		}		
+
+		}
 
 		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
 			//var assignments = (await _azureService.GetAssignmentsAsync())
 			//	//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
 			//	.ToList();
-						
+
 			//var grouped =
 			//	assignments.OrderBy(a => a.StudentGroup.Name)
 			//	.GroupBy(a => a.StudentGroup.Name)

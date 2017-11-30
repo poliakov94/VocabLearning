@@ -10,7 +10,7 @@ namespace VocabLearning.Models
 	class StudentExercise : TableData
 	{
 		[JsonIgnore]
-		public Student Student { get; set; }
+		public User Student { get; set; }
 		public string Student_Id { get; set; }
 
 		[JsonIgnore]

@@ -20,8 +20,8 @@ namespace VocabLearning.ViewModels
 			get { return (Students == null || Students.Count == 0); }			
 		}
 
-		public ObservableCollection<Student> _Students = new ObservableCollection<Student>();
-		public ObservableCollection<Student> Students { get { return _Students; } set { _Students = value; RaisePropertyChanged("Students"); } }
+		public ObservableCollection<User> _Students = new ObservableCollection<User>();
+		public ObservableCollection<User> Students { get { return _Students; } set { _Students = value; RaisePropertyChanged("Students"); } }
 		
 		public StudentsManagingPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
 			: base(navigationService)
@@ -35,7 +35,7 @@ namespace VocabLearning.ViewModels
 			{
 				Group = (StudentGroup)parameters["model"];
 				if (Group.Students != null)
-					Students = new ObservableCollection<Student>(Group.Students);
+					Students = new ObservableCollection<User>(Group.Students);
 			}
 
 			RaisePropertyChanged("IsEmpty");

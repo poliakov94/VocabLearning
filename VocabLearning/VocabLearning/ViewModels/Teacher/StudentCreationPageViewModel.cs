@@ -11,8 +11,8 @@ namespace VocabLearning.ViewModels
 {
 	public class StudentCreationPageViewModel : BaseViewModel
 	{
-		private Student _student;
-		public Student Student
+		private User _student;
+		public User Student
 		{
 			get { return _student; }
 			set { SetProperty(ref _student, value); }

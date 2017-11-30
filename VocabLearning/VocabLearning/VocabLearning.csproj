@@ -11,7 +11,7 @@
     <RootNamespace>VocabLearning</RootNamespace>
     <AssemblyName>VocabLearning</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile7</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <NuGetPackageImportStamp>
@@ -35,19 +35,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Locations.cs" />
     <Compile Include="Helpers\ObservableGroupCollection.cs" />
+    <Compile Include="Helpers\ServiceLocator.cs" />
     <Compile Include="Models\MasterMenuItem.cs" />
-    <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentExercise.cs" />
     <Compile Include="Models\StudentGroup.cs" />
     <Compile Include="Models\Exercise.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\TableData.cs" />
-    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AuthInfo.cs" />
+    <Compile Include="Services\AzureCloudTable.cs" />
     <Compile Include="Services\AzureService.cs" />
     <Compile Include="Services\IAzureService.cs" />
+    <Compile Include="Services\ICloudTable.cs" />
+    <Compile Include="Services\ILoginProvider.cs" />
+    <Compile Include="Services\LoginProvider.cs" />
     <Compile Include="ViewModels\Teacher\AssignmentExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\DesignTimeViewModels\AssignmentCreationDummyViewModel.cs" />
     <Compile Include="ViewModels\Teacher\AssignmentCreationPageViewModel.cs" />
@@ -64,7 +68,7 @@
     <Compile Include="ViewModels\Student\StudentMasterDetailPageViewModel.cs" />
     <Compile Include="ViewModels\Student\StudentOverviewPageViewModel.cs" />
     <Compile Include="ViewModels\Student\StudentProgressPageViewModel.cs" />
-    <Compile Include="ViewModels\Student\StudentExercisesPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\StudentAssignmentsPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\StudentsManaginPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\StudentsSearchPageViewModel.cs" />
     <Compile Include="ViewModels\Student\StudentTestPageViewModel.cs" />
@@ -113,8 +117,8 @@
     <Compile Include="Views\Student\StudentProgressPage.xaml.cs">
       <DependentUpon>StudentProgressPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Student\StudentExercisesPage.xaml.cs">
-      <DependentUpon>StudentExercisesPage.xaml</DependentUpon>
+    <Compile Include="Views\Student\StudentAssignmentsPage.xaml.cs">
+      <DependentUpon>StudentAssignmentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Teacher\StudentsManagingPage.xaml.cs">
       <DependentUpon>StudentsManagingPage.xaml</DependentUpon>
@@ -169,6 +173,9 @@
     <Reference Include="Microsoft.Azure.Mobile.Client.SQLiteStore, Version=4.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.SQLiteStore.4.0.2\lib\portable-net45+win8+wp8+wpa81\Microsoft.Azure.Mobile.Client.SQLiteStore.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Identity.Client.1.1.0-preview\lib\netstandard1.1\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -202,14 +209,14 @@
     <Reference Include="SQLitePCLRaw.core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SQLitePCLRaw.core.1.1.2\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCLRaw.core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\netstandard1.1\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="Validation, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Validation.2.2.8\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Validation.dll</HintPath>
@@ -225,6 +232,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -276,7 +284,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Student\StudentExercisesPage.xaml">
+    <EmbeddedResource Include="Views\Student\StudentAssignmentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

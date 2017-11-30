@@ -51,31 +51,31 @@ namespace VocabLearning.ViewModels
 
 		async void ExecuteCreateAssignmentCommand()
 		{
-			Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
-			Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
-			Assignment.StudentGroup = SelectedGroup;
-			Assignment.StudentGroup_Id = SelectedGroup.Id;
-			await _azureService.SaveAssignmentAsync(Assignment);
-			await _azureService.SynchronizeAssignmentsAsync();
+			//Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
+			//Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
+			//Assignment.StudentGroup = SelectedGroup;
+			//Assignment.StudentGroup_Id = SelectedGroup.Id;
+			//await _azureService.SaveAssignmentAsync(Assignment);
+			//await _azureService.SynchronizeAssignmentsAsync();
 
-			await _navigationService.GoBackAsync();
+			//await _navigationService.GoBackAsync();
 		}
 
 		public override async void OnNavigatingTo(NavigationParameters parameters)
 		{
-			Assignment = new Assignment()
-			{
-				ValidFrom = System.DateTime.Now,
-				ValidUntil = System.DateTime.Now,
-				Name = "Enter a name"				
-			};
+			//Assignment = new Assignment()
+			//{
+			//	ValidFrom = System.DateTime.Now,
+			//	ValidUntil = System.DateTime.Now,
+			//	Name = "Enter a name"				
+			//};
 
-			ValidFromTime = Assignment.ValidFrom.TimeOfDay;
-			ValidUntilTime = Assignment.ValidUntil.TimeOfDay;
-			RaisePropertyChanged("ValidFromTime");
-			RaisePropertyChanged("ValidUntilTime");
+			//ValidFromTime = Assignment.ValidFrom.TimeOfDay;
+			//ValidUntilTime = Assignment.ValidUntil.TimeOfDay;
+			//RaisePropertyChanged("ValidFromTime");
+			//RaisePropertyChanged("ValidUntilTime");
 
-			Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync(""));
+			//Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync());
 		}
 	}
 }

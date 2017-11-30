@@ -3,7 +3,9 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using VocabLearning.Models;
 
 namespace VocabLearning.ViewModels
 {
@@ -13,6 +15,6 @@ namespace VocabLearning.ViewModels
 			: base(navigationService)
 		{
 
-		}		
+		}
 	}
 }

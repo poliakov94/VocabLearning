@@ -2,18 +2,28 @@
 using VocabLearning.Views;
 using VocabLearning.ViewModels;
 using Xamarin.Forms;
+using VocabLearning.Services;
+using VocabLearning.Helpers;
+using Microsoft.Identity.Client;
 
 namespace VocabLearning
 {
 	public partial class App : PrismApplication
 	{
+		public static ILoginProvider LoginProvider { get; private set; }
+
+		public static UIParent UiParent = null;
+
 		public App(IPlatformInitializer initializer = null) : base(initializer) { }
-		public App() : base(null) { }
+		public App() : base(null)
+		{
+			ServiceLocator.Instance.Add<IAzureService, AzureService>();
+		}
 
 		protected override void OnInitialized()
 		{
 			InitializeComponent();
-
+			LoginProvider = new LoginProvider();
 			NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");			
 		}
 
@@ -32,7 +42,7 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<StudentMasterDetailPage, StudentMasterDetailPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentOverviewPage, StudentOverviewPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentProgressPage, StudentProgressPageViewModel>();
-			Container.RegisterTypeForNavigation<StudentExercisesPage, StudentExercisesPageViewModel>();
+			Container.RegisterTypeForNavigation<StudentAssignmentsPage, StudentAssignmentsPageViewModel>();
 			Container.RegisterTypeForNavigation<StudentTestPage, StudentTestPageViewModel>();
 
 			Container.RegisterTypeForNavigation<AssignmentManagingPage>();

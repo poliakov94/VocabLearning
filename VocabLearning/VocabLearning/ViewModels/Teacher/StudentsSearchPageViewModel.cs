@@ -11,8 +11,8 @@ namespace VocabLearning.ViewModels
 {
 	public class StudentsSearchPageViewModel : BaseViewModel
 	{
-		private Student _studentSelected;
-		public Student StudentSelected
+		private User _studentSelected;
+		public User StudentSelected
 		{
 			get { return _studentSelected; }
 			set
@@ -22,8 +22,8 @@ namespace VocabLearning.ViewModels
 				RaisePropertyChanged("ItemSelected");
 			}
 		}
-		public ObservableCollection<Student> _students = new ObservableCollection<Student>();
-		public ObservableCollection<Student> Students { get { return _students; } set { _students = value; } }
+		public ObservableCollection<User> _students = new ObservableCollection<User>();
+		public ObservableCollection<User> Students { get { return _students; } set { _students = value; } }
 
 		public StudentsSearchPageViewModel(INavigationService navigationService)
 			: base(navigationService)

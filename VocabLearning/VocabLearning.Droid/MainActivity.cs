@@ -1,13 +1,19 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.OS;
-using Prism.Unity;
+using Microsoft.Identity.Client;
 using Microsoft.Practices.Unity;
+using Microsoft.WindowsAzure.MobileServices;
+using Prism.Services;
+using Prism.Unity;
+using System;
+using VocabLearning.Helpers;
+using VocabLearning.Services;
+using Xamarin.Forms;
 
 namespace VocabLearning.Droid
 {
@@ -22,9 +28,16 @@ namespace VocabLearning.Droid
 			base.OnCreate(bundle);
 
 			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
-
 			global::Xamarin.Forms.Forms.Init(this, bundle);
-			LoadApplication(new App(new AndroidInitializer()));			
+			LoadApplication(new App(new AndroidInitializer()));
+			
+			App.UiParent = new UIParent(Xamarin.Forms.Forms.Context as Activity);
+		}
+
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+			AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
 		}
 	}
 
@@ -34,6 +47,6 @@ namespace VocabLearning.Droid
 		{
 
 		}
-	}
+	}	
 }
 

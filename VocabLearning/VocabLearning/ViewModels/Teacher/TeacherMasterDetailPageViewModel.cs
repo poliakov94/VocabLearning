@@ -75,7 +75,7 @@ namespace VocabLearning.ViewModels
 		{
 			IsBusy = true;
 
-			await _azureService.Init();
+			//await _azureService.Init();
 
 			IsBusy = false;
 		}

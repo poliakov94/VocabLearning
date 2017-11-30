@@ -71,9 +71,9 @@ namespace VocabLearning.ViewModels
 
 			try
 			{
-				await _azureService.SaveAssignmentAsync(assignment);
-				await _azureService.SynchronizeAssignmentsAsync();
-				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
+				//await _azureService.SaveAssignmentAsync(assignment);
+				//await _azureService.SynchronizeAssignmentsAsync();
+				//Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
 			}
 			catch (Exception e)
 			{
@@ -85,19 +85,19 @@ namespace VocabLearning.ViewModels
 
 		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
-			if (parameters.ContainsKey("model"))
-			{
-				Group = (StudentGroup)parameters["model"];
-				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
-			}
-			else if (parameters.ContainsKey("groupId"))
-			{
-				var groupId = (string)parameters["groupId"];
-				Group = await _azureService.GetGroupAsync(groupId);
-				Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(groupId));
-			}
+			//if (parameters.ContainsKey("model"))
+			//{
+			//	Group = (StudentGroup)parameters["model"];
+			//	Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
+			//}
+			//else if (parameters.ContainsKey("groupId"))
+			//{
+			//	var groupId = (string)parameters["groupId"];
+			//	Group = await _azureService.GetGroupAsync(groupId);
+			//	Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(groupId));
+			//}
 
-			RaisePropertyChanged("IsEmpty");
+			//RaisePropertyChanged("IsEmpty");
 		}
 	}
 }
