@@ -19,13 +19,13 @@ namespace VocabLearning.Services
 		public LoginProvider()
 		{
 			ADB2CClient = new PublicClientApplication(Locations.ClientID, Locations.Authority);
-			ADB2CClient.RedirectUri = $"msal{Locations.ClientID}://auth";
-			
+			ADB2CClient.RedirectUri = $"msal{Locations.ClientID}://auth";			
 		}
 
-		public async Task<bool> LoginAsync(bool useSilent = false)
+		public async Task<bool?> LoginAsync(bool useSilent = false)
 		{
 			bool success = false;
+			bool? isTeacher = null;
 			try
 			{
 				AuthenticationResult authenticationResult;
@@ -57,38 +57,47 @@ namespace VocabLearning.Services
 					User = await AzureService.DefaultService.CurrentClient.LoginAsync(
 						MobileServiceAuthenticationProvider.WindowsAzureActiveDirectory,
 						payload);
+					success = true;
+
+					if (success)
+						isTeacher = await IsTeacher(authenticationResult, useSilent);
 				}
 
-				JObject azureUser = ParseIdToken(authenticationResult.IdToken);
-				var azureId = azureUser["oid"]?.ToString();
-				var _azureService = AzureService.DefaultService;
-
-				await _azureService.SyncOfflineCacheAsync();
-				var usersTable = await _azureService.GetTableAsync<User>();
-				var user = await usersTable.ReadItemAsync(azureId);
 				
-				if (user == null)
-				{
-					User newUser = new User
-					{
-						FirstName = azureUser["given_name"]?.ToString(),
-						LastName = azureUser["family_name"]?.ToString(),
-						Email = azureUser["emails"]?.ToArray()[0].ToString(),
-						Id = azureUser["oid"]?.ToString(),
-						IsTeacher = false
-					};
-					user = await usersTable.CreateItemAsync(newUser);
-					await _azureService.SyncOfflineCacheAsync();
-				}
-
-				success = user == null ? false : user.IsTeacher;
 			}
 			catch (Exception ex)
 			{
 				throw ex;
 			}
 
-			return success;
+			return isTeacher;
+		}
+
+		public async Task<bool?> IsTeacher(AuthenticationResult authenticationResult, bool useSilent)
+		{
+			JObject azureUser = ParseIdToken(authenticationResult.IdToken);
+			var azureId = azureUser["oid"]?.ToString();
+			var _azureService = AzureService.DefaultService;
+
+			await _azureService.SyncOfflineCacheAsync();
+			var usersTable = await _azureService.GetTableAsync<User>();
+			var user = await usersTable.ReadItemAsync(azureId);
+
+			if (user == null && !useSilent)
+			{
+				User newUser = new User
+				{
+					FirstName = azureUser["given_name"]?.ToString(),
+					LastName = azureUser["family_name"]?.ToString(),
+					Email = azureUser["emails"]?.ToArray()[0].ToString(),
+					Id = azureUser["oid"]?.ToString(),
+					IsTeacher = false
+				};
+				user = await usersTable.CreateItemAsync(newUser);
+				await _azureService.SyncOfflineCacheAsync();
+			}
+
+			return user?.IsTeacher;
 		}
 
 		public async Task<bool> LogoutAsync()
@@ -140,11 +149,6 @@ namespace VocabLearning.Services
 			idToken = idToken.Split('.')[1];
 			idToken = Base64UrlDecode(idToken);
 			return JObject.Parse(idToken);
-		}
-
-		public Task LoginAsync(MobileServiceClient client)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

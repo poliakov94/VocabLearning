@@ -6,10 +6,9 @@
              x:Class="VocabLearning.Views.MainPage"
              Title="MainPage">
 	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-		<Label Text="{Binding Title}" />
-		<Button Text="Navigate to speak page" Command="{Binding NavigateToSpeakPageCommand}"/>
-		<Button Text="Teacher" Command="{Binding NavigateToTeacherMasterDetailPageCommand}"/>
-		<Button Text="Student" Command="{Binding NavigateToStudentMasterDetailPageCommand}"/>
-		<Button Text="Login" Command="{Binding NavigateToLoginPageCommand}"/>
+		<Button Text="Login" TextColor="White"
+				BackgroundColor="#77D065"
+				Command="{Binding LoginCommand}" 
+				CommandParameter="{Binding .}"/>
 	</StackLayout>
 </ContentPage>
