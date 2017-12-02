@@ -36,8 +36,8 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="40*"/>
-                                    <ColumnDefinition Width="15*"/>
-									<ColumnDefinition Width="30*"/>
+                                    <ColumnDefinition Width="10*"/>
+									<ColumnDefinition Width="40*"/>
 									<ColumnDefinition Width="10*"/>
 								</Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                                 </Grid.RowDefinitions>
                                 <Label Text="{Binding Name}"
                                        Grid.Column="0"
-                                       Grid.ColumnSpan="2"
+                                       Grid.ColumnSpan="4"
                                        Grid.Row="0"
                                        Style="{DynamicResource ListItemTextStyle}"
                                        TextColor="#2196F3"
@@ -54,7 +54,7 @@
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
                                        HorizontalOptions="StartAndExpand"/>
-                                <Label Text="Students enrolled:"
+                                <Label Text="Students:"
                                        Grid.Column="0"
                                        Grid.Row="1"
                                        Style="{DynamicResource ListItemTextStyle}"

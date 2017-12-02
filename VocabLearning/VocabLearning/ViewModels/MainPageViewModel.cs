@@ -17,7 +17,7 @@ namespace VocabLearning.ViewModels
 		private INavigationService _navigationService;
 		public readonly IAzureService _azureService = ServiceLocator.Instance.Resolve<IAzureService>();
 
-		private bool? IsTeacher = null;
+		private bool IsTeacher;
 		
 		public MainPageViewModel(INavigationService navigationService)
 		{
@@ -33,7 +33,13 @@ namespace VocabLearning.ViewModels
 		{
 			try
 			{
-				IsTeacher = await App.LoginProvider.LoginAsync();
+				var authenticacted = await App.LoginProvider.LoginAsync();
+
+				if (!authenticacted)
+					return;
+
+				IsTeacher = AzureService.DefaultService.User.IsTeacher;
+
 				if (IsTeacher == true)
 				{
 					await _navigationService.NavigateAsync("app:///TeacherMasterDetailPage/NavigationPage/TeacherOverviewPage");
@@ -53,7 +59,7 @@ namespace VocabLearning.ViewModels
 		{
 		}
 
-		public async void OnNavigatingTo(NavigationParameters parameters)
+		public void OnNavigatingTo(NavigationParameters parameters)
 		{
 			//try
 			//{

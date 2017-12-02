@@ -17,6 +17,7 @@ namespace VocabLearning.Services
 	{
 		static AzureService defaultInstance = new AzureService();
 		private MobileServiceClient _MobileService { get; set; }
+		public User User { get; set; }
 		
 		public AzureService()
 		{

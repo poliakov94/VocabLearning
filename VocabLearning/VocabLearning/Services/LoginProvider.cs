@@ -22,10 +22,9 @@ namespace VocabLearning.Services
 			ADB2CClient.RedirectUri = $"msal{Locations.ClientID}://auth";			
 		}
 
-		public async Task<bool?> LoginAsync(bool useSilent = false)
+		public async Task<bool> LoginAsync(bool useSilent = false)
 		{
 			bool success = false;
-			bool? isTeacher = null;
 			try
 			{
 				AuthenticationResult authenticationResult;
@@ -60,20 +59,18 @@ namespace VocabLearning.Services
 					success = true;
 
 					if (success)
-						isTeacher = await IsTeacher(authenticationResult, useSilent);
-				}
-
-				
+						await FindUser(authenticationResult, useSilent);
+				}				
 			}
 			catch (Exception ex)
 			{
 				throw ex;
 			}
 
-			return isTeacher;
+			return success;
 		}
 
-		public async Task<bool?> IsTeacher(AuthenticationResult authenticationResult, bool useSilent)
+		public async Task FindUser(AuthenticationResult authenticationResult, bool useSilent)
 		{
 			JObject azureUser = ParseIdToken(authenticationResult.IdToken);
 			var azureId = azureUser["oid"]?.ToString();
@@ -81,9 +78,9 @@ namespace VocabLearning.Services
 
 			await _azureService.SyncOfflineCacheAsync();
 			var usersTable = await _azureService.GetTableAsync<User>();
-			var user = await usersTable.ReadItemAsync(azureId);
+			var currentUser = await usersTable.ReadItemAsync(azureId);
 
-			if (user == null && !useSilent)
+			if (currentUser == null && !useSilent)
 			{
 				User newUser = new User
 				{
@@ -93,11 +90,11 @@ namespace VocabLearning.Services
 					Id = azureUser["oid"]?.ToString(),
 					IsTeacher = false
 				};
-				user = await usersTable.CreateItemAsync(newUser);
+				currentUser = await usersTable.CreateItemAsync(newUser);
 				await _azureService.SyncOfflineCacheAsync();
 			}
 
-			return user?.IsTeacher;
+			_azureService.User = currentUser;
 		}
 
 		public async Task<bool> LogoutAsync()
