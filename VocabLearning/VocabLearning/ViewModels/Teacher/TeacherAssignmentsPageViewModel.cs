@@ -29,6 +29,8 @@ namespace VocabLearning.ViewModels
 				};
 
 				_navigationService.NavigateAsync("AssignmentExercisesPage", navigationParams, false);
+
+				_assignmentSelected = null;
 			}
 		}
 
@@ -40,17 +42,34 @@ namespace VocabLearning.ViewModels
 
 		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
-			//var assignments = (await _azureService.GetAssignmentsAsync())
-			//	//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
-			//	.ToList();
-						
-			//var grouped =
-			//	assignments.OrderBy(a => a.StudentGroup.Name)
-			//	.GroupBy(a => a.StudentGroup.Name)
-			//	.Select(a => new ObservableGroupCollection<string, Assignment>(a))
-			//	.ToList();
+			await _azureService.SyncOfflineCacheAsync();
 
-			//Assignments = new ObservableCollection<ObservableGroupCollection<string, Assignment>>(grouped);
+			var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+			var groups = (await groupsTable.ReadAllItemsAsync())
+				.Where(g => g.Teacher_Id == _azureService.User.Id)
+				.ToList();
+
+			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+			var assignments = (await assignmentsTable.ReadAllItemsAsync())
+				//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
+				.ToList();
+
+			assignments = (from g in groups
+						join a in assignments on g.Id equals a.StudentGroup_Id
+						select a).ToList();
+
+			foreach (var assignment in assignments)
+			{
+				assignment.StudentGroup = groups.FirstOrDefault(g => g.Id == assignment.StudentGroup_Id);
+			}
+
+			var grouped =
+				assignments.OrderBy(a => a.StudentGroup.Name)
+				.GroupBy(a => a.StudentGroup.Name)
+				.Select(a => new ObservableGroupCollection<string, Assignment>(a))
+				.ToList();
+
+			Assignments = new ObservableCollection<ObservableGroupCollection<string, Assignment>>(grouped);
 		}
 	}
 }

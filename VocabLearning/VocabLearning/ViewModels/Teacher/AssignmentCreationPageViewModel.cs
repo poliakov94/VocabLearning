@@ -51,31 +51,37 @@ namespace VocabLearning.ViewModels
 
 		async void ExecuteCreateAssignmentCommand()
 		{
-			//Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
-			//Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
-			//Assignment.StudentGroup = SelectedGroup;
-			//Assignment.StudentGroup_Id = SelectedGroup.Id;
-			//await _azureService.SaveAssignmentAsync(Assignment);
-			//await _azureService.SynchronizeAssignmentsAsync();
+			Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
+			Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
+			Assignment.StudentGroup = SelectedGroup;
+			Assignment.StudentGroup_Id = SelectedGroup.Id;
 
-			//await _navigationService.GoBackAsync();
+			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+			await assignmentsTable.CreateItemAsync(Assignment);
+			await _azureService.SyncOfflineCacheAsync();
+
+			await _navigationService.GoBackAsync();
 		}
 
 		public override async void OnNavigatingTo(NavigationParameters parameters)
 		{
-			//Assignment = new Assignment()
-			//{
-			//	ValidFrom = System.DateTime.Now,
-			//	ValidUntil = System.DateTime.Now,
-			//	Name = "Enter a name"				
-			//};
+			Assignment = new Assignment()
+			{
+				ValidFrom = System.DateTime.Now,
+				ValidUntil = System.DateTime.Now,
+				Name = "Enter a name"
+			};
 
-			//ValidFromTime = Assignment.ValidFrom.TimeOfDay;
-			//ValidUntilTime = Assignment.ValidUntil.TimeOfDay;
-			//RaisePropertyChanged("ValidFromTime");
-			//RaisePropertyChanged("ValidUntilTime");
+			ValidFromTime = Assignment.ValidFrom.TimeOfDay;
+			ValidUntilTime = Assignment.ValidUntil.TimeOfDay;
+			RaisePropertyChanged("ValidFromTime");
+			RaisePropertyChanged("ValidUntilTime");
 
-			//Groups = new ObservableCollection<StudentGroup>(await _azureService.GetGroupsAsync());
+			var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+			var groups = (await groupsTable.ReadAllItemsAsync())
+					.Where(g => g.Teacher_Id == _azureService.User.Id);
+
+			Groups = new ObservableCollection<StudentGroup>(groups);
 		}
 	}
 }

@@ -40,30 +40,32 @@ namespace VocabLearning.ViewModels
 
 		async void ExecuteSaveAssignmentCommand()
 		{
-			//Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
-			//Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
-			//await _azureService.SaveAssignmentAsync(Assignment);
-			//await _azureService.SynchronizeAssignmentsAsync();
+			Assignment.ValidFrom = Assignment.ValidFrom.Date + ValidFromTime;
+			Assignment.ValidUntil = Assignment.ValidUntil.Date + ValidUntilTime;
 
-			//var navigationParams = new NavigationParameters
-			//{
-			//	{ "groupId", Assignment.StudentGroup_Id }
-			//};
+			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+			await assignmentsTable.UpdateItemAsync(Assignment);
+			await _azureService.SyncOfflineCacheAsync();
 
-			//await _navigationService.GoBackAsync(navigationParams);
+			var navigationParams = new NavigationParameters
+			{
+				{ "groupId", Assignment.StudentGroup_Id }
+			};
+
+			await _navigationService.GoBackAsync(navigationParams);
 		}
 
 		public override void OnNavigatingTo(NavigationParameters parameters)
 		{
-			//if (parameters.ContainsKey("model"))
-			//{
-			//	Assignment = (Assignment)parameters["model"];
-			//	ValidFromTime = Assignment.ValidFrom.TimeOfDay;
-			//	ValidUntilTime = Assignment.ValidUntil.TimeOfDay;
-			//	RaisePropertyChanged("ValidFromTime");
-			//	RaisePropertyChanged("ValidUntilTime");
-			//	//Exercises = new ObservableCollection<Exercise>(await _azureService.GetExercisesAsync(Assignment.Id));
-			//}
+			if (parameters.ContainsKey("model"))
+			{
+				Assignment = (Assignment)parameters["model"];
+				ValidFromTime = Assignment.ValidFrom.TimeOfDay;
+				ValidUntilTime = Assignment.ValidUntil.TimeOfDay;
+				RaisePropertyChanged("ValidFromTime");
+				RaisePropertyChanged("ValidUntilTime");
+				//Exercises = new ObservableCollection<Exercise>(await _azureService.GetExercisesAsync(Assignment.Id));
+			}
 		}
 	}
 }

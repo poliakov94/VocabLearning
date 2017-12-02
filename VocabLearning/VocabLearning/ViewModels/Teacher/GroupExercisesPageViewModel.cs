@@ -65,15 +65,17 @@ namespace VocabLearning.ViewModels
 				Name = "New, tap to edit.",
 				ValidFrom = System.DateTime.Now,
 				ValidUntil = System.DateTime.Now,
-				StudentGroup = Group,
+				//StudentGroup = Group,
 				StudentGroup_Id = Group.Id
 			};
 
 			try
 			{
-				//await _azureService.SaveAssignmentAsync(assignment);
-				//await _azureService.SynchronizeAssignmentsAsync();
-				//Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
+				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+				assignment = await assignmentsTable.CreateItemAsync(assignment);
+				await _azureService.SyncOfflineCacheAsync();
+
+				Assignments.Add(assignment);
 			}
 			catch (Exception e)
 			{
@@ -85,19 +87,26 @@ namespace VocabLearning.ViewModels
 
 		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
-			//if (parameters.ContainsKey("model"))
-			//{
-			//	Group = (StudentGroup)parameters["model"];
-			//	Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(Group.Id));
-			//}
-			//else if (parameters.ContainsKey("groupId"))
-			//{
-			//	var groupId = (string)parameters["groupId"];
-			//	Group = await _azureService.GetGroupAsync(groupId);
-			//	Assignments = new ObservableCollection<Assignment>(await _azureService.GetAssignmentsAsync(groupId));
-			//}
+			if (parameters.ContainsKey("model"))
+			{
+				Group = (StudentGroup)parameters["model"];
 
-			//RaisePropertyChanged("IsEmpty");
+				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+				var assignments = (await assignmentsTable.ReadAllItemsAsync()).Where(a => a.StudentGroup_Id == Group.Id);
+
+				Assignments = new ObservableCollection<Assignment>(assignments);
+			}
+			else if (parameters.ContainsKey("groupId"))
+			{
+				var groupId = (string)parameters["groupId"];
+
+				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+				var assignments = (await assignmentsTable.ReadAllItemsAsync()).Where(a => a.StudentGroup_Id == groupId);
+
+				Assignments = new ObservableCollection<Assignment>(assignments);
+			}
+
+			RaisePropertyChanged("IsEmpty");
 		}
 	}
 }

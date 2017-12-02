@@ -128,7 +128,8 @@ namespace VocabLearning.ViewModels
 			{
 				await _azureService.SyncOfflineCacheAsync();
 				var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
-				var groups = await groupsTable.ReadAllItemsAsync();
+				var groups = (await groupsTable.ReadAllItemsAsync())
+					.Where(g => g.Teacher_Id == _azureService.User.Id);
 
 				//var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
 				//var assignments = await assignmentsTable.ReadAllItemsAsync();
