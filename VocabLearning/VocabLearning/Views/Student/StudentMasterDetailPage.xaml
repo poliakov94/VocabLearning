@@ -30,7 +30,7 @@
                                 </Grid.RowDefinitions>
                                 <Label Grid.Column="1"
                                        Grid.Row="2"
-                                       Text="Teacher"
+                                       Text="Student"
                                        TextColor="#212121"
                                        FontSize="Large"
                                        Style="{DynamicResource SubtitleStyle}"/>

@@ -2,6 +2,7 @@
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,13 +15,15 @@ namespace VocabLearning.ViewModels
 {
 	public class TeacherMasterDetailPageViewModel : BaseViewModel
 	{
+		IPageDialogService _pageDialogService;
+
 		public ObservableCollection<MasterMenuItem> _menuItems = new ObservableCollection<MasterMenuItem>();
 		public ObservableCollection<MasterMenuItem> MenuItems { get { return _menuItems; } set { _menuItems = value; } }
 
-		public TeacherMasterDetailPageViewModel(INavigationService navigationService)
-			:base(navigationService)
-		{			
-			
+		public TeacherMasterDetailPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
+			: base(navigationService)
+		{
+			_pageDialogService = pageDialogService;
 		}
 
 		private MasterMenuItem _menuItemSelected;
@@ -32,7 +35,24 @@ namespace VocabLearning.ViewModels
 				if (_menuItemSelected != value)
 					_menuItemSelected = value;
 				RaisePropertyChanged("ItemSelected");
-				_navigationService.NavigateAsync(_menuItemSelected.NavigationPage);
+
+				if (_menuItemSelected.Name != "Logout")
+					_navigationService.NavigateAsync(_menuItemSelected.NavigationPage);
+				else
+				{
+					Device.BeginInvokeOnMainThread(async () => {
+						var answer = await _pageDialogService.DisplayAlertAsync("Confirm", "Are you sure you want to sign out?", "Yes", "No");
+						if (!answer)
+						{
+							_menuItemSelected = null;
+							return;
+						}
+
+						var exit = await App.LoginProvider.LogoutAsync();
+						if (exit)
+							await _navigationService.NavigateAsync("app:///NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+					});
+				}
 			}
 		}
 
@@ -68,10 +88,17 @@ namespace VocabLearning.ViewModels
 				IconSource = "assignments.png"
 			});
 
+			_menuItems.Add(new MasterMenuItem
+			{
+				Name = "Logout",
+				NavigationPage = "",
+				IconSource = "assignments.png"
+			});
+
 			RaisePropertyChanged("MenuItems");
 		}
 
-		public override async void OnNavigatingTo(NavigationParameters parameters)
+		public override void OnNavigatingTo(NavigationParameters parameters)
 		{
 			IsBusy = true;
 

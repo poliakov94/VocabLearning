@@ -18,7 +18,9 @@ namespace VocabLearning.ViewModels
 		public readonly IAzureService _azureService = ServiceLocator.Instance.Resolve<IAzureService>();
 
 		private bool IsTeacher;
-		
+		private bool Authenticated;
+		public bool ShowLoginButton { get; set; }
+
 		public MainPageViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
@@ -33,10 +35,10 @@ namespace VocabLearning.ViewModels
 		{
 			try
 			{
-				var authenticacted = await App.LoginProvider.LoginAsync();
-
-				if (!authenticacted)
-					return;
+				if (!Authenticated)
+				{
+					Authenticated = await App.LoginProvider.LoginAsync();
+				}
 
 				IsTeacher = AzureService.DefaultService.User.IsTeacher;
 
@@ -59,24 +61,36 @@ namespace VocabLearning.ViewModels
 		{
 		}
 
-		public void OnNavigatingTo(NavigationParameters parameters)
+		public async void OnNavigatingTo(NavigationParameters parameters)
 		{
-			//try
-			//{
-			//	IsTeacher = await App.LoginProvider.LoginAsync(true);
-			//	if (IsTeacher == true)
-			//	{
-			//		await _navigationService.NavigateAsync("app:///TeacherMasterDetailPage/NavigationPage/TeacherOverviewPage");
-			//	}
-			//	else if (IsTeacher == false)
-			//	{
-			//		await _navigationService.NavigateAsync("app:///StudentMasterDetailPage/NavigationPage/StudentOverviewPage");
-			//	}
-			//}
-			//catch (MsalException ex)
-			//{
-			//	await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
-			//}
+			
+			if (!App.LoginProvider.ClientCached())
+			{
+				Authenticated = false;
+				ShowLoginButton = true;
+				RaisePropertyChanged("ShowLoginButton");
+				return;
+			}
+
+			Authenticated = await App.LoginProvider.LoginAsync(true);
+
+			if (!Authenticated)
+			{
+				ShowLoginButton = true;
+				RaisePropertyChanged("ShowLoginButton");
+				return;
+			}
+
+			IsTeacher = AzureService.DefaultService.User.IsTeacher;
+
+			if (IsTeacher == true)
+			{
+				await _navigationService.NavigateAsync("app:///TeacherMasterDetailPage/NavigationPage/TeacherOverviewPage");
+			}
+			else if (IsTeacher == false)
+			{
+				await _navigationService.NavigateAsync("app:///StudentMasterDetailPage/NavigationPage/StudentOverviewPage");
+			}
 		}
 
 		public void OnNavigatedFrom(NavigationParameters parameters)

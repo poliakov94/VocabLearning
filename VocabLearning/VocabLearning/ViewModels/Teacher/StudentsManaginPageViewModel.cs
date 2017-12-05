@@ -1,9 +1,5 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
+﻿using Prism.Navigation;
 using Prism.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using VocabLearning.Models;
@@ -29,11 +25,16 @@ namespace VocabLearning.ViewModels
 			_pageDialogService = pageDialogService;
 		}
 				
-		public override void OnNavigatingTo(NavigationParameters parameters)
+		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
 			if (parameters.ContainsKey("model"))
 			{
 				Group = (StudentGroup)parameters["model"];
+
+				var studentsTable = await _azureService.GetTableAsync<User>();
+				var students = await studentsTable.ReadAllItemsAsync();
+				Group.Students = students.Where(s => s.StudentGroup_Id == Group.Id).ToList();
+
 				if (Group.Students != null)
 					Students = new ObservableCollection<User>(Group.Students);
 			}

@@ -38,7 +38,7 @@ namespace VocabLearning.ViewModels
 
 		}
 
-		public async override void OnNavigatingTo(NavigationParameters parameters)
+		public override void OnNavigatingTo(NavigationParameters parameters)
 		{
 			//var assignments = (await _azureService.GetAssignmentsAsync())
 			//	//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))

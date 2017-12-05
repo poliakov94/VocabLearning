@@ -1,9 +1,7 @@
 ﻿using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -36,6 +34,8 @@ namespace VocabLearning.ViewModels
 				};
 
 				_navigationService.NavigateAsync("AssignmentManagingPage", navigationParams, false);
+
+				_assignmentSelected = null;
 			}
 		}
 		public ObservableCollection<Assignment> _Assignments = new ObservableCollection<Assignment>();
@@ -63,8 +63,8 @@ namespace VocabLearning.ViewModels
 			var assignment = new Assignment()
 			{
 				Name = "New, tap to edit.",
-				ValidFrom = System.DateTime.Now,
-				ValidUntil = System.DateTime.Now,
+				ValidFrom = DateTime.Now,
+				ValidUntil = DateTime.Now,
 				//StudentGroup = Group,
 				StudentGroup_Id = Group.Id
 			};

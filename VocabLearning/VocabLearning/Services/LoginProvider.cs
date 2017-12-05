@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +23,16 @@ namespace VocabLearning.Services
 			ADB2CClient.RedirectUri = $"msal{Locations.ClientID}://auth";			
 		}
 
+		public bool ClientCached()
+		{
+			return GetUserByPolicy(ADB2CClient.Users, Locations.PolicySignUpSignIn) != null;
+		}
+
 		public async Task<bool> LoginAsync(bool useSilent = false)
 		{
 			bool success = false;
 			try
-			{
+			{				
 				AuthenticationResult authenticationResult;
 
 				if (useSilent)
@@ -110,6 +116,7 @@ namespace VocabLearning.Services
 					{
 						ADB2CClient.Remove(user);
 					}
+					AzureService.DefaultService.User = null;
 					User = null;
 					success = true;
 				}
@@ -128,7 +135,6 @@ namespace VocabLearning.Services
 				string userIdentifier = Base64UrlDecode(user.Identifier.Split('.')[0]);
 				if (userIdentifier.EndsWith(policy.ToLower())) return user;
 			}
-
 			return null;
 		}
 

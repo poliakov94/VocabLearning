@@ -9,6 +9,7 @@
 		<Button Text="Login" TextColor="White"
 				BackgroundColor="#77D065"
 				Command="{Binding LoginCommand}" 
-				CommandParameter="{Binding .}"/>
+				CommandParameter="{Binding .}"
+				IsEnabled="{Binding ShowLoginButton}"/>
 	</StackLayout>
 </ContentPage>

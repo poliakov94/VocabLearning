@@ -51,7 +51,7 @@
                                            FontSize="20"
                                            VerticalTextAlignment="Center"
                                            HorizontalOptions="StartAndExpand"/>
-                                    <Label Text="{Binding Surname}"
+                                    <Label Text="{Binding LastName}"
                                            Grid.Column="0"
                                            Grid.Row="1"
                                            Style="{DynamicResource ListItemTextStyle}"
