@@ -52,6 +52,7 @@
     <Compile Include="Services\ICloudTable.cs" />
     <Compile Include="Services\ILoginProvider.cs" />
     <Compile Include="Services\LoginProvider.cs" />
+    <Compile Include="ViewModels\Student\StudentLearningPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\AssignmentExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\DesignTimeViewModels\AssignmentCreationDummyViewModel.cs" />
     <Compile Include="ViewModels\Teacher\AssignmentCreationPageViewModel.cs" />
@@ -77,6 +78,9 @@
     <Compile Include="ViewModels\Teacher\TeacherProgressPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\TeacherStudentsPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\TeacherAssignmentsPageViewModel.cs" />
+    <Compile Include="Views\Student\StudentLearningPage.xaml.cs">
+      <DependentUpon>StudentLearningPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Teacher\AssignmentCreationPage.xaml.cs">
       <DependentUpon>AssignmentCreationPage.xaml</DependentUpon>
     </Compile>
@@ -363,7 +367,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Student\StudentLearningPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

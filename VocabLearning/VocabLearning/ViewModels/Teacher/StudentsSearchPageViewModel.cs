@@ -1,7 +1,9 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using VocabLearning.Models;
 
@@ -11,7 +13,12 @@ namespace VocabLearning.ViewModels
 	{
 		IPageDialogService _pageDialogService;
 
-		public StudentGroup Group;
+		private StudentGroup group;
+		public StudentGroup Group
+		{
+			get { return group; }
+			set { SetProperty(ref group, value); }
+		}
 
 		private User _studentSelected;
 		public User StudentSelected
@@ -45,12 +52,23 @@ namespace VocabLearning.ViewModels
 			}
 
 			StudentSelected.StudentGroup_Id = Group.Id;
+			try
+			{
+				var studentsTable = await _azureService.GetTableAsync<User>();
+				var student = await studentsTable.UpdateItemAsync(StudentSelected);
 
-			var studentsTable = await _azureService.GetTableAsync<User>();
-			var student = await studentsTable.UpdateItemAsync(StudentSelected);
+				await _azureService.SyncOfflineCacheAsync();
 
-			await _azureService.SyncOfflineCacheAsync();
-			await _navigationService.GoBackAsync();
+				var navigationParams = new NavigationParameters
+				{
+					{ "model", Group }
+				};
+				await _navigationService.GoBackAsync(navigationParams);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.ToString());
+			}
 		}
 
 		public async override void OnNavigatingTo(NavigationParameters parameters)

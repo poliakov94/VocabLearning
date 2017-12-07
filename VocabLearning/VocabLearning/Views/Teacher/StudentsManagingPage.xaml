@@ -6,7 +6,7 @@
                  x:Class="VocabLearning.Views.StudentsManagingPage"
                  Title="StudentsManagingPage">
         <ContentPage.ToolbarItems>
-            <ToolbarItem Text="Add student" Command="{Binding NavigateCommand}" CommandParameter="StudentsSearchPage"/>
+            <ToolbarItem Text="Add student" Command="{Binding AddStudentCommand}" CommandParameter="{Binding .}"/>
         </ContentPage.ToolbarItems>
         <StackLayout>
             <StackLayout VerticalOptions="FillAndExpand"
@@ -23,9 +23,8 @@
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="True"
                       IsPullToRefreshEnabled="False"
-                      ItemsSource="{Binding Path=Group.Students}"
-                      SelectedItem="{Binding StudentSelected, Mode=TwoWay}"
-                      IsVisible="False">
+                      ItemsSource="{Binding Students}"
+                      SelectedItem="{Binding StudentSelected, Mode=TwoWay}">
                 <ListView.Triggers>
                     <DataTrigger TargetType="ListView" Binding="{Binding IsEmpty}" Value="True">
                         <Setter Property="IsVisible" Value="False"/>
@@ -52,14 +51,14 @@
                                            VerticalTextAlignment="Center"
                                            HorizontalOptions="StartAndExpand"/>
                                     <Label Text="{Binding LastName}"
-                                           Grid.Column="0"
-                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           Grid.Row="0"
                                            Style="{DynamicResource ListItemTextStyle}"
                                            FontSize="20"
                                            VerticalTextAlignment="Center"
                                            HorizontalOptions="StartAndExpand"/>
                                     <Label Text="{Binding Email}"
-                                           Grid.Column="1"
+                                           Grid.Column="0"
                                            Grid.ColumnSpan="2"
                                            Grid.Row="1"
                                            Style="{DynamicResource ListItemTextStyle}"

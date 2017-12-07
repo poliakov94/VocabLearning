@@ -6,5 +6,63 @@
              x:Class="VocabLearning.Views.StudentAssignmentsPage"
 			 Title="Assignments"
 			 x:Name="Assignments">
-  
+	
+	<ListView x:Name="AssignmentList"
+			  VerticalOptions="FillAndExpand"
+			  HasUnevenRows="True"
+			  SeparatorColor="#BDBDBD"
+			  IsPullToRefreshEnabled="False"
+			  ItemsSource="{Binding Assignments}"
+			  SelectedItem="{Binding AssignmentSelected, Mode=TwoWay}">
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<StackLayout VerticalOptions="FillAndExpand" Margin="5,0,0,10">
+						<Grid Margin="5,5,5,5">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40"/>
+								<RowDefinition Height="20"/>
+								<RowDefinition Height="20"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Name}"
+								   Grid.Column="0"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextStyle}"
+								   TextColor="#2196F3"
+								   FontSize="20"
+								   FontAttributes="Bold"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+							<Label Text="Start"
+								   Grid.Column="0"
+								   Grid.Row="1"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"/>
+							<Label Text="Due date"
+								   Grid.Column="1"
+								   Grid.Row="1"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"/>
+							<Label Text="{Binding ValidFrom, StringFormat='{0:d MMM, HH:mm}'}"
+								   Grid.Column="0"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"
+								   FontAttributes="Bold"/>
+							<Label Text="{Binding ValidUntil, StringFormat='{0:d MMM, HH:mm}'}"
+								   Grid.Column="1"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"
+								   FontAttributes="Bold"/>
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+	</ListView>
 </ContentPage>

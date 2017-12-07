@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Navigation;
 using Prism.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,6 +19,20 @@ namespace VocabLearning.ViewModels
 
 		public ObservableCollection<User> _Students = new ObservableCollection<User>();
 		public ObservableCollection<User> Students { get { return _Students; } set { _Students = value; RaisePropertyChanged("Students"); } }
+
+		private DelegateCommand _addStudentCommand;
+		public DelegateCommand AddStudentCommand =>
+			_addStudentCommand ?? (_addStudentCommand = new DelegateCommand(ExecuteAddStudentCommand));
+
+		void ExecuteAddStudentCommand()
+		{
+			var navigationParams = new NavigationParameters
+			{
+				{ "model", Group }
+			};
+
+			_navigationService.NavigateAsync("StudentsSearchPage", navigationParams, false);
+		}
 		
 		public StudentsManagingPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
 			: base(navigationService)
@@ -32,11 +47,11 @@ namespace VocabLearning.ViewModels
 				Group = (StudentGroup)parameters["model"];
 
 				var studentsTable = await _azureService.GetTableAsync<User>();
-				var students = await studentsTable.ReadAllItemsAsync();
-				Group.Students = students.Where(s => s.StudentGroup_Id == Group.Id).ToList();
-
-				if (Group.Students != null)
-					Students = new ObservableCollection<User>(Group.Students);
+				var students = (await studentsTable.ReadAllItemsAsync())
+					.Where(s => s.StudentGroup_Id == Group.Id)
+					.ToList();
+				
+				Students = new ObservableCollection<User>(students);
 			}
 
 			RaisePropertyChanged("IsEmpty");

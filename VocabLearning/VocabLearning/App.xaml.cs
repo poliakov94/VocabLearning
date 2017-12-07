@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using VocabLearning.Services;
 using VocabLearning.Helpers;
 using Microsoft.Identity.Client;
+using VocabLearning.Views.Student;
 
 namespace VocabLearning
 {
@@ -56,6 +57,7 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<ExerciseCreationPage>();
 			Container.RegisterTypeForNavigation<AssignmentCreationPage>();
 			Container.RegisterTypeForNavigation<AssignmentExercisesPage>();
+			Container.RegisterTypeForNavigation<StudentLearningPage>();
 		}
 	}
 }

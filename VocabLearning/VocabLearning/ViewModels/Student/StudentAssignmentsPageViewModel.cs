@@ -1,19 +1,14 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
-using System;
-using System.Collections.Generic;
+﻿using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
-using VocabLearning.Helpers;
 using VocabLearning.Models;
 
 namespace VocabLearning.ViewModels
 {
 	public class StudentAssignmentsPageViewModel : BaseViewModel
 	{
-		public ObservableCollection<ObservableGroupCollection<string, Assignment>> _Assignments;
-		public ObservableCollection<ObservableGroupCollection<string, Assignment>> Assignments { get { return _Assignments; } set { _Assignments = value; RaisePropertyChanged("Assignments"); } }
+		public ObservableCollection<Assignment> _Assignments;
+		public ObservableCollection<Assignment> Assignments { get { return _Assignments; } set { _Assignments = value; RaisePropertyChanged("Assignments"); } }
 
 		private Assignment _assignmentSelected;
 		public Assignment AssignmentSelected
@@ -29,7 +24,9 @@ namespace VocabLearning.ViewModels
 					{ "model", _assignmentSelected }
 				};
 
-				//_navigationService.NavigateAsync("AssignmentExercisesPage", navigationParams, false);
+				_navigationService.NavigateAsync("StudentLearningPage", navigationParams, false);
+
+				_assignmentSelected = null;
 			}
 		}
 		public StudentAssignmentsPageViewModel(INavigationService navigationService)
@@ -38,19 +35,26 @@ namespace VocabLearning.ViewModels
 
 		}
 
-		public override void OnNavigatingTo(NavigationParameters parameters)
+		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
-			//var assignments = (await _azureService.GetAssignmentsAsync())
-			//	//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
-			//	.ToList();
+			await _azureService.SyncOfflineCacheAsync();
 
-			//var grouped =
-			//	assignments.OrderBy(a => a.StudentGroup.Name)
-			//	.GroupBy(a => a.StudentGroup.Name)
-			//	.Select(a => new ObservableGroupCollection<string, Assignment>(a))
-			//	.ToList();
+			var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+			var group = (await groupsTable.ReadAllItemsAsync())
+				.FirstOrDefault(g => g.Id == _azureService.User.StudentGroup_Id);
 
-			//Assignments = new ObservableCollection<ObservableGroupCollection<string, Assignment>>(grouped);
+			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
+			var assignments = (await assignmentsTable.ReadAllItemsAsync())
+				.Where(a => a.StudentGroup_Id == group.Id)
+				//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
+				.ToList();
+			
+			foreach (var assignment in assignments)
+			{
+				assignment.StudentGroup = group;
+			}
+			
+			Assignments = new ObservableCollection<Assignment>(assignments);
 		}
 	}
 }

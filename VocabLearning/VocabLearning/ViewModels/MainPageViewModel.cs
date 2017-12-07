@@ -20,6 +20,12 @@ namespace VocabLearning.ViewModels
 		private bool IsTeacher;
 		private bool Authenticated;
 		public bool ShowLoginButton { get; set; }
+		private bool isBusy;
+		public bool IsBusy
+		{
+			get { return isBusy; }
+			set { SetProperty(ref isBusy, value); }
+		}
 
 		public MainPageViewModel(INavigationService navigationService)
 		{
@@ -33,10 +39,11 @@ namespace VocabLearning.ViewModels
 
 		async void ExecuteLoginCommand()
 		{
+			IsBusy = true;
 			try
 			{
 				if (!Authenticated)
-				{
+				{					
 					Authenticated = await App.LoginProvider.LoginAsync();
 				}
 
@@ -55,6 +62,7 @@ namespace VocabLearning.ViewModels
 			{
 				await Application.Current.MainPage.DisplayAlert("Login Failed", ex.Message, "OK");
 			}
+			IsBusy = false;
 		}
 
 		public void OnNavigatedTo(NavigationParameters parameters)
@@ -72,12 +80,14 @@ namespace VocabLearning.ViewModels
 				return;
 			}
 
+			IsBusy = true;
 			Authenticated = await App.LoginProvider.LoginAsync(true);
+			IsBusy = false;
 
 			if (!Authenticated)
 			{
 				ShowLoginButton = true;
-				RaisePropertyChanged("ShowLoginButton");
+				RaisePropertyChanged("ShowLoginButton");				
 				return;
 			}
 
