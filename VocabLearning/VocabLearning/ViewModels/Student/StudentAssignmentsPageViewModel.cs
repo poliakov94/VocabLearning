@@ -47,12 +47,7 @@ namespace VocabLearning.ViewModels
 			var assignments = (await assignmentsTable.ReadAllItemsAsync())
 				.Where(a => a.StudentGroup_Id == group.Id)
 				//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
-				.ToList();
-			
-			foreach (var assignment in assignments)
-			{
-				assignment.StudentGroup = group;
-			}
+				.ToList();			
 			
 			Assignments = new ObservableCollection<Assignment>(assignments);
 		}

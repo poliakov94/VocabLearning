@@ -2,11 +2,8 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using VocabLearning.Helpers;
-using VocabLearning.Models;
 using VocabLearning.Services;
 using Xamarin.Forms;
 
@@ -49,6 +46,8 @@ namespace VocabLearning.ViewModels
 
 				IsTeacher = AzureService.DefaultService.User.IsTeacher;
 
+				Debug.WriteLine($"User authenticated, IsTeacher = {IsTeacher}");
+
 				if (IsTeacher == true)
 				{
 					await _navigationService.NavigateAsync("app:///TeacherMasterDetailPage/NavigationPage/TeacherOverviewPage");
@@ -77,6 +76,7 @@ namespace VocabLearning.ViewModels
 				Authenticated = false;
 				ShowLoginButton = true;
 				RaisePropertyChanged("ShowLoginButton");
+				Debug.WriteLine("Client not cached, showing login page...");
 				return;
 			}
 

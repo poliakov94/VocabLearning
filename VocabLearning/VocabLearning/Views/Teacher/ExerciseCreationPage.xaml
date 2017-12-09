@@ -2,7 +2,42 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+			 xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="VocabLearning.Views.ExerciseCreationPage">
-  
+             x:Class="VocabLearning.Views.ExerciseCreationPage"
+			 Title="Exercise"
+			 x:Name="ExerciseCreationPage"
+			 BackgroundColor="#EFEFF4">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Save" Command="{Binding SaveExerciseCommand}"/>
+	</ContentPage.ToolbarItems>
+	<StackLayout VerticalOptions="FillAndExpand" Margin="10,50,10,10">
+		<Entry Text="{Binding Path=Exercise.Word}" 
+				Placeholder="Word"
+				Keyboard="Text" 
+				TextColor="#212121" 
+				FontSize="Large"/>
+		<Entry Text="{Binding Path=Exercise.TranslatedWord}" 
+				Placeholder="Translated word"
+				Keyboard="Text" 
+				TextColor="#212121" 
+				FontSize="Large"/>
+		<Entry Text="{Binding Path=Exercise.Phrase}" 
+				Placeholder="Example"
+				Keyboard="Text" 
+				TextColor="#212121" 
+				FontSize="Large"/>
+		<Entry Text="{Binding Path=Exercise.TranslatedPhrase}" 
+				Placeholder="Translated example"
+				Keyboard="Text" 
+				TextColor="#212121" 
+				FontSize="Large"/>
+		<Entry Text="{Binding Path=Exercise.Definition}" 
+				Placeholder="Definition"
+				Keyboard="Text" 
+				TextColor="#212121" 
+				FontSize="Large"/>
+		<Button Text="Find definition and example"
+				Command="{Binding FindDefinitionCommand}"/>
+	</StackLayout>
 </ContentPage>

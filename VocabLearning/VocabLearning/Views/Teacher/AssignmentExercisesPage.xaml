@@ -1,9 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="VocabLearning.Views.AssignmentExercisesPage"
-			 Title="{Binding Assignment.Name}">
-  
-</ContentPage>
+    <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+                 prism:ViewModelLocator.AutowireViewModel="True"
+                 x:Class="VocabLearning.Views.AssignmentExercisesPage"
+                 Title="{Binding Assignment.Name}">
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Add"
+                         Command="{Binding AddExerciseCommand}"/>
+        </ContentPage.ToolbarItems>
+        <StackLayout>
+            <ListView x:Name="ExerciseList"				  
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      IsPullToRefreshEnabled="False"
+                      ItemsSource="{Binding Exercises}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Edit" 
+                                          Command="{Binding Source={x:Reference Name=ExerciseList}, Path=BindingContext.EditExerciseCommand}" 
+                                          CommandParameter="{Binding .}"
+                                          IsDestructive="True"/>
+                                <MenuItem Text="Delete" 
+                                          Command="{Binding Source={x:Reference Name=ExerciseList}, Path=BindingContext.DeleteExerciseCommand}"
+                                          CommandParameter="{Binding .}"
+                                          IsDestructive="True"/>
+                            </ViewCell.ContextActions>
+                            <StackLayout VerticalOptions="FillAndExpand">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding Word}"
+                                           Grid.Column="0"
+                                           Grid.Row="0"/>
+                                    <Label Text="{Binding Definition}"
+                                           Grid.Column="0"
+                                           Grid.Row="1"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>

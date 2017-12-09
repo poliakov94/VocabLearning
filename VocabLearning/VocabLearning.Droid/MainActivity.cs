@@ -34,7 +34,7 @@ namespace VocabLearning.Droid
 			App.UiParent = new UIParent(Xamarin.Forms.Forms.Context as Activity);
 		}
 
-		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		protected override void OnActivityResult(int requestCode, Android.App.Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
 			AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
