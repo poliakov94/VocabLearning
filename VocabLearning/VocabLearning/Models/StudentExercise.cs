@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VocabLearning.Models
 {
-	class StudentExercise : TableData
+	public class StudentExercise : TableData
 	{
 		[JsonIgnore]
 		public User Student { get; set; }
@@ -16,5 +16,19 @@ namespace VocabLearning.Models
 		[JsonIgnore]
 		public Exercise Exercise { get; set; }
 		public string Exercise_Id { get; set; }
+
+		[JsonIgnore]
+		public Type Type { get; set; }
+		public string Type_Id { get; set; }
+
+		public bool Passed { get; set; }		
+		public int Attempt { get; set; }
+	}
+
+	public enum Type
+	{
+		AssignDefinition,
+		CompletePhrase,
+		TranslateWord
 	}
 }

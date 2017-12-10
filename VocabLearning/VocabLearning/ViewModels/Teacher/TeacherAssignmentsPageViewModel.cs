@@ -28,7 +28,7 @@ namespace VocabLearning.ViewModels
 					{ "model", _assignmentSelected }
 				};
 
-				_navigationService.NavigateAsync("AssignmentExercisesPage", navigationParams, false);
+				_navigationService.NavigateAsync("AssignmentExercisesPage", navigationParams);
 
 				_assignmentSelected = null;
 			}

@@ -55,9 +55,9 @@ namespace VocabLearning.ViewModels
 			await _navigationService.GoBackAsync(navigationParams);
 		}
 
-		private DelegateCommand _findDefiniction;
+		private DelegateCommand _findDefinition;
 		public DelegateCommand FindDefinitionCommand =>
-			_findDefiniction ?? (_findDefiniction = new DelegateCommand(ExecuteFindDefinitionCommand));
+			_findDefinition ?? (_findDefinition = new DelegateCommand(ExecuteFindDefinitionCommand));
 
 		async void ExecuteFindDefinitionCommand()
 		{
@@ -68,6 +68,9 @@ namespace VocabLearning.ViewModels
 			}
 
 			var lookup = await DictLookup.Get(Exercise.Word);
+			if (lookup == null)
+				return;
+
 			var sense = lookup.Results.FirstOrDefault().Senses.FirstOrDefault();
 			if (sense.Examples != null)
 				Exercise.Phrase = sense.Examples.FirstOrDefault().Text;

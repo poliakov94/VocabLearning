@@ -9,7 +9,6 @@ namespace VocabLearning.ViewModels
 	public class StudentLearningPageViewModel : BaseViewModel
 	{
 		private Assignment assignment;
-
 		public Assignment Assignment
 		{
 			get { return assignment; }

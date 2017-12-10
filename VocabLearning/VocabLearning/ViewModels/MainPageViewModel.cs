@@ -21,7 +21,7 @@ namespace VocabLearning.ViewModels
 		public bool IsBusy
 		{
 			get { return isBusy; }
-			set { SetProperty(ref isBusy, value); }
+			set { SetProperty(ref isBusy, value); RaisePropertyChanged("IsBusy"); }
 		}
 
 		public MainPageViewModel(INavigationService navigationService)

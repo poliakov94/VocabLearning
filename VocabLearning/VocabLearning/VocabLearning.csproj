@@ -54,6 +54,9 @@
     <Compile Include="Services\ICloudTable.cs" />
     <Compile Include="Services\ILoginProvider.cs" />
     <Compile Include="Services\LoginProvider.cs" />
+    <Compile Include="ViewModels\Student\AssignDefinitionPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\CompletePhrasePageViewModel.cs" />
+    <Compile Include="ViewModels\Student\FinishedExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\Student\StudentLearningPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\AssignmentExercisesPageViewModel.cs" />
     <Compile Include="ViewModels\DesignTimeViewModels\AssignmentCreationDummyViewModel.cs" />
@@ -80,8 +83,21 @@
     <Compile Include="ViewModels\Teacher\TeacherProgressPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\TeacherStudentsPageViewModel.cs" />
     <Compile Include="ViewModels\Teacher\TeacherAssignmentsPageViewModel.cs" />
+    <Compile Include="ViewModels\Student\TranslateWordPageViewModel.cs" />
+    <Compile Include="Views\Student\AssignDefinitionPage.xaml.cs">
+      <DependentUpon>AssignDefinitionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Student\CompletePhrasePage.xaml.cs">
+      <DependentUpon>CompletePhrasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Student\FinishedExercisesPage.xaml.cs">
+      <DependentUpon>FinishedExercisesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Student\StudentLearningPage.xaml.cs">
       <DependentUpon>StudentLearningPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Student\TranslateWordPage.xaml.cs">
+      <DependentUpon>TranslateWordPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Teacher\AssignmentCreationPage.xaml.cs">
       <DependentUpon>AssignmentCreationPage.xaml</DependentUpon>
@@ -371,6 +387,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Student\StudentLearningPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Student\AssignDefinitionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Student\CompletePhrasePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Student\TranslateWordPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Student\FinishedExercisesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

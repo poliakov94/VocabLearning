@@ -6,11 +6,11 @@
              x:Class="VocabLearning.Views.MainPage"
              Title="MainPage">
 	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-		<ActivityIndicator IsRunning="True" Color="Red"/>
+		<ActivityIndicator IsRunning="{Binding IsBusy}" Color="Red" IsVisible="{Binding IsBusy}"/>
 		<Button Text="Login" TextColor="White"
 				BackgroundColor="#77D065"
 				Command="{Binding LoginCommand}" 
 				CommandParameter="{Binding .}"
-				IsEnabled="{Binding ShowLoginButton}"/>
+				IsVisible="{Binding ShowLoginButton}"/>
 	</StackLayout>
 </ContentPage>

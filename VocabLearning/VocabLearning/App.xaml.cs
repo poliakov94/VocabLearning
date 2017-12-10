@@ -58,6 +58,10 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<AssignmentCreationPage>();
 			Container.RegisterTypeForNavigation<AssignmentExercisesPage>();
 			Container.RegisterTypeForNavigation<StudentLearningPage, StudentLearningPageViewModel>();
+			Container.RegisterTypeForNavigation<AssignDefinitionPage, AssignDefinitionPageViewModel>();
+			Container.RegisterTypeForNavigation<CompletePhrasePage, CompletePhrasePageViewModel>();
+			Container.RegisterTypeForNavigation<TranslateWordPage, TranslateWordPageViewModel>();
+			Container.RegisterTypeForNavigation<FinishedExercisesPage, FinishedExercisesPageViewModel>();
 		}
 	}
 }
