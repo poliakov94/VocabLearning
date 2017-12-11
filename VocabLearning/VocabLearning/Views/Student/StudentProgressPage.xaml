@@ -5,5 +5,63 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="VocabLearning.Views.StudentProgressPage"
 			 Title="Progress">
-  
+	<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+		<ListView x:Name="ProgressList"
+			  VerticalOptions="FillAndExpand"
+			  HasUnevenRows="True"
+			  SeparatorColor="#BDBDBD"
+			  IsPullToRefreshEnabled="False"
+			  ItemsSource="{Binding Results}">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<StackLayout VerticalOptions="FillAndExpand" Margin="5,0,0,10">
+							<Grid Margin="5,5,5,5">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="40"/>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="20"/>
+								</Grid.RowDefinitions>
+								<Label Text="{Binding Path=Assignment.Name}"
+								   Grid.Column="0"
+								   Grid.Row="0"
+								   Style="{DynamicResource ListItemTextStyle}"
+								   TextColor="#2196F3"
+								   FontSize="20"
+								   FontAttributes="Bold"
+								   VerticalTextAlignment="Center"
+								   HorizontalOptions="StartAndExpand"/>
+								<Label Text="Attemps"
+								   Grid.Column="0"
+								   Grid.Row="1"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"/>
+								<Label Text="Average score"
+								   Grid.Column="1"
+								   Grid.Row="1"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"/>
+								<Label Text="{Binding Attempts}"
+								   Grid.Column="0"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"
+								   FontAttributes="Bold"/>
+								<Label Text="{Binding Average}"
+								   Grid.Column="1"
+								   Grid.Row="2"
+								   Style="{DynamicResource SubtitleStyle}"
+								   TextColor="#A5AAAC"
+								   FontAttributes="Bold"/>
+							</Grid>
+						</StackLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</StackLayout>
 </ContentPage>
