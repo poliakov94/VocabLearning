@@ -4,7 +4,6 @@ using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using TaskList.Services;
 using VocabLearning.Models;
 using VocabLearning.Services;
 using VocabLearning.Helpers;
@@ -69,7 +68,7 @@ namespace VocabLearning.Services
 		public async Task<ICloudTable<T>> GetTableAsync<T>() where T : TableData
 		{
 			await InitializeAsync();
-			return new AzureCloudTable<T>(_MobileService);
+			return new CloudTable<T>(_MobileService);
 		}
 
 		public bool LocalDBExists => _MobileService.SyncContext.IsInitialized;

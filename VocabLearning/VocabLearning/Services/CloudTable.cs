@@ -1,19 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.MobileServices;
+﻿using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Sync;
-using VocabLearning.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using VocabLearning.Models;
 
-namespace TaskList.Services
+namespace VocabLearning.Services
 {
-	public class AzureCloudTable<T> : ICloudTable<T> where T : TableData
+	public class CloudTable<T> : ICloudTable<T> where T : TableData
 	{
 		private IMobileServiceSyncTable<T> table;
-
-		public AzureCloudTable(MobileServiceClient client)
+		public IMobileServiceSyncTable<T> Table
 		{
-			table = client.GetSyncTable<T>();
+			get { return table; }
+			private set { table = value; }
+		}
+
+		public CloudTable(MobileServiceClient client)
+		{
+			Table = client.GetSyncTable<T>();
+		}
+
+		public IMobileServiceSyncTable<T> ReturnTable()
+		{
+			return Table;
 		}
 		
 		public async Task PullAsync()

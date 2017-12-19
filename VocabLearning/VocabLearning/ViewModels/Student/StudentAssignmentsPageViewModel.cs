@@ -39,15 +39,18 @@ namespace VocabLearning.ViewModels
 		{
 			await _azureService.SyncOfflineCacheAsync();
 
-			var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
-			var group = (await groupsTable.ReadAllItemsAsync())
-				.FirstOrDefault(g => g.Id == _azureService.User.StudentGroup_Id);
+			var groupsTable = (await _azureService.GetTableAsync<StudentGroup>()).ReturnTable();
+			var group = (
+				await groupsTable
+				.Where(g => g.Id == _azureService.User.StudentGroup_Id)
+				.ToListAsync()
+			).FirstOrDefault();
 
-			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
-			var assignments = (await assignmentsTable.ReadAllItemsAsync())
+			var assignmentsTable = (await _azureService.GetTableAsync<Assignment>()).ReturnTable();
+			var assignments = await assignmentsTable
 				.Where(a => a.StudentGroup_Id == group.Id)
 				//.Where(a => a.ValidUntil > System.DateTime.Now.AddDays(-1))
-				.ToList();			
+				.ToListAsync();			
 			
 			Assignments = new ObservableCollection<Assignment>(assignments);
 		}

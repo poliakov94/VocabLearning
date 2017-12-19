@@ -8,9 +8,6 @@
 			Title="AssignmentCreationPage"
 			x:Name="AssignmentCreation"
 			 BackgroundColor="#EFEFF4">
-	<!--<ContentPage.BindingContext>
-		<vm:AssignmentCreationDummyViewModel/>
-	</ContentPage.BindingContext>-->
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="Create" Command="{Binding CreateAssignmentCommand}"/>
 	</ContentPage.ToolbarItems>

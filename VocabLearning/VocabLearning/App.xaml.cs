@@ -25,7 +25,7 @@ namespace VocabLearning
 		{
 			InitializeComponent();
 			LoginProvider = new LoginProvider();
-			NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");			
+			NavigationService.NavigateAsync("NavigationPage/MainPage");			
 		}
 
 		protected override void RegisterTypes()
@@ -46,7 +46,6 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<StudentTestPage, StudentTestPageViewModel>();
 
 			Container.RegisterTypeForNavigation<AssignmentManagingPage>();
-			Container.RegisterTypeForNavigation<TaskCreationPage>();
 			Container.RegisterTypeForNavigation<GroupManagingPage>();
 			Container.RegisterTypeForNavigation<StudentsSearchPage>();
 			Container.RegisterTypeForNavigation<StudentCreationPage>();

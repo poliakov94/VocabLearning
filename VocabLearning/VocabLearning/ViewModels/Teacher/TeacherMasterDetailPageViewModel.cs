@@ -50,7 +50,7 @@ namespace VocabLearning.ViewModels
 
 						var exit = await App.LoginProvider.LogoutAsync();
 						if (exit)
-							await _navigationService.NavigateAsync("app:///NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+							await _navigationService.NavigateAsync("app:///NavigationPage/MainPage");
 					});
 				}
 			}
@@ -96,15 +96,6 @@ namespace VocabLearning.ViewModels
 			});
 
 			RaisePropertyChanged("MenuItems");
-		}
-
-		public override void OnNavigatingTo(NavigationParameters parameters)
-		{
-			IsBusy = true;
-
-			//await _azureService.Init();
-
-			IsBusy = false;
 		}
 	}
 }

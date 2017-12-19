@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices.Sync;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace VocabLearning.Services
 		Task<ICollection<T>> ReadAllItemsAsync();
 		Task<ICollection<T>> ReadItemsAsync(int start, int count);
 		Task PullAsync();
+		IMobileServiceSyncTable<T> ReturnTable();
 	}
 }
