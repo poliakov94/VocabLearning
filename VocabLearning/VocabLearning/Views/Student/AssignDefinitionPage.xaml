@@ -6,14 +6,12 @@
 			 x:Class="VocabLearning.Views.Student.AssignDefinitionPage"
 			 Title="Assign definition">
 	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-		<StackLayout Orientation="Vertical">
-			<Label Text="{Binding ExerciseNo}"/>
-			<Label Text="/"/>
-			<Label Text="{Binding ExerciseCount}"/>
-		</StackLayout>
-		<Label Text="{Binding Path=CurrentExercise.Word}"/>
+		<Label Text="{Binding Counter}" HorizontalOptions="End" FontSize="Large" TextColor="#757575" FontAttributes="Bold" Margin="0,10,10,0"/>
+		<Label Text="Choose the appropriate defintion for" HorizontalOptions="Center" FontSize="Small" TextColor="#757575" Margin="0,10,0,0"/>
+		<Label Text="{Binding Path=CurrentExercise.Word}" HorizontalOptions="Center" FontSize="30" TextColor="#212121" FontAttributes="Bold"/>
 		<ListView x:Name="DefinitionsList"
-				  VerticalOptions="FillAndExpand"
+				  VerticalOptions="Fill"
+				  Margin="0,40,0,0"
 				  HasUnevenRows="True"
 				  SeparatorColor="#BDBDBD"
 				  IsPullToRefreshEnabled="False"
@@ -22,13 +20,20 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<StackLayout>
-							<Label Text="{Binding}"/>
+						<StackLayout Orientation="Horizontal">
+							<Label Text="{Binding}" FontSize="Medium" TextColor="#757575" VerticalOptions="Center" Margin="5"/>
 						</StackLayout>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
-		<Button Text="Check" Command="{Binding CheckCommand}"/>
+		<Button Text="Check" 
+				Command="{Binding CheckCommand}" 				
+				HorizontalOptions="Fill"
+				TextColor="White"
+				FontSize="Large"
+				FontAttributes="Bold"
+				BackgroundColor="#1976D2"
+				Margin="50,0,50,20"/>
 	</StackLayout>
 </ContentPage>

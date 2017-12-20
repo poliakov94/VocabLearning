@@ -36,6 +36,13 @@ namespace VocabLearning.ViewModels
 			set { SetProperty(ref exerciseNo, value); }
 		}
 
+		private string counter;
+		public string Counter
+		{
+			get { return counter; }
+			set { SetProperty(ref counter, value); }
+		}
+
 		private List<Exercise> exercises;
 		public List<Exercise> Exercises
 		{
@@ -107,13 +114,22 @@ namespace VocabLearning.ViewModels
 			{
 				ExerciseNo++;
 				CurrentExercise = Exercises[ExerciseNo - 1];
+				Counter = $"{ExerciseNo} / {ExerciseCount}";
 
 				var definitions = new List<string>
 				{
-					currentExercise.Definition
+					char.ToUpper(currentExercise.Definition[0]) + currentExercise.Definition.Substring(1)
 				};
-				var exs = Exercises.Where(e => e.Id != CurrentExercise.Id).OrderBy(e => rng.Next()).Take(2).Select(e => e.Definition).ToList();
-				definitions.AddRange(exs);
+				var exs = Exercises.Where(e => e.Id != CurrentExercise.Id)
+					.OrderBy(e => rng.Next())
+					.Take(2)
+					.Select(e => e.Definition)
+					.ToList();
+
+				foreach (var ex in exs)
+				{
+					definitions.Add(char.ToUpper(ex[0]) + ex.Substring(1));
+				}
 
 				Definitions = new ObservableCollection<string>(definitions.OrderBy(e => rng.Next()));
 
@@ -123,6 +139,7 @@ namespace VocabLearning.ViewModels
 
 		async Task ExercisesFinished()
 		{
+			await _azureService.SyncOfflineCacheAsync();
 			var resultsTable = await _azureService.GetTableAsync<StudentExercise>();
 			var attempt = (await resultsTable.ReadAllItemsAsync())
 				.Where(r => r.Student_Id == _azureService.User.Id && r.Exercise_Id == CurrentExercise.Id)
@@ -153,16 +170,24 @@ namespace VocabLearning.ViewModels
 				Exercises = new List<Exercise>(Assignment.Exercises.OrderBy(e => rng.Next()));
 				ExerciseCount = Assignment.Exercises.Count();
 				ExerciseNo = 1;
-				CurrentExercise = Exercises[ExerciseNo - 1];				
+				CurrentExercise = Exercises[ExerciseNo - 1];			
+				Counter = $"{ExerciseNo} / {ExerciseCount}";
 
 				Results = new List<StudentExercise>();
 
 				var definitions = new List<string>
 				{
-					currentExercise.Definition
+					char.ToUpper(currentExercise.Definition[0]) + currentExercise.Definition.Substring(1)
 				};
-				var exs = Exercises.Where(e => e.Id != CurrentExercise.Id).OrderBy(e => rng.Next()).Take(2).Select(e => e.Definition).ToList();
-				definitions.AddRange(exs);
+				var exs = Exercises.Where(e => e.Id != CurrentExercise.Id)
+					.OrderBy(e => rng.Next())
+					.Take(2)
+					.Select(e => e.Definition)
+					.ToList();
+				foreach (var ex in exs)
+				{
+					definitions.Add(char.ToUpper(ex[0]) + ex.Substring(1));
+				}
 
 				Definitions = new ObservableCollection<string>(definitions.OrderBy(e => rng.Next()));
 			}

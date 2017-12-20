@@ -1,16 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="VocabLearning.Views.MainPage"
-             Title="MainPage">
-	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-		<ActivityIndicator IsRunning="{Binding IsBusy}" Color="Red" IsVisible="{Binding IsBusy}"/>
-		<Button Text="Login" TextColor="White"
-				BackgroundColor="#77D065"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+			 prism:ViewModelLocator.AutowireViewModel="True"
+			 x:Class="VocabLearning.Views.MainPage"
+			 Title="VocabLearning"
+			 NavigationPage.HasNavigationBar="False">
+	<AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+		<Image Source="mainpage" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect="AspectFill"
+			   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+			   AbsoluteLayout.LayoutFlags="All"/>
+		<StackLayout HorizontalOptions="FillAndExpand"
+			   VerticalOptions="FillAndExpand"
+			   AbsoluteLayout.LayoutBounds="0, 0, 1, 0.9"
+			   AbsoluteLayout.LayoutFlags="All"
+			   x:Name="logoLayout">
+			<StackLayout Padding="50">
+				<Label Text="VocabLearning" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="White"  HorizontalOptions="CenterAndExpand" FontSize="34">
+				</Label>
+			</StackLayout>
+		</StackLayout>
+		<StackLayout  HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand" AbsoluteLayout.LayoutBounds="0, 0.7, 1, 0.1" AbsoluteLayout.LayoutFlags="All">
+			<ActivityIndicator IsRunning="{Binding IsBusy}" Color="White" IsVisible="{Binding IsBusy}"/>
+			<Label Text="Welcome!" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="White"  HorizontalOptions="CenterAndExpand" FontSize="Large"/>
+			<Label Text="Please login or sign up." HorizontalTextAlignment="Center" TextColor="White" HorizontalOptions="CenterAndExpand" IsVisible="{Binding ShowLoginButton}"/>
+			<Label Text="Please wait..." HorizontalTextAlignment="Center" TextColor="White" HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsBusy}"/>
+		</StackLayout>
+		<Button BackgroundColor="#1976D2" TextColor="White" BorderRadius="0" Text="Login"
 				Command="{Binding LoginCommand}" 
-				CommandParameter="{Binding .}"
-				IsVisible="{Binding ShowLoginButton}"/>
-	</StackLayout>
+				IsVisible="{Binding ShowLoginButton}"
+				AbsoluteLayout.LayoutBounds="0, 1, 0.5, 0.1"
+				AbsoluteLayout.LayoutFlags="All"/>
+		<Button BackgroundColor="#212121" TextColor="White" BorderRadius="0" Text="Sign Up"
+				Command="{Binding RegisterCommand}" 
+				IsVisible="{Binding ShowLoginButton}"
+				AbsoluteLayout.LayoutBounds="1, 1, 0.5, 0.1"
+				AbsoluteLayout.LayoutFlags="All"/>
+	</AbsoluteLayout>
 </ContentPage>

@@ -16,7 +16,12 @@ namespace VocabLearning.ViewModels
 
 		private bool IsTeacher;
 		private bool Authenticated;
-		public bool ShowLoginButton { get; set; }
+		private bool showLogin;
+		public bool ShowLoginButton
+		{
+			get { return showLogin; }
+			set { SetProperty(ref showLogin, value); }
+		}
 		private bool isBusy;
 		public bool IsBusy
 		{
@@ -75,7 +80,6 @@ namespace VocabLearning.ViewModels
 			{
 				Authenticated = false;
 				ShowLoginButton = true;
-				RaisePropertyChanged("ShowLoginButton");
 				Debug.WriteLine("Client not cached, showing login page...");
 				return;
 			}
@@ -86,8 +90,7 @@ namespace VocabLearning.ViewModels
 
 			if (!Authenticated)
 			{
-				ShowLoginButton = true;
-				RaisePropertyChanged("ShowLoginButton");				
+				ShowLoginButton = true;			
 				return;
 			}
 
