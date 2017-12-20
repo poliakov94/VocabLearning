@@ -31,6 +31,13 @@ namespace VocabLearning.ViewModels
 			set { SetProperty(ref passedCount, value); }
 		}
 
+		private string counter;
+		public string Counter
+		{
+			get { return counter; }
+			set { SetProperty(ref counter, value); }
+		}
+
 		private int attempt;
 		public int Attempt
 		{
@@ -66,6 +73,7 @@ namespace VocabLearning.ViewModels
 				ExerciseCount = results.Count();
 				PassedCount = results.Where(p => p.Passed).Count();
 				Attempt = results.FirstOrDefault().Attempt;
+				Counter = $"{PassedCount} / {ExerciseCount}";
 			}
 		}
 	}

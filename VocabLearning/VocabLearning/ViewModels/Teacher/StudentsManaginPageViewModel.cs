@@ -36,7 +36,7 @@ namespace VocabLearning.ViewModels
 		
 		public StudentsManagingPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
 			: base(navigationService)
-        {
+		{
 			_pageDialogService = pageDialogService;
 		}
 				

@@ -27,6 +27,8 @@ namespace VocabLearning.ViewModels
 				_navigationService.NavigateAsync("StudentLearningPage", navigationParams, false);
 
 				_assignmentSelected = null;
+				RaisePropertyChanged("AssignmentSelected");
+				RaisePropertyChanged("Assignments");
 			}
 		}
 		public StudentAssignmentsPageViewModel(INavigationService navigationService)

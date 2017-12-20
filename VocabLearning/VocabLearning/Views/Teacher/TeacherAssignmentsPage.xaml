@@ -14,7 +14,7 @@
 			  HasUnevenRows="True"
 			  SeparatorColor="#BDBDBD"
 			  IsPullToRefreshEnabled="False"
-			  ItemsSource="{Binding Assignments}"
+			  ItemsSource="{Binding Assignments, Mode=TwoWay}"
 			  SelectedItem="{Binding AssignmentSelected, Mode=TwoWay}"
 			  IsGroupingEnabled="True"
 			  GroupDisplayBinding="{Binding Key}">
@@ -51,19 +51,12 @@
 								   FontAttributes="Bold"
 								   VerticalTextAlignment="Center"
 								   HorizontalOptions="StartAndExpand"/>
-							<Label Text="{Binding Type}"
-								   Grid.Column="1"
-								   Grid.Row="0"
-								   Style="{DynamicResource ListItemTextDetailStyle}"
-								   FontSize="16"
-								   VerticalTextAlignment="Center"
-								   HorizontalOptions="StartAndExpand"/>
 							<Label Text="Start"
 								   Grid.Column="0"
 								   Grid.Row="1"
 								   Style="{DynamicResource SubtitleStyle}"
 								   TextColor="#A5AAAC"/>
-							<Label Text="Due date"
+							<Label Text="Due"
 								   Grid.Column="1"
 								   Grid.Row="1"
 								   Style="{DynamicResource SubtitleStyle}"

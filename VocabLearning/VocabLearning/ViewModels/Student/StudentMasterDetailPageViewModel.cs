@@ -17,6 +17,13 @@ namespace VocabLearning.ViewModels
 
 		public ObservableCollection<MasterMenuItem> _menuItems = new ObservableCollection<MasterMenuItem>();
 		public ObservableCollection<MasterMenuItem> MenuItems { get { return _menuItems; } set { _menuItems = value; } }
+
+		private string student;
+		public string Student
+		{
+			get { return student; }
+			set { SetProperty(ref student, value); }
+		}
 		public StudentMasterDetailPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
 			: base(navigationService)
 		{
@@ -89,10 +96,12 @@ namespace VocabLearning.ViewModels
 			{
 				Name = "Logout",
 				NavigationPage = "",
-				IconSource = "assignments.png"
+				IconSource = "ic_not_interested_black_24dp.png"
 			});
 
 			RaisePropertyChanged("MenuItems");
+
+			Student = $"{_azureService.User.FirstName} {_azureService.User.LastName}";
 		}
 
 		public override void OnNavigatingTo(NavigationParameters parameters)

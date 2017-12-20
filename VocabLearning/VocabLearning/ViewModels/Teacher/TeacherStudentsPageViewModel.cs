@@ -35,6 +35,8 @@ namespace VocabLearning.ViewModels
 				_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
 
 				_groupSelected = null;
+				RaisePropertyChanged("GroupSelected");
+				RaisePropertyChanged("Groups");
 			}
 		}
 		public ObservableCollection<StudentGroup> _groups = new ObservableCollection<StudentGroup>();
@@ -127,18 +129,21 @@ namespace VocabLearning.ViewModels
 			try
 			{
 				await _azureService.SyncOfflineCacheAsync();
-				var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
-				var groups = (await groupsTable.ReadAllItemsAsync())
-					.Where(g => g.Teacher_Id == _azureService.User.Id);
+				var groupsTable = (await _azureService.GetTableAsync<StudentGroup>()).ReturnTable();
+				var groups = await groupsTable.Where(g => g.Teacher_Id == _azureService.User.Id).ToListAsync();
 
-				//var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
-				//var assignments = await assignmentsTable.ReadAllItemsAsync();
+				var assignmentsTable = (await _azureService.GetTableAsync<Assignment>()).ReturnTable();
 
-				//foreach (var group in groups)
-				//{
-				//	group.Assignments = assignments.Where(a => a.StudentGroup_Id == group.Id).ToList();
-				//	group.AssignmentsCount = group.Assignments.Count();
-				//}
+				var studentsTable = (await _azureService.GetTableAsync<User>()).ReturnTable();
+				
+
+				foreach (var group in groups)
+				{
+					group.Assignments = await assignmentsTable.Where(a => a.StudentGroup_Id == group.Id).ToListAsync();
+					group.AssignmentsCount = group.Assignments.Count();
+					group.Students = await studentsTable.Where(s => s.StudentGroup_Id == group.Id).ToListAsync();
+					group.GroupSize = group.Students.Count();
+				}
 
 				Groups = new ObservableCollection<StudentGroup>(groups);
 			}

@@ -36,6 +36,8 @@ namespace VocabLearning.ViewModels
 				_navigationService.NavigateAsync("AssignmentManagingPage", navigationParams, false);
 
 				_assignmentSelected = null;
+				RaisePropertyChanged("AssignmentSelected");
+				RaisePropertyChanged("Assignments");
 			}
 		}
 		public ObservableCollection<Assignment> _Assignments = new ObservableCollection<Assignment>();

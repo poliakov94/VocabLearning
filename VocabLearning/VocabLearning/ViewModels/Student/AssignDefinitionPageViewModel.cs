@@ -92,7 +92,7 @@ namespace VocabLearning.ViewModels
 
 		async void ExecuteCheckCommand()
 		{
-			var passed = CurrentExercise.Definition == SelectedDefinition;
+			var passed = currentExercise.Definition == SelectedDefinition;
 
 			var result = new StudentExercise()
 			{
@@ -118,7 +118,7 @@ namespace VocabLearning.ViewModels
 
 				var definitions = new List<string>
 				{
-					char.ToUpper(currentExercise.Definition[0]) + currentExercise.Definition.Substring(1)
+					currentExercise.Definition
 				};
 				var exs = Exercises.Where(e => e.Id != CurrentExercise.Id)
 					.OrderBy(e => rng.Next())
@@ -126,10 +126,7 @@ namespace VocabLearning.ViewModels
 					.Select(e => e.Definition)
 					.ToList();
 
-				foreach (var ex in exs)
-				{
-					definitions.Add(char.ToUpper(ex[0]) + ex.Substring(1));
-				}
+				definitions.AddRange(exs);
 
 				Definitions = new ObservableCollection<string>(definitions.OrderBy(e => rng.Next()));
 
@@ -177,17 +174,15 @@ namespace VocabLearning.ViewModels
 
 				var definitions = new List<string>
 				{
-					char.ToUpper(currentExercise.Definition[0]) + currentExercise.Definition.Substring(1)
+					currentExercise.Definition
 				};
 				var exs = Exercises.Where(e => e.Id != CurrentExercise.Id)
 					.OrderBy(e => rng.Next())
 					.Take(2)
 					.Select(e => e.Definition)
 					.ToList();
-				foreach (var ex in exs)
-				{
-					definitions.Add(char.ToUpper(ex[0]) + ex.Substring(1));
-				}
+
+				definitions.AddRange(exs);
 
 				Definitions = new ObservableCollection<string>(definitions.OrderBy(e => rng.Next()));
 			}

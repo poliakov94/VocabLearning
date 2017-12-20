@@ -4,15 +4,21 @@
 			 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
 			 prism:ViewModelLocator.AutowireViewModel="True"
 			 x:Class="VocabLearning.Views.Student.FinishedExercisesPage">
-	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-		<Label Text="You finished this assignment with a score of"/>
-		<Label Text="{Binding PassedCount}"/>
-		<Label Text="out of"/>
-		<Label Text="{Binding ExerciseCount}"/>
-		<Label Text="This was your "/>
-		<Label Text="{Binding Attempt}"/>
-		<Label Text="attempt"/>
-		<Button Text="Finish"
-				Command="{Binding FinishCommand}"/>
+	<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,100,0,0">
+		<Label Text="You finished this assignment with a score of" HorizontalOptions="Center" FontSize="Small" TextColor="#757575" Margin="0,10,0,0"/>
+		<Label Text="{Binding Counter}" FontSize="30" TextColor="#1976D2" FontAttributes="Bold" Margin="0,10,10,0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+		<StackLayout Orientation="Vertical" Margin="0,50,0,0">
+			<Label Text="This was your " FontSize="Large" TextColor="#757575" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+			<Label Text="{Binding Attempt}" FontSize="Large" TextColor="#1976D2" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+			<Label Text="attempt" FontSize="Large" TextColor="#757575" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+		</StackLayout>
+		<Button Text="Finish" 
+				Command="{Binding FinishCommand}" 				
+				HorizontalOptions="Fill"
+				TextColor="White"
+				FontSize="Large"
+				FontAttributes="Bold"
+				BackgroundColor="#1976D2"
+				Margin="50,100,50,20"/>
 	</StackLayout>
 </ContentPage>

@@ -1,109 +1,98 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-    <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-                 prism:ViewModelLocator.AutowireViewModel="True"
-                 x:Class="VocabLearning.Views.AssignmentManagingPage"
-                 Title="{Binding Assignment.Name}">
-        <ContentPage.ToolbarItems>
-            <ToolbarItem Text="Save"
-                         Command="{Binding SaveAssignmentCommand}"/>
-        </ContentPage.ToolbarItems>
-        <StackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="40*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="20*"/>
-                </Grid.RowDefinitions>
+	<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+				 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+				 prism:ViewModelLocator.AutowireViewModel="True"
+				 x:Class="VocabLearning.Views.AssignmentManagingPage"
+				 Title="{Binding Assignment.Name}">
+		<ContentPage.ToolbarItems>
+			<ToolbarItem Text="Save"
+						 Command="{Binding SaveAssignmentCommand}"/>
+		</ContentPage.ToolbarItems>
+		<StackLayout>
+			<Grid Margin="10,0,0,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="30*"/>
+					<ColumnDefinition Width="30*"/>
+					<ColumnDefinition Width="40*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+					<RowDefinition Height="20*"/>
+				</Grid.RowDefinitions>
 
-                <Entry Text="{Binding Path=Assignment.Name}" Keyboard="Text" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextColor="#212121" FontSize="Large"/>
+				<Entry Text="{Binding Path=Assignment.Name}" Keyboard="Text" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" TextColor="#212121" FontSize="Large" Margin="10,10,10,0"/>
 
-                <Label Text="Start date" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#A5AAAC" FontAttributes="Bold" FontSize="Medium"/>
-                <DatePicker Grid.Row="1" 
-                            Grid.Column="1" 
-                            VerticalOptions="CenterAndExpand"
-                            Format="dd-MM-yyyy" 
-                            HorizontalOptions="CenterAndExpand"
-                            Date="{Binding Path=Assignment.ValidFrom}"
-                            TextColor="#212121"/>
-                <TimePicker VerticalOptions="CenterAndExpand"
-                            Grid.Row="1" 
-                            Grid.Column="2"
-                            HorizontalOptions="StartAndExpand"
-                            Time="{Binding ValidFromTime}"
-                            TextColor="#212121"/>
+				<Label Text="Start date" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#A5AAAC" FontAttributes="Bold" FontSize="Medium"/>
+				<DatePicker Grid.Row="1" 
+							Grid.Column="1" 
+							VerticalOptions="CenterAndExpand"
+							Format="dd-MM-yyyy" 
+							HorizontalOptions="CenterAndExpand"
+							Date="{Binding Path=Assignment.ValidFrom}"
+							TextColor="#212121"/>
+				<TimePicker VerticalOptions="CenterAndExpand"
+							Grid.Row="1" 
+							Grid.Column="2"
+							HorizontalOptions="StartAndExpand"
+							Time="{Binding ValidFromTime}"
+							TextColor="#212121"/>
 
-                <Label Text="Due date" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#A5AAAC" FontAttributes="Bold" FontSize="Medium"/>
-                <DatePicker Grid.Row="2" 
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" 
-                            HorizontalOptions="CenterAndExpand"
-                            Format="dd-MM-yyyy" 
-                            Date="{Binding Path=Assignment.ValidUntil}"
-                            TextColor="#212121"/>
-                <TimePicker Grid.Row="2" 
-                            Grid.Column="2"
-                            VerticalOptions="CenterAndExpand" 
-                            HorizontalOptions="StartAndExpand"
-                            Time="{Binding ValidUntilTime}"
-                            TextColor="#212121"/>
-            </Grid>
-            <ListView x:Name="ExerciseList"				  
-                      VerticalOptions="FillAndExpand"
-                      HasUnevenRows="True"
-                      IsPullToRefreshEnabled="False"
-                      ItemsSource="{Binding Exercises}"
-                      SelectedItem="{Binding ExerciseSelected, Mode=TwoWay}">
-                <ListView.Header>
-                    <StackLayout Margin="10,10,10,10" VerticalOptions="Center" HorizontalOptions="Center">
-                        <Button Text="Add exercise"
-                                VerticalOptions="Fill"
-                                HorizontalOptions="Fill"
-                                BackgroundColor="#2196F3"
-                                TextColor="White"
-                                FontSize="Medium"
-                                Command="{Binding AddExerciseCommand}"/>
-                    </StackLayout>				
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-						<ViewCell.ContextActions>
-							<MenuItem Text="Edit" 
-                                      Command="{Binding Source={x:Reference Name=ExerciseList}, Path=BindingContext.EditExerciseCommand}" 
-                                      CommandParameter="{Binding .}"
-                                      IsDestructive="True"/>
-							<MenuItem Text="Delete" 
-                                      Command="{Binding Source={x:Reference Name=ExerciseList}, Path=BindingContext.DeleteExerciseCommand}"
-                                      CommandParameter="{Binding .}"
-                                      IsDestructive="True"/>
-						</ViewCell.ContextActions>
-						<StackLayout VerticalOptions="FillAndExpand">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Text="{Binding Word}"
-										   Grid.Column="0"
-										   Grid.Row="0"/>
-                                    <Label Text="{Binding Definition}"
-										   Grid.Column="0"
-										   Grid.Row="1"/>
-                                </Grid>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ContentPage>
+				<Label Text="Due date" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#A5AAAC" FontAttributes="Bold" FontSize="Medium"/>
+				<DatePicker Grid.Row="2" 
+							Grid.Column="1"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="CenterAndExpand"
+							Format="dd-MM-yyyy"
+							Date="{Binding Path=Assignment.ValidUntil}"
+							TextColor="#212121"/>
+				<TimePicker Grid.Row="2" 
+							Grid.Column="2"
+							VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="StartAndExpand"
+							Time="{Binding ValidUntilTime}"
+							TextColor="#212121"/>
+			</Grid>
+			<ListView x:Name="ExerciseList"				  
+					  VerticalOptions="FillAndExpand"
+					  HasUnevenRows="True"
+					  SeparatorVisibility="Default"
+					  SeparatorColor="#BDBDBD"
+					  IsPullToRefreshEnabled="False"
+					  ItemsSource="{Binding Exercises}"
+					  SelectedItem="{Binding ExerciseSelected, Mode=TwoWay}">
+				<ListView.Header>
+					<StackLayout Margin="10,0,10,0" VerticalOptions="Center" HorizontalOptions="Center">
+						<Button Text="Add exercise"
+								VerticalOptions="Fill"
+								HorizontalOptions="Fill"
+								BackgroundColor="#2196F3"
+								TextColor="White"
+								FontSize="Medium"
+								Command="{Binding AddExerciseCommand}"/>
+					</StackLayout>				
+				</ListView.Header>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<ViewCell>
+							<ViewCell.ContextActions>
+								<MenuItem Text="Edit" 
+										  Command="{Binding Source={x:Reference Name=ExerciseList}, Path=BindingContext.EditExerciseCommand}" 
+										  CommandParameter="{Binding .}"
+										  IsDestructive="True"/>
+								<MenuItem Text="Delete" 
+										  Command="{Binding Source={x:Reference Name=ExerciseList}, Path=BindingContext.DeleteExerciseCommand}"
+										  CommandParameter="{Binding .}"
+										  IsDestructive="True"/>
+							</ViewCell.ContextActions>
+							<StackLayout VerticalOptions="FillAndExpand" Margin="10,5,0,5">
+								<Label Text="{Binding Word}" TextColor="#1976D2" FontSize="Medium"/>
+								<Label Text="{Binding Definition}" TextColor="#757575"/>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
+	</ContentPage>
