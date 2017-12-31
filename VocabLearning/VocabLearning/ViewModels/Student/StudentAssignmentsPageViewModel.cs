@@ -27,8 +27,6 @@ namespace VocabLearning.ViewModels
 				_navigationService.NavigateAsync("StudentLearningPage", navigationParams, false);
 
 				_assignmentSelected = null;
-				RaisePropertyChanged("AssignmentSelected");
-				RaisePropertyChanged("Assignments");
 			}
 		}
 		public StudentAssignmentsPageViewModel(INavigationService navigationService)
@@ -39,6 +37,7 @@ namespace VocabLearning.ViewModels
 
 		public async override void OnNavigatingTo(NavigationParameters parameters)
 		{
+			_assignmentSelected = null;
 			await _azureService.SyncOfflineCacheAsync();
 
 			var groupsTable = (await _azureService.GetTableAsync<StudentGroup>()).ReturnTable();

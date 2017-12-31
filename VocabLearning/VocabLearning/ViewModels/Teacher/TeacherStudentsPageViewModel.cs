@@ -35,7 +35,6 @@ namespace VocabLearning.ViewModels
 				_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
 
 				_groupSelected = null;
-				RaisePropertyChanged("GroupSelected");
 				RaisePropertyChanged("Groups");
 			}
 		}
@@ -119,7 +118,7 @@ namespace VocabLearning.ViewModels
 				{
 					{ "model", group }
 				};
-			_navigationService.NavigateAsync("GroupManagingPage", navigationParams, false);
+			_navigationService.NavigateAsync("EditGroupPage", navigationParams, false);
 		}
 
 		public override async void OnNavigatingTo(NavigationParameters parameters)

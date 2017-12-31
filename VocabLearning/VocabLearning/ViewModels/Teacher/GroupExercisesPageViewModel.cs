@@ -36,7 +36,6 @@ namespace VocabLearning.ViewModels
 				_navigationService.NavigateAsync("AssignmentManagingPage", navigationParams, false);
 
 				_assignmentSelected = null;
-				RaisePropertyChanged("AssignmentSelected");
 				RaisePropertyChanged("Assignments");
 			}
 		}
@@ -67,7 +66,6 @@ namespace VocabLearning.ViewModels
 				Name = "New, tap to edit.",
 				ValidFrom = DateTime.Now,
 				ValidUntil = DateTime.Now,
-				//StudentGroup = Group,
 				StudentGroup_Id = Group.Id
 			};
 

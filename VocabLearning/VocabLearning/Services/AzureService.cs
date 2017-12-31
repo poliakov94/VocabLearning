@@ -45,7 +45,7 @@ namespace VocabLearning.Services
 			if (LocalDBExists)
 				return;
 
-			var store = new MobileServiceSQLiteStore("syncstore.db");
+			var store = new MobileServiceSQLiteStore("syncstorenew.db");
 
 			store.DefineTable<Assignment>();
 			store.DefineTable<Exercise>();
@@ -78,14 +78,20 @@ namespace VocabLearning.Services
 			if (!LocalDBExists)
 				await InitializeAsync();
 
-			await _MobileService.SyncContext.PushAsync();
+			try
+			{
+				await _MobileService.SyncContext.PushAsync();
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(@"Failed to push async: {0}", ex.ToString());
+			}
 
 			var assignmentTable = await GetTableAsync<Assignment>(); await assignmentTable.PullAsync();
 			var studentGroupTable = await GetTableAsync<StudentGroup>(); await studentGroupTable.PullAsync();
 			var exerciseTable = await GetTableAsync<Exercise>(); await exerciseTable.PullAsync();
 			var studentExerciseTable = await GetTableAsync<StudentExercise>(); await studentExerciseTable.PullAsync();
 			var userTable = await GetTableAsync<User>(); await userTable.PullAsync();
-
 		}		
 	}
 }

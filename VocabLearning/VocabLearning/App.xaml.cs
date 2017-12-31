@@ -6,6 +6,7 @@ using VocabLearning.Services;
 using VocabLearning.Helpers;
 using Microsoft.Identity.Client;
 using VocabLearning.Views.Student;
+using VocabLearning.Views.Teacher;
 
 namespace VocabLearning
 {
@@ -59,6 +60,7 @@ namespace VocabLearning
 			Container.RegisterTypeForNavigation<CompletePhrasePage, CompletePhrasePageViewModel>();
 			Container.RegisterTypeForNavigation<TranslateWordPage, TranslateWordPageViewModel>();
 			Container.RegisterTypeForNavigation<FinishedExercisesPage, FinishedExercisesPageViewModel>();
+			Container.RegisterTypeForNavigation<EditGroupPage>();
 		}
 	}
 }

@@ -4,7 +4,7 @@
                  xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                  prism:ViewModelLocator.AutowireViewModel="True"
                  x:Class="VocabLearning.Views.GroupExercisesPage"
-                 Title="GroupExercisesPage">
+                 Title="Assignments">
         <ContentPage.ToolbarItems>
             <ToolbarItem Text="New assignment" Command="{Binding CreateAssignmentCommand}"/>
         </ContentPage.ToolbarItems>

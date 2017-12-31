@@ -38,19 +38,23 @@ namespace VocabLearning.ViewModels
 			var exercisesTable = await _azureService.GetTableAsync<Exercise>();
 			var exercises = (await exercisesTable.ReadAllItemsAsync()).ToList();
 
-			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
-			var assignments = (await assignmentsTable.ReadAllItemsAsync())
-				.Where(a => a.StudentGroup_Id == _azureService.User.StudentGroup_Id);
+			var assignmentsTable = (await _azureService.GetTableAsync<Assignment>()).ReturnTable();
+			var assignments = await assignmentsTable
+				.Where(a => a.StudentGroup_Id == _azureService.User.StudentGroup_Id)
+				.ToListAsync();
 
 
 			var progress = new List<Progress>();
 
 			foreach (var assignment in assignments)
 			{
-				assignment.Exercises = exercises.Where(e => e.Assignment_Id == assignment.Id).ToList();
+				assignment.Exercises = exercises.Where(e => e.Assignment_Id == assignment.Id)?.ToList();
+				if (!assignment.Exercises.Any())
+					continue;
+
 				var query = from r in results
 						   join e in assignment.Exercises on r.Exercise_Id equals e.Id
-						   select new { StudentExercise = r };
+						   select new { StudentExercise = r };			
 
 				var grouped = query.GroupBy(r => r.StudentExercise.Attempt);
 
@@ -59,8 +63,8 @@ namespace VocabLearning.ViewModels
 				foreach (var group in grouped)
 				{
 					passed.Add(group.Where(r => r.StudentExercise.Passed).Count());
-				}					
-
+				}
+				
 				progress.Add(new Progress
 				{
 					Assignment = assignment,

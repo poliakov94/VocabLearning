@@ -3,16 +3,17 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
 			 prism:ViewModelLocator.AutowireViewModel="True"
-			 x:Class="VocabLearning.Views.Student.StudentLearningPage">
+			 x:Class="VocabLearning.Views.Student.StudentLearningPage"
+			 Title="{Binding Assignment.Name}">
 	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-		<Label Text="Choose a type of exercise below" FontAttributes="Bold" HorizontalOptions="Center"/>
+		<Label Text="Choose a type of exercise below" FontAttributes="Bold" HorizontalOptions="Center" FontSize="Medium" Margin="0,0,0,10"/>
 		<Button Text="Assign definition" Command="{Binding TypeSelectedCommand}" CommandParameter="Assign" TextColor="White" BackgroundColor="#77D065"/>
 		<Button Text="Complete phrase" Command="{Binding TypeSelectedCommand}" CommandParameter="Complete" TextColor="White" BackgroundColor="#77D065"/>
-		<Button Text="Translate" Command="{Binding TypeSelectedCommand}" CommandParameter="Translate" TextColor="White" BackgroundColor="#77D065"/>
+		<Button Text="Translate" Command="{Binding TypeSelectedCommand}" CommandParameter="Translate" TextColor="White" BackgroundColor="#77D065" Margin="0,0,0,10"/>
 		<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-			<Label Text="This assignment contains "/>
-			<Label Text="{Binding ExerciseCount}"/>
-			<Label Text=" exercises."/>
+			<Label Text="This assignment contains"/>
+			<Label Text="{Binding ExerciseCount}" FontAttributes="Bold"/>
+			<Label Text="exercises."/>
 		</StackLayout>		
 	</StackLayout>
 </ContentPage>

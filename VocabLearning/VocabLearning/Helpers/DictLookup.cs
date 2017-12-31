@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace VocabLearning.Helpers
 {
-    public class DictLookup
-    {
+	public class DictLookup
+	{
 		public const String ApiKey = "<not_set>"; //add your API key here - otherwise sandbox is used
 
 		public async static Task<LookupResult> Get(String term)

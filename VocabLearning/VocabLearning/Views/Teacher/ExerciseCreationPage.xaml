@@ -6,8 +6,7 @@
 			 prism:ViewModelLocator.AutowireViewModel="True"
 			 x:Class="VocabLearning.Views.ExerciseCreationPage"
 			 Title="Exercise"
-			 x:Name="ExerciseCreationPage"
-			 BackgroundColor="#EFEFF4">
+			 x:Name="ExerciseCreationPage">
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="Save" Command="{Binding SaveExerciseCommand}"/>
 	</ContentPage.ToolbarItems>

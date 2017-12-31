@@ -5,9 +5,7 @@
 			xmlns:vm="clr-namespace:VocabLearning.ViewModels.DesignTimeViewModels"
 			prism:ViewModelLocator.AutowireViewModel="True"
 			x:Class="VocabLearning.Views.AssignmentCreationPage"
-			Title="AssignmentCreationPage"
-			x:Name="AssignmentCreation"
-			 BackgroundColor="#EFEFF4">
+			x:Name="AssignmentCreation">
 	<ContentPage.ToolbarItems>
 		<ToolbarItem Text="Create" Command="{Binding CreateAssignmentCommand}"/>
 	</ContentPage.ToolbarItems>
