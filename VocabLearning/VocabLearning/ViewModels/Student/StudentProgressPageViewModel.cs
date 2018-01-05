@@ -1,11 +1,7 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
-using System;
+﻿using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using VocabLearning.Helpers;
 using VocabLearning.Models;
 
 namespace VocabLearning.ViewModels
@@ -27,10 +23,10 @@ namespace VocabLearning.ViewModels
 
 		public override async void OnNavigatedTo(NavigationParameters parameters)
 		{
-			var resultsTable = await _azureService.GetTableAsync<StudentExercise>();
-			var results = (await resultsTable.ReadAllItemsAsync())
+			var resultsTable = (await _azureService.GetTableAsync<StudentExercise>()).ReturnTable();
+			var results = await resultsTable
 				.Where(r => r.Student_Id == _azureService.User.Id)
-				.ToList();
+				.ToListAsync();
 
 			if (results == null)
 				return;
@@ -56,7 +52,7 @@ namespace VocabLearning.ViewModels
 						   join e in assignment.Exercises on r.Exercise_Id equals e.Id
 						   select new { StudentExercise = r };			
 
-				var grouped = query.GroupBy(r => r.StudentExercise.Attempt);
+				var grouped = query.GroupBy(r => new { r.StudentExercise.Type_Id, r.StudentExercise.Attempt });
 
 				var passed = new List<int>();
 
@@ -86,5 +82,6 @@ namespace VocabLearning.ViewModels
 		public int Best { get; set; }
 		public int Worst { get; set; }
 		public int Attempts { get; set; }
+		public Type Type { get; set; }
 	}
 }
