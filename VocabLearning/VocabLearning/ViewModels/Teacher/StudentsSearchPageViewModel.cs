@@ -78,8 +78,8 @@ namespace VocabLearning.ViewModels
 				Group = (StudentGroup)parameters["model"];
 			}
 
-			var studentsTable = (await _azureService.GetTableAsync<User>()).ReturnTable();
-			var students = await studentsTable.Where(s => s.IsTeacher == false && s.StudentGroup_Id == null).ToListAsync();
+			var studentsTable = await _azureService.GetTableAsync<User>();
+			var students = await studentsTable.Where(s => s.IsTeacher == false && s.StudentGroup_Id == null);
 			Students = new ObservableCollection<User>(students);
 		}
 	}

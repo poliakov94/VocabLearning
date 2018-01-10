@@ -62,9 +62,8 @@ namespace VocabLearning.ViewModels
 				Assignment = (Assignment)parameters["model"];
 
 				var exercisesTable = await _azureService.GetTableAsync<Exercise>();
-				Assignment.Exercises = (await exercisesTable.ReadAllItemsAsync())
-					.Where(e => e.Assignment_Id == Assignment.Id)
-					.ToList();
+				Assignment.Exercises = await exercisesTable
+					.Where(e => e.Assignment_Id == Assignment.Id);
 				
 				ExerciseCount = Assignment.Exercises.Count();
 			}

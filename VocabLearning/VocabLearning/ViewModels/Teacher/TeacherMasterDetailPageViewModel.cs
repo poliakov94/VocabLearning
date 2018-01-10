@@ -104,7 +104,7 @@ namespace VocabLearning.ViewModels
 
 			RaisePropertyChanged("MenuItems");
 
-			Teacher = $"{_azureService.User.FirstName} {_azureService.User.LastName}";
+			Teacher = $"{_user.FirstName} {_user.LastName}";
 		}
 	}
 }

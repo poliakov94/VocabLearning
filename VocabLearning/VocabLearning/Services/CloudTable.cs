@@ -1,6 +1,8 @@
 ﻿using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Sync;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using VocabLearning.Models;
 
@@ -18,11 +20,6 @@ namespace VocabLearning.Services
 		public CloudTable(MobileServiceClient client)
 		{
 			Table = client.GetSyncTable<T>();
-		}
-
-		public IMobileServiceSyncTable<T> ReturnTable()
-		{
-			return Table;
 		}
 		
 		public async Task PullAsync()
@@ -80,6 +77,11 @@ namespace VocabLearning.Services
 		{
 			await table.UpdateAsync(item);
 			return item;
+		}
+
+		public async Task<ICollection<T>> Where(Expression<Func<T, bool>> predicate)
+		{
+			return await Table.Where(predicate).ToCollectionAsync<T>();
 		}
 	}
 }

@@ -63,8 +63,8 @@ namespace VocabLearning.ViewModels
 			{
 				GroupSize = 0,
 				Name = "New group, hold to edit or delete.",
-				Teacher_Id = _azureService.User.Id,
-				Teacher = _azureService.User,
+				Teacher_Id = _user.Id,
+				Teacher = _user,
 				AssignmentsCount = 0
 			};
 
@@ -88,7 +88,7 @@ namespace VocabLearning.ViewModels
 		public DelegateCommand<StudentGroup> DeleteGroupCommand =>
 			_deleteGroup ?? (_deleteGroup = new DelegateCommand<StudentGroup>(ExecuteDeleteGroupCommand));
 
-		async void ExecuteDeleteGroupCommand(StudentGroup group)
+		public async void ExecuteDeleteGroupCommand(StudentGroup group)
 		{
 			var answer = await _pageDialogService.DisplayAlertAsync("Confirm", $"Are you sure to delete {group.Name} ?", "Yes", "No");
 
@@ -128,19 +128,19 @@ namespace VocabLearning.ViewModels
 			try
 			{
 				await _azureService.SyncOfflineCacheAsync();
-				var groupsTable = (await _azureService.GetTableAsync<StudentGroup>()).ReturnTable();
-				var groups = await groupsTable.Where(g => g.Teacher_Id == _azureService.User.Id).ToListAsync();
+				var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
+				var groups = await groupsTable.Where(g => g.Teacher_Id == _user.Id);
+				
+				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
 
-				var assignmentsTable = (await _azureService.GetTableAsync<Assignment>()).ReturnTable();
-
-				var studentsTable = (await _azureService.GetTableAsync<User>()).ReturnTable();
+				var studentsTable = await _azureService.GetTableAsync<User>();
 				
 
 				foreach (var group in groups)
 				{
-					group.Assignments = await assignmentsTable.Where(a => a.StudentGroup_Id == group.Id).ToListAsync();
+					group.Assignments = await assignmentsTable.Where(a => a.StudentGroup_Id == group.Id);
 					group.AssignmentsCount = group.Assignments.Count();
-					group.Students = await studentsTable.Where(s => s.StudentGroup_Id == group.Id).ToListAsync();
+					group.Students = await studentsTable.Where(s => s.StudentGroup_Id == group.Id);
 					group.GroupSize = group.Students.Count();
 				}
 

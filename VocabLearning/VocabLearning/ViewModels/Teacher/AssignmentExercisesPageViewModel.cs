@@ -98,9 +98,7 @@ namespace VocabLearning.ViewModels
 		private async void RefreshExercises()
 		{
 			var exerercisesTable = await _azureService.GetTableAsync<Exercise>();
-			Assignment.Exercises = (await exerercisesTable.ReadAllItemsAsync()).
-				Where(e => e.Assignment_Id == Assignment.Id)
-				.ToList();
+			Assignment.Exercises = await exerercisesTable.Where(e => e.Assignment_Id == Assignment.Id);
 
 			foreach (var exercise in Assignment.Exercises)
 			{

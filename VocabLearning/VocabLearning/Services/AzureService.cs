@@ -92,6 +92,11 @@ namespace VocabLearning.Services
 			var exerciseTable = await GetTableAsync<Exercise>(); await exerciseTable.PullAsync();
 			var studentExerciseTable = await GetTableAsync<StudentExercise>(); await studentExerciseTable.PullAsync();
 			var userTable = await GetTableAsync<User>(); await userTable.PullAsync();
-		}		
+		}
+
+		public User GetUser()
+		{
+			return User;
+		}
 	}
 }

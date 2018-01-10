@@ -23,10 +23,9 @@ namespace VocabLearning.ViewModels
 
 		public override async void OnNavigatedTo(NavigationParameters parameters)
 		{
-			var resultsTable = (await _azureService.GetTableAsync<StudentExercise>()).ReturnTable();
+			var resultsTable = await _azureService.GetTableAsync<StudentExercise>();
 			var results = await resultsTable
-				.Where(r => r.Student_Id == _azureService.User.Id)
-				.ToListAsync();
+				.Where(r => r.Student_Id == _user.Id);
 
 			if (results == null)
 				return;
@@ -34,10 +33,9 @@ namespace VocabLearning.ViewModels
 			var exercisesTable = await _azureService.GetTableAsync<Exercise>();
 			var exercises = (await exercisesTable.ReadAllItemsAsync()).ToList();
 
-			var assignmentsTable = (await _azureService.GetTableAsync<Assignment>()).ReturnTable();
+			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
 			var assignments = await assignmentsTable
-				.Where(a => a.StudentGroup_Id == _azureService.User.StudentGroup_Id)
-				.ToListAsync();
+				.Where(a => a.StudentGroup_Id == _user.StudentGroup_Id);
 
 
 			var progress = new List<Progress>();

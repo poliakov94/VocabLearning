@@ -1,4 +1,6 @@
-﻿using Prism.Unity;
+﻿#define TEST
+
+using Prism.Unity;
 using VocabLearning.Views;
 using VocabLearning.ViewModels;
 using Xamarin.Forms;
@@ -7,6 +9,7 @@ using VocabLearning.Helpers;
 using Microsoft.Identity.Client;
 using VocabLearning.Views.Student;
 using VocabLearning.Views.Teacher;
+using VocabLearning.Tests.Mocks;
 
 namespace VocabLearning
 {
@@ -16,17 +19,30 @@ namespace VocabLearning
 
 		public static UIParent UiParent = null;
 
-		public App(IPlatformInitializer initializer = null) : base(initializer) { }
-		public App() : base(null)
+		public static IAzureService _azureService;
+
+		public App(IPlatformInitializer initializer = null) : base(initializer)
 		{
-			ServiceLocator.Instance.Add<IAzureService, AzureService>();
+#if (TEST)
+			_azureService = new MockAzureService();
+#else
+			_azureService = AzureService.DefaultService;
+#endif
+		}
+		public App(IAzureService azureService) : base(null)
+		{
+			_azureService = azureService;
 		}
 
 		protected override void OnInitialized()
 		{
 			InitializeComponent();
+#if (TEST)
+			return;
+#else
 			LoginProvider = new LoginProvider();
 			NavigationService.NavigateAsync("NavigationPage/MainPage");			
+#endif
 		}
 
 		protected override void RegisterTypes()

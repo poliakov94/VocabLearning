@@ -19,8 +19,10 @@ namespace VocabLearning.Services
 
 		public LoginProvider()
 		{
-			ADB2CClient = new PublicClientApplication(Locations.ClientID, Locations.Authority);
-			ADB2CClient.RedirectUri = $"msal{Locations.ClientID}://auth";			
+			ADB2CClient = new PublicClientApplication(Locations.ClientID, Locations.Authority)
+			{
+				RedirectUri = $"msal{Locations.ClientID}://auth"
+			};
 		}
 
 		public bool ClientCached()

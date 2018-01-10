@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using VocabLearning.Models;
@@ -18,6 +19,6 @@ namespace VocabLearning.Services
 		Task<ICollection<T>> ReadAllItemsAsync();
 		Task<ICollection<T>> ReadItemsAsync(int start, int count);
 		Task PullAsync();
-		IMobileServiceSyncTable<T> ReturnTable();
+		Task<ICollection<T>> Where(Expression<Func<T, bool>> predicate);
 	}
 }

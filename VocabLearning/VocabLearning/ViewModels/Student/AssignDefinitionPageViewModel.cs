@@ -97,7 +97,7 @@ namespace VocabLearning.ViewModels
 			var result = new StudentExercise()
 			{
 				Exercise_Id = CurrentExercise.Id,
-				Student_Id = _azureService.User.Id,
+				Student_Id = _user.Id,
 				Passed = passed
 			};
 
@@ -138,9 +138,8 @@ namespace VocabLearning.ViewModels
 		{
 			await _azureService.SyncOfflineCacheAsync();
 			var resultsTable = await _azureService.GetTableAsync<StudentExercise>();
-			var attempt = (await resultsTable.ReadAllItemsAsync())
-				.Where(r => r.Student_Id == _azureService.User.Id && r.Exercise_Id == CurrentExercise.Id)
-				.Count();				
+			var attempt = (await resultsTable
+				.Where(r => r.Student_Id == _user.Id && r.Exercise_Id == CurrentExercise.Id)).Count;				
 
 			foreach (var res in Results)
 			{

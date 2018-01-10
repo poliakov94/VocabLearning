@@ -92,7 +92,7 @@ namespace VocabLearning.ViewModels
 				Group = (StudentGroup)parameters["model"];
 
 				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
-				var assignments = (await assignmentsTable.ReadAllItemsAsync()).Where(a => a.StudentGroup_Id == Group.Id);
+				var assignments = await assignmentsTable.Where(a => a.StudentGroup_Id == Group.Id);
 
 				Assignments = new ObservableCollection<Assignment>(assignments);
 			}
@@ -101,7 +101,7 @@ namespace VocabLearning.ViewModels
 				var groupId = (string)parameters["groupId"];
 
 				var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
-				var assignments = (await assignmentsTable.ReadAllItemsAsync()).Where(a => a.StudentGroup_Id == groupId);
+				var assignments = await assignmentsTable.Where(a => a.StudentGroup_Id == groupId);
 
 				Assignments = new ObservableCollection<Assignment>(assignments);
 			}

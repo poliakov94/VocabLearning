@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -54,6 +54,10 @@
     <Compile Include="Services\ICloudTable.cs" />
     <Compile Include="Services\ILoginProvider.cs" />
     <Compile Include="Services\LoginProvider.cs" />
+    <Compile Include="Services\Mocks\MockAzureService.cs" />
+    <Compile Include="Services\Mocks\MockCloudTable.cs" />
+    <Compile Include="Services\Mocks\MockForms.cs" />
+    <Compile Include="Services\Mocks\MockPageDialogService.cs" />
     <Compile Include="ViewModels\Teacher\EditGroupPageViewModel.cs" />
     <Compile Include="ViewModels\Student\AssignDefinitionPageViewModel.cs" />
     <Compile Include="ViewModels\Student\CompletePhrasePageViewModel.cs" />

@@ -41,19 +41,17 @@ namespace VocabLearning.ViewModels
 			_assignmentSelected = null;
 			await _azureService.SyncOfflineCacheAsync();
 
-			var groupsTable = (await _azureService.GetTableAsync<StudentGroup>()).ReturnTable();
+			var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
 			var group = (
 				await groupsTable
-				.Where(g => g.Id == _azureService.User.StudentGroup_Id)
-				.ToListAsync()
+				.Where(g => g.Id == _user.StudentGroup_Id)
 			).FirstOrDefault();
 
-			var assignmentsTable = (await _azureService.GetTableAsync<Assignment>()).ReturnTable();
+			var assignmentsTable = await _azureService.GetTableAsync<Assignment>();
 			var assignments = await assignmentsTable
-				.Where(a => a.StudentGroup_Id == group.Id)
-				.ToListAsync();
+				.Where(a => a.StudentGroup_Id == group.Id);
 
-			var exercisesTable = (await _azureService.GetTableAsync<Exercise>()).ReturnTable();
+			var exercisesTable = await _azureService.GetTableAsync<Exercise>();
 
 			var studentAssignments = new List<StudentAssignment>();
 
@@ -61,7 +59,7 @@ namespace VocabLearning.ViewModels
 
 			foreach (var assignment in assignments)
 			{
-				assignment.Exercises = await exercisesTable.Where(e => e.Assignment_Id == assignment.Id).ToListAsync();
+				assignment.Exercises = await exercisesTable.Where(e => e.Assignment_Id == assignment.Id);
 				isActive = assignment.ValidFrom < System.DateTime.Now && assignment.ValidUntil > System.DateTime.Now && assignment.Exercises.Any();
 				studentAssignments.Add(new StudentAssignment
 				{

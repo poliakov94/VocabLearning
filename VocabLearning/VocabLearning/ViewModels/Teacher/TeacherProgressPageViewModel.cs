@@ -9,10 +9,10 @@ namespace VocabLearning.ViewModels
 {
 	public class TeacherProgressPageViewModel : BaseViewModel
 	{
-        public TeacherProgressPageViewModel(INavigationService navigationService)
+		public TeacherProgressPageViewModel(INavigationService navigationService)
 			: base(navigationService)
 		{
 
-        }
+		}
 	}
 }

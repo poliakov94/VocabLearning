@@ -14,7 +14,8 @@ namespace VocabLearning.ViewModels
 	public class BaseViewModel : BindableBase, INavigationAware
 	{
 		protected readonly INavigationService _navigationService;
-		protected readonly AzureService _azureService;
+		protected readonly IAzureService _azureService;
+		protected readonly User _user;
 
 
 		private bool _isBusy;
@@ -34,7 +35,8 @@ namespace VocabLearning.ViewModels
 			_navigationService = navigationService;
 			NavigateCommand = new DelegateCommand<string>(Navigate);
 
-			_azureService = AzureService.DefaultService;
+			_azureService = App._azureService;
+			_user = _azureService.GetUser();
 		}
 
 		public BaseViewModel()

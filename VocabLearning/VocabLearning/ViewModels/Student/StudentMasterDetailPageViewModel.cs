@@ -101,7 +101,7 @@ namespace VocabLearning.ViewModels
 
 			RaisePropertyChanged("MenuItems");
 
-			Student = $"{_azureService.User.FirstName} {_azureService.User.LastName}";
+			Student = $"{_user.FirstName} {_user.LastName}";
 		}
 
 		public override void OnNavigatingTo(NavigationParameters parameters)

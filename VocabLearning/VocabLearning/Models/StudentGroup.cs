@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure.MobileServices;
 namespace VocabLearning.Models
 {
 	public class StudentGroup : TableData
-    {
+	{
 		public string Name { get; set; }
 		public int GroupSize { get; set; }
 		public ICollection<User> Students { get; set; }

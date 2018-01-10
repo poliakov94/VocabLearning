@@ -78,8 +78,8 @@ namespace VocabLearning.ViewModels
 			RaisePropertyChanged("ValidUntilTime");
 
 			var groupsTable = await _azureService.GetTableAsync<StudentGroup>();
-			var groups = (await groupsTable.ReadAllItemsAsync())
-					.Where(g => g.Teacher_Id == _azureService.User.Id);
+			var groups = await groupsTable
+					.Where(g => g.Teacher_Id == _user.Id);
 
 			Groups = new ObservableCollection<StudentGroup>(groups);
 		}
