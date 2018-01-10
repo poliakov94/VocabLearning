@@ -26,9 +26,9 @@ namespace VocabLearning.Services.Mocks
 			return true;
 		}
 
-		public Task DisplayAlertAsync(string title, string message, string cancelButton)
+		public async Task DisplayAlertAsync(string title, string message, string cancelButton)
 		{
-			return null;
+			return;
 		}
 	}
 }

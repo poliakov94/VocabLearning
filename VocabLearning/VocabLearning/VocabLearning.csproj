@@ -57,6 +57,7 @@
     <Compile Include="Services\Mocks\MockAzureService.cs" />
     <Compile Include="Services\Mocks\MockCloudTable.cs" />
     <Compile Include="Services\Mocks\MockForms.cs" />
+    <Compile Include="Services\Mocks\MockNavigationService.cs" />
     <Compile Include="Services\Mocks\MockPageDialogService.cs" />
     <Compile Include="ViewModels\Teacher\EditGroupPageViewModel.cs" />
     <Compile Include="ViewModels\Student\AssignDefinitionPageViewModel.cs" />

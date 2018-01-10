@@ -82,15 +82,28 @@ namespace VocabLearning.Tests.Mocks
 					AzureId = "2",
 					StudentGroup_Id = (await studentGroups.Where(s => s.Name == "Group2")).FirstOrDefault().Id
 				});
+				await students.CreateItemAsync(new User()
+				{
+					Email = "",
+					FirstName = "C",
+					LastName = "C",
+					IsTeacher = false,
+					AzureId = "3",
+					StudentGroup_Id = null
+				});
 
 				await assignments.CreateItemAsync(new Assignment()
 				{
 					Name = "Assignment1",
+					ValidFrom = DateTime.Today,
+					ValidUntil = DateTime.Today.AddDays(5),
 					StudentGroup_Id = (await studentGroups.Where(s => s.Name == "Group1")).FirstOrDefault().Id
 				});
 				await assignments.CreateItemAsync(new Assignment()
 				{
 					Name = "Assignment2",
+					ValidFrom = DateTime.Today,
+					ValidUntil = DateTime.Today.AddDays(5),
 					StudentGroup_Id = (await studentGroups.Where(s => s.Name == "Group2")).FirstOrDefault().Id
 				});
 

@@ -85,9 +85,14 @@ namespace VocabLearning.Tests.Mocks
 			}
 		}
 
-		public Task<T> UpsertItemAsync(T item)
+		public async Task<T> UpsertItemAsync(T item)
 		{
-			throw new NotImplementedException();
+			if (item.Id == null)
+				await CreateItemAsync(item);
+			else
+				await UpdateItemAsync(item);
+
+			return item;
 		}
 
 		public Task<ICollection<T>> ReadItemsAsync(int start, int count)
