@@ -14,7 +14,7 @@ namespace VocabLearning.Tests.Mocks
 	{
 		public bool LocalDBExists => throw new NotImplementedException();
 		public Dictionary<string, object> tables = new Dictionary<string, object>();
-		private User User;
+		public User User { get; set; }
 
 		public bool Initialized { get; set; }
 
@@ -135,6 +135,28 @@ namespace VocabLearning.Tests.Mocks
 					Definition = "Definition",
 					Phrase = "Phrase",
 					Word = "Word",
+					TranslatedPhrase = "TranslatedPhrase",
+					TranslatedWord = "TranslatedWord",
+					ImageURI = ""
+				});
+
+				await exercises.CreateItemAsync(new Exercise()
+				{
+					Assignment_Id = (await assignments.Where(s => s.Name == "Assignment1")).FirstOrDefault().Id,
+					Definition = "Definition",
+					Phrase = "Phrase",
+					Word = "WordFour",
+					TranslatedPhrase = "TranslatedPhrase",
+					TranslatedWord = "TranslatedWord",
+					ImageURI = ""
+				});
+
+				await exercises.CreateItemAsync(new Exercise()
+				{
+					Assignment_Id = (await assignments.Where(s => s.Name == "Assignment1")).FirstOrDefault().Id,
+					Definition = "Definition",
+					Phrase = "Phrase",
+					Word = "WordFive",
 					TranslatedPhrase = "TranslatedPhrase",
 					TranslatedWord = "TranslatedWord",
 					ImageURI = ""

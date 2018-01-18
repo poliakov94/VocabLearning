@@ -65,17 +65,17 @@ namespace VocabLearning.Tests
 			var _dialogService = new MockPageDialogService();
 			var app = new App(_azureService);
 
-
-			var studentsViewModel = new TeacherStudentsPageViewModel(null, _dialogService);
-			studentsViewModel.OnNavigatingTo(null);
+			var viewModel = new TeacherStudentsPageViewModel(null, _dialogService);
+			viewModel.OnNavigatingTo(null);
 
 			var studentGroupsTable = await _azureService.GetTableAsync<StudentGroup>();
 			var groupToDelete = (await studentGroupsTable.Where(s => s.Name == "Group1")).FirstOrDefault();
 
-			studentsViewModel.ExecuteDeleteGroupCommand(groupToDelete);
-			var studentGroups = await studentGroupsTable.ReadAllItemsAsync();
+			var studentGroupsBefore = (await studentGroupsTable.ReadAllItemsAsync()).Count;
+			viewModel.DeleteGroupCommand.Execute(groupToDelete);
+			var studentGroupsAfter = (await studentGroupsTable.ReadAllItemsAsync()).Count;
 
-			Assert.IsTrue(studentGroups.Count == 1);
+			Assert.AreEqual(studentGroupsBefore - 1, studentGroupsAfter);
 		}
 
 		#endregion

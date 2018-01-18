@@ -49,6 +49,8 @@
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainViewModelTest.cs" />
+    <Compile Include="StudentViewModelTest.cs" />
     <Compile Include="TeacherViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
