@@ -4,6 +4,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using VocabLearning.Helpers;
 using VocabLearning.Models;
@@ -67,19 +68,33 @@ namespace VocabLearning.ViewModels
 				return;
 			}
 
-			var lookup = await DictLookup.Get(Exercise.Word);
-			if (lookup == null)
-				return;
+			try
+			{
+				var lookup = await DictLookup.Get(Exercise.Word);
+				if (lookup == null)
+					return;
 
-			var sense = lookup.Results.FirstOrDefault().Senses.FirstOrDefault();
-			if (sense.Examples != null)
-				Exercise.Phrase = sense.Examples.FirstOrDefault().Text;
+				var sense = lookup.Results.FirstOrDefault().Senses.FirstOrDefault();
+				if (sense.Examples != null)
+				{
+					Exercise.Phrase = sense.Examples.FirstOrDefault().Text;
+					Exercise.Phrase = char.ToUpper(Exercise.Phrase[0]) + Exercise.Phrase.Substring(1);
+				}
+					
+				if (sense.Definition != null)
+				{
 
-			Exercise.Phrase = char.ToUpper(Exercise.Phrase[0]) + Exercise.Phrase.Substring(1);
-			Exercise.Definition = sense.Definition.FirstOrDefault();
-			Exercise.Definition = char.ToUpper(Exercise.Definition[0]) + Exercise.Definition.Substring(1);
+					Exercise.Definition = sense.Definition.FirstOrDefault();
+					Exercise.Definition = char.ToUpper(Exercise.Definition[0]) + Exercise.Definition.Substring(1);
+				}
 
-			RaisePropertyChanged("Exercise");
+				RaisePropertyChanged("Exercise");
+			}
+			catch (Exception e)
+			{
+
+				Debug.WriteLine(e.ToString());
+			}			
 		}
 
 		public override void OnNavigatingTo(NavigationParameters parameters)

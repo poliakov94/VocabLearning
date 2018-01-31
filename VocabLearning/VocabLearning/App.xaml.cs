@@ -1,4 +1,4 @@
-﻿#define TEST
+﻿//#define TEST
 
 using Prism.Unity;
 using VocabLearning.Views;
